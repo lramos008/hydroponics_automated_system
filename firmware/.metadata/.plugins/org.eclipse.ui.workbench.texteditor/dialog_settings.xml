@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<item key="replaceBarOpen" value="false"/>
+	<list key="searchhistory">
+		<item value="ds3231_alarm_t"/>
+		<item value="dydt_mode"/>
+		<item value="DS3231_ALARM_REG"/>
+	</list>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="&#x09;if(intcn_bit &amp;&amp; (!alarm1_en || !alarm2_en)){&#x09;&#x09;&#x09;&#x09;//If only 1 alarm is up, then disable interrupt output"/>
+		<list key="findhistory">
+			<item value="&#x09;if(intcn_bit &amp;&amp; (!alarm1_en || !alarm2_en)){&#x09;&#x09;&#x09;&#x09;//If only 1 alarm is up, then disable interrupt output"/>
+		</list>
+	</section>
+</section>

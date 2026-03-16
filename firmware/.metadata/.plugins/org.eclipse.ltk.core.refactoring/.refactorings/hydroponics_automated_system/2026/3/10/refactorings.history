@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;hydroponics_automated_system/device_drivers&apos; to &apos;my_drivers&apos;" description="Rename resource &apos;device_drivers&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="device_drivers" name="my_drivers" stamp="1772984669718" updateReferences="true"/>
+</session>

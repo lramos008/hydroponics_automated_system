@@ -1,0 +1,76 @@
+#ifndef DS3231_H
+#define DS3231_H
+/*Includes*/
+#include <stdint.h>
+#include "stm32f4xx_hal.h"								//Always include this header
+
+/*Public enums*/
+typedef enum{
+	DS3231_OK,
+	DS3231_ERR_NULL,
+	DS3231_ERR_INVALID_MODE,
+	DS3231_ERR_INVALID_ALARM,
+	DS3231_ERR_TIMEOUT,
+	DS3231_ERR_BUS
+}ds3231_err_t;
+
+typedef enum{
+	DS3231_ALARM1 = 0,
+	DS3231_ALARM2
+}ds3231_alarm_t;
+
+typedef enum{
+	//Alarm 1 modes
+	DS3231_ALARM_ONCE_A_SEC,
+	DS3231_ALARM_SEC_MATCH,
+	DS3231_ALARM_MIN_SEC_MATCH,
+	DS3231_ALARM_HR_MIN_SEC_MATCH,
+	DS3231_ALARM_DT_HR_MIN_SEC_MATCH,
+	DS3231_ALARM_DY_HR_MIN_SEC_MATCH,
+
+	//Alarm 2 modes
+	DS3231_ALARM_ONCE_PER_MIN,
+	DS3231_ALARM_MIN_MATCH,
+	DS3231_ALARM_HR_MIN_MATCH,
+	DS3231_ALARM_DT_HR_MIN_MATCH,
+	DS3231_ALARM_DY_HR_MIN_MATCH
+}ds3231_alarm_mode_t;
+
+typedef enum{
+	DS3231_DY_MODE = 0,
+	DS3231_DT_MODE
+}ds3231_dydt_sel_t;
+
+/*Public structures*/
+typedef struct{
+	I2C_HandleTypeDef *hi2c;
+	uint8_t dev_address;
+}ds3231_t;
+
+typedef struct{
+	uint8_t seconds;
+	uint8_t minutes;
+	uint8_t hours;
+	uint8_t day;
+	uint8_t date;
+	uint8_t month;
+	uint8_t year;
+}ds3231_datetime_t;
+
+typedef struct{
+	uint8_t seconds;
+	uint8_t minutes;
+	uint8_t hours;
+	uint8_t dydt;
+}ds3231_alarm_config_t;
+
+/*API functions*/
+ds3231_err_t ds3231_init(ds3231_t *dev, I2C_HandleTypeDef *hi2c, uint8_t dev_address);
+ds3231_err_t ds3231_set_datetime(ds3231_t *dev, const ds3231_datetime_t *dt);
+ds3231_err_t ds3231_get_datetime(ds3231_t *dev, ds3231_datetime_t *dt);
+ds3231_err_t ds3231_set_alarm(ds3231_t *dev, ds3231_alarm_t alarm, ds3231_alarm_mode_t mode, const ds3231_alarm_config_t *config);
+ds3231_err_t ds3231_enable_alarm(ds3231_t *dev, ds3231_alarm_t alarm);
+ds3231_err_t ds3231_disable_alarm(ds3231_t *dev, ds3231_alarm_t alarm);
+ds3231_err_t ds3231_clear_alarm_flag(ds3231_t *dev, ds3231_alarm_t alarm);
+ds3231_err_t ds3231_read_status(ds3231_t *dev, uint8_t *status_reg);
+#endif/*DS3231_H*/

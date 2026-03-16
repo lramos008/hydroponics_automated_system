@@ -1,0 +1,17 @@
+eclipse.preferences.version=1
+hydroponics_automated_system\:Debug/build=build\\Debug
+hydroponics_automated_system\:Debug/cmake_build_type=Debug
+hydroponics_automated_system\:Debug/cmake_export_compile_commands=
+hydroponics_automated_system\:Debug/cmake_preset=Debug
+hydroponics_automated_system\:Debug/cmake_toolchain_file=cmake\\gcc-arm-none-eabi.cmake
+hydroponics_automated_system\:Debug/generator=Ninja
+hydroponics_automated_system\:Debug/misc_command=
+hydroponics_automated_system\:Debug/src=C\:\\Users\\Juli-Leo\\Documents\\Proyecto final\\hydroponics_automated_system\\firmware\\hydroponics_automated_system
+hydroponics_control_system\:Debug/build=Debug
+hydroponics_control_system\:Debug/cmake_build_type=Debug
+hydroponics_control_system\:Debug/cmake_export_compile_commands=
+hydroponics_control_system\:Debug/cmake_preset=Debug
+hydroponics_control_system\:Debug/cmake_toolchain_file=cubeide-gcc.cmake
+hydroponics_control_system\:Debug/generator=Ninja
+hydroponics_control_system\:Debug/misc_command=
+hydroponics_control_system\:Debug/src=C\:\\Users\\Juli-Leo\\Documents\\Proyecto final\\hydroponics_automated_system\\firmware\\hydroponics_control_system

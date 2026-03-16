@@ -1,0 +1,3 @@
+23:36:45 **** Incremental Build of configuration Debug for project hydroponics_automated_system ****
+cmake --build "build\\Debug" 
+ninja: no work to do.

@@ -1,0 +1,554 @@
+/*Includes*/
+#include "ds3231.h"
+#include "stm32f4xx_hal.h"
+#include <stdbool.h>
+
+/*Defines / Macros*/
+//Register addresses
+#define DS3231_DATETIME_REG_ADDR 0x00
+#define DS3231_ALARM1_REG_ADDR	 0x07
+#define DS3231_ALARM2_REG_ADDR	 0x0B
+#define DS3231_CONTROL_REG_ADDR	 0x0E
+#define DS3231_STATUS_REG_ADDR	 0x0F
+
+//Register sizes
+#define DS3231_DATETIME_REG_SIZE 7
+#define DS3231_ALARM1_REG_SIZE	 4
+#define DS3231_ALARM2_REG_SIZE   3
+#define DS3231_CONTROL_REG_SIZE  1
+#define DS3231_STATUS_REG_SIZE	 1
+
+/*Private functions*/
+static ds3231_err_t serialize_alarm1_data(const ds3231_alarm1_config_t *cfg, uint8_t *buffer){
+	//Fill buffer with default behaviour (once a second)
+	buffer[0] = cfg->seconds | (1 << 7);
+	buffer[1] = cfg->minutes | (1 << 7);
+	buffer[2] = (cfg->hours  | (1 << 7)) & ~(1 << 6);					//Set in 24 hours mode
+	buffer[4] = cfg->dydt 	| (1 << 7);
+
+	//Check alarm mode
+	ds3231_err_t err = DS3231_OK;
+	switch(cfg->mode){
+	case DS3231_ALARM1_MATCH_EVERY_SEC:
+		/*Do nothing, executes alarm once per second*/
+		break;
+
+	case DS3231_ALARM1_MATCH_SEC:
+		buffer[0] &= ~(1 << 7);
+		break;
+
+	case DS3231_ALARM1_MATCH_MIN_SEC:
+		buffer[0] &= ~(1 << 7);
+		buffer[1] &= ~(1 << 7);
+		break;
+
+	case DS3231_ALARM1_MATCH_HR_MIN_SEC:
+		buffer[0] &= ~(1 << 7);
+		buffer[1] &= ~(1 << 7);
+		buffer[2] &= ~(1 << 7);
+		break;
+
+	case DS3231_ALARM1_MATCH_DT_HR_MIN_SEC:
+		buffer[0] &= ~(1 << 7);
+		buffer[1] &= ~(1 << 7);
+		buffer[2] &= ~(1 << 7);
+		buffer[3] &= ~(1 << 7);
+
+		//Set date mode for this alarm
+		buffer[3] &= ~(1 << 6);
+		break;
+
+	case DS3231_ALARM1_MATCH_DY_HR_MIN_SEC:
+		buffer[0] &= ~(1 << 7);
+		buffer[1] &= ~(1 << 7);
+		buffer[2] &= ~(1 << 7);
+		buffer[3] &= ~(1 << 7);
+
+		//Set day mode for this alarm
+		buffer[3] |= (1 << 6);
+		break;
+
+	case DS3231_ALARM1_MATCH_UNKNOWN:
+	default:
+		err = DS3231_ERR_INVALID_MODE;
+		break;
+	}
+	return err;
+}
+
+static ds3231_err_t serialize_alarm2_data(const ds3231_alarm2_config_t *cfg, uint8_t *buffer){
+	//Fill buffer with default behaviour (once per minute)
+	buffer[0] = cfg->minutes | (1 << 7);
+	buffer[1] = (cfg->hours  | (1 << 7)) & ~(1 << 6);					//Set in 24 hours mode
+	buffer[2] = cfg->dydt 	| (1 << 7);
+
+	//Check alarm mode
+	ds3231_err_t err = DS3231_OK;
+	switch(cfg->mode){
+	case DS3231_ALARM2_MATCH_EVERY_MIN:
+		/*Do nothing, executes alarm once per minute*/
+		break;
+
+	case DS3231_ALARM2_MATCH_MIN:
+		buffer[0] &= ~(1 << 7);
+		break;
+
+	case DS3231_ALARM2_MATCH_HR_MIN:
+		buffer[0] &= ~(1 << 7);
+		buffer[1] &= ~(1 << 7);
+		break;
+
+	case DS3231_ALARM2_MATCH_DT_HR_MIN:
+		buffer[0] &= ~(1 << 7);
+		buffer[1] &= ~(1 << 7);
+		buffer[2] &= ~(1 << 7);
+
+		//Set date mode for alarm
+		buffer[2] &= ~(1 << 6);
+		break;
+
+	case DS3231_ALARM2_MATCH_DY_HR_MIN:
+		buffer[0] &= ~(1 << 7);
+		buffer[1] &= ~(1 << 7);
+		buffer[2] &= ~(1 << 7);
+
+		//Set date mode for alarm
+		buffer[2] |= (1 << 6);
+		break;
+
+	default:
+		err = DS3231_ERR_INVALID_MODE;
+		break;
+	}
+	return err;
+}
+
+
+/*API functions*/
+ds3231_err_t ds3231_init(ds3231_t *dev, I2C_HandleTypeDef *hi2c, uint8_t dev_address){
+	//Sanity check
+	if(!dev || !hi2c){
+		return DS3231_ERR_NULL;
+	}
+
+	//Init DS3231 handle
+	dev->hi2c = hi2c;
+	dev->dev_address = dev_address;
+	HAL_Delay(1000);
+
+	//Disable 32 kHz output
+	ds3231_err_t err;
+	err = ds3231_disable_en32kHz(dev);
+	if(err != DS3231_OK) return err;
+
+	//Disable interrupts
+	err = ds3231_disable_alarm(dev, DS3231_ALARM1);
+	if(err != DS3231_OK) return err;
+
+	err = ds3231_disable_alarm(dev, DS3231_ALARM2);
+	if(err != DS3231_OK) return err;
+
+	err = ds3231_disable_alarm_interrupt_output(dev);
+	if(err != DS3231_OK) return err;
+
+	//Clear interrupt flags
+	err = ds3231_clear_alarm_flag(dev, DS3231_ALARM1);
+	if(err != DS3231_OK) return err;
+
+	err = ds3231_clear_alarm_flag(dev, DS3231_ALARM2);
+	if(err != DS3231_OK) return err;
+
+	return DS3231_OK;
+}
+
+
+ds3231_err_t ds3231_set_datetime(ds3231_t *dev, const ds3231_datetime_t *dt){
+	//Sanity check
+	if(!dev || !dev->hi2c || !dt){
+		return DS3231_ERR_NULL;
+	}
+
+	//Serialize datetime
+	uint8_t buffer[DS3231_DATETIME_REG_SIZE] = {0};
+	buffer[0] = dt->seconds;
+	buffer[1] = dt->minutes;
+	buffer[2] = dt->hours;
+	buffer[3] = dt->day;
+	buffer[4] = dt->date;
+	buffer[5] = dt->month;
+	buffer[6] = dt->year;
+
+	//Write new datetime into DS3231 register
+	HAL_StatusTypeDef status;
+
+	status = HAL_I2C_Mem_Write(dev->hi2c, (uint16_t)dev->dev_address, DS3231_DATETIME_REG_ADDR, I2C_MEMADD_SIZE_8BIT,
+							   buffer, DS3231_DATETIME_REG_SIZE, 500);
+	if(status != HAL_OK){
+		if(status == HAL_TIMEOUT) return DS3231_ERR_TIMEOUT;
+		else return DS3231_ERR_BUS;
+	}
+	return DS3231_OK;
+}
+
+ds3231_err_t ds3231_get_datetime(ds3231_t *dev, ds3231_datetime_t *dt){
+	//Sanity check
+	if(!dev || !dev->hi2c || !dt){
+		return DS3231_ERR_NULL;
+	}
+
+	//Read DS3231 register
+	HAL_StatusTypeDef status;
+	uint8_t buffer[DS3231_DATETIME_REG_SIZE];
+
+	status = HAL_I2C_Mem_Read(dev->hi2c, (uint16_t)dev->dev_address, DS3231_DATETIME_REG_ADDR, I2C_MEMADD_SIZE_8BIT,
+							  buffer, DS3231_DATETIME_REG_SIZE, 500);
+	if(status != HAL_OK){
+		if(status == HAL_TIMEOUT) return DS3231_ERR_TIMEOUT;
+		else return DS3231_ERR_BUS;
+	}
+
+	//De-serialize data
+	dt->seconds = buffer[0];
+	dt->minutes = buffer[1];
+	dt->hours   = buffer[2];
+	dt->day     = buffer[3];
+	dt->date    = buffer[4];
+	dt->month   = buffer[5];
+	dt->year    = buffer[6];
+
+	return DS3231_OK;
+}
+
+
+ds3231_err_t ds3231_set_alarm1(ds3231_t *dev, const ds3231_alarm1_config_t *cfg){
+	//Sanity check
+	if(!dev || !dev->hi2c || !cfg){
+		return DS3231_ERR_NULL;
+	}
+
+	//Serialize data
+	ds3231_err_t err;
+	uint8_t serial_buffer[DS3231_ALARM1_REG_SIZE];
+
+	err = serialize_alarm1_data(cfg, serial_buffer);
+	if(err != DS3231_OK){
+		return err;
+	}
+
+	//Write new alarm config into DS3231 register
+	HAL_StatusTypeDef status;
+	status = HAL_I2C_Mem_Write(dev->hi2c, (uint16_t)dev->dev_address, DS3231_ALARM1_REG_ADDR, I2C_MEMADD_SIZE_8BIT,
+			serial_buffer, DS3231_ALARM1_REG_SIZE, 500);
+	if(status != HAL_OK){
+		if(status == HAL_TIMEOUT) return DS3231_ERR_TIMEOUT;
+		else return DS3231_ERR_BUS;
+	}
+	return DS3231_OK;
+}
+
+ds3231_err_t ds3231_set_alarm2(ds3231_t *dev, const ds3231_alarm2_config_t *cfg){
+	//Sanity check
+	if(!dev || !dev->hi2c || !cfg){
+		return DS3231_ERR_NULL;
+	}
+
+	//Serialize data
+	ds3231_err_t err;
+	uint8_t serial_buffer[DS3231_ALARM2_REG_SIZE];
+
+	err = serialize_alarm2_data(cfg, serial_buffer);
+	if(err != DS3231_OK){
+		return err;
+	}
+
+	//Write new alarm config into DS3231 register
+	HAL_StatusTypeDef status;
+	status = HAL_I2C_Mem_Write(dev->hi2c, (uint16_t)dev->dev_address, DS3231_ALARM2_REG_ADDR, I2C_MEMADD_SIZE_8BIT,
+			serial_buffer, DS3231_ALARM2_REG_SIZE, 500);
+	if(status != HAL_OK){
+		if(status == HAL_TIMEOUT) return DS3231_ERR_TIMEOUT;
+		else return DS3231_ERR_BUS;
+	}
+	return DS3231_OK;
+}
+
+ds3231_err_t ds3231_enable_alarm(ds3231_t *dev, ds3231_alarm_id_t alarm_id){
+	//Sanity check
+	if(!dev || !dev->hi2c){
+		return DS3231_ERR_NULL;
+	}
+
+	if(alarm_id != DS3231_ALARM1 && alarm_id != DS3231_ALARM2){
+		return DS3231_ERR_INVALID_ALARM;
+	}
+
+	//Read control register
+	uint8_t control_reg;
+	HAL_StatusTypeDef status;
+	status = HAL_I2C_Mem_Read(dev->hi2c, (uint16_t)dev->dev_address, DS3231_CONTROL_REG_ADDR, I2C_MEMADD_SIZE_8BIT,
+							  &control_reg, DS3231_CONTROL_REG_SIZE, 500);
+	if(status != HAL_OK){
+		if(status == HAL_TIMEOUT) return DS3231_ERR_TIMEOUT;
+		else return DS3231_ERR_BUS;
+	}
+
+	//Enable alarm interrupt bits
+	if(alarm_id == DS3231_ALARM1){
+		control_reg |= (1 << 0);					//Enable alarm 1
+	}
+	else{
+		control_reg |= (1 << 1);					//Enable alarm 2
+	}
+
+	//Write into control register
+	status = HAL_I2C_Mem_Write(dev->hi2c, (uint16_t)dev->dev_address, DS3231_CONTROL_REG_ADDR, I2C_MEMADD_SIZE_8BIT,
+			                   &control_reg, DS3231_CONTROL_REG_SIZE, 500);
+	if(status != HAL_OK){
+		if(status == HAL_TIMEOUT) return DS3231_ERR_TIMEOUT;
+		else return DS3231_ERR_BUS;
+	}
+	return DS3231_OK;
+}
+
+ds3231_err_t ds3231_disable_alarm(ds3231_t *dev, ds3231_alarm_id_t alarm_id){
+	//Sanity check
+	if(!dev || !dev->hi2c){
+		return DS3231_ERR_NULL;
+	}
+
+	if(alarm_id != DS3231_ALARM1 && alarm_id != DS3231_ALARM2){
+		return DS3231_ERR_INVALID_ALARM;
+	}
+
+	//Read control register
+	uint8_t control_reg;
+	HAL_StatusTypeDef status;
+	status = HAL_I2C_Mem_Read(dev->hi2c, (uint16_t)dev->dev_address, DS3231_CONTROL_REG_ADDR, I2C_MEMADD_SIZE_8BIT,
+							  &control_reg, DS3231_CONTROL_REG_SIZE, 500);
+	if(status != HAL_OK){
+		if(status == HAL_TIMEOUT) return DS3231_ERR_TIMEOUT;
+		else return DS3231_ERR_BUS;
+	}
+
+	if(alarm_id == DS3231_ALARM1){
+		control_reg &= ~(1 << 0);						//Disable alarm 1
+	}
+	else{
+		control_reg &= ~(1 << 1);						//Disable alarm 2
+	}
+
+	//Write into control register
+	status = HAL_I2C_Mem_Write(dev->hi2c, (uint16_t)dev->dev_address, DS3231_CONTROL_REG_ADDR, I2C_MEMADD_SIZE_8BIT,
+			                   &control_reg, DS3231_CONTROL_REG_SIZE, 500);
+	if(status != HAL_OK){
+		if(status == HAL_TIMEOUT) return DS3231_ERR_TIMEOUT;
+		else return DS3231_ERR_BUS;
+	}
+
+	return DS3231_OK;
+}
+
+ds3231_err_t ds3231_enable_alarm_interrupt_output(ds3231_t *dev){
+	//Sanity check
+	if(!dev || !dev->hi2c){
+		return DS3231_ERR_NULL;
+	}
+
+	//Read control register
+	uint8_t control_reg;
+	HAL_StatusTypeDef status;
+	status = HAL_I2C_Mem_Read(dev->hi2c, (uint16_t)dev->dev_address, DS3231_CONTROL_REG_ADDR, I2C_MEMADD_SIZE_8BIT,
+			&control_reg, DS3231_CONTROL_REG_SIZE, 500);
+	if(status != HAL_OK){
+		if(status == HAL_TIMEOUT) return DS3231_ERR_TIMEOUT;
+		else return DS3231_ERR_BUS;
+	}
+
+	//Enable INTCN bit
+	control_reg |= (1 << 2);
+
+	//Write into control register
+	status = HAL_I2C_Mem_Write(dev->hi2c, (uint16_t)dev->dev_address, DS3231_CONTROL_REG_ADDR, I2C_MEMADD_SIZE_8BIT,
+			&control_reg, DS3231_CONTROL_REG_SIZE, 500);
+	if(status != HAL_OK){
+		if(status == HAL_TIMEOUT) return DS3231_ERR_TIMEOUT;
+		else return DS3231_ERR_BUS;
+	}
+
+	return DS3231_OK;
+}
+
+ds3231_err_t ds3231_disable_alarm_interrupt_output(ds3231_t *dev){
+	//Sanity check
+	if(!dev || !dev->hi2c){
+		return DS3231_ERR_NULL;
+	}
+
+	//Read control register
+	uint8_t control_reg;
+	HAL_StatusTypeDef status;
+	status = HAL_I2C_Mem_Read(dev->hi2c, (uint16_t)dev->dev_address, DS3231_CONTROL_REG_ADDR, I2C_MEMADD_SIZE_8BIT,
+			&control_reg, DS3231_CONTROL_REG_SIZE, 500);
+	if(status != HAL_OK){
+		if(status == HAL_TIMEOUT) return DS3231_ERR_TIMEOUT;
+		else return DS3231_ERR_BUS;
+	}
+
+	//Disable INTCN bit
+	control_reg &= ~(1 << 2);
+
+	//Write into control register
+	status = HAL_I2C_Mem_Write(dev->hi2c, (uint16_t)dev->dev_address, DS3231_CONTROL_REG_ADDR, I2C_MEMADD_SIZE_8BIT,
+			&control_reg, DS3231_CONTROL_REG_SIZE, 500);
+	if(status != HAL_OK){
+		if(status == HAL_TIMEOUT) return DS3231_ERR_TIMEOUT;
+		else return DS3231_ERR_BUS;
+	}
+
+	return DS3231_OK;
+}
+
+ds3231_err_t ds3231_clear_alarm_flag(ds3231_t *dev, ds3231_alarm_id_t alarm_id){
+	//Sanity check
+	if(!dev || !dev->hi2c){
+		return DS3231_ERR_NULL;
+	}
+
+	if(alarm_id != DS3231_ALARM1 && alarm_id != DS3231_ALARM2){
+		return DS3231_ERR_INVALID_ALARM;
+	}
+
+	//Read status register
+	uint8_t status_reg;
+	HAL_StatusTypeDef status;
+	status = HAL_I2C_Mem_Read(dev->hi2c, (uint16_t)dev->dev_address, DS3231_STATUS_REG_ADDR, I2C_MEMADD_SIZE_8BIT,
+			&status_reg, DS3231_STATUS_REG_SIZE, 500);
+	if(status != HAL_OK){
+		if(status == HAL_TIMEOUT) return DS3231_ERR_TIMEOUT;
+		else return DS3231_ERR_BUS;
+	}
+
+	//Clear interrupt flag
+	if(alarm_id == DS3231_ALARM1){
+		status_reg &= ~(1 << 0);					//Clear alarm1 interrupt flag
+	}
+	else{
+		status_reg &= ~(1 << 1);					//Clear alarm2 interrupt flag
+	}
+
+	//Write into status register
+	status = HAL_I2C_Mem_Write(dev->hi2c, (uint16_t)dev->dev_address, DS3231_STATUS_REG_ADDR, I2C_MEMADD_SIZE_8BIT,
+			&status_reg, DS3231_STATUS_REG_SIZE, 500);
+	if(status != HAL_OK){
+		if(status == HAL_TIMEOUT) return DS3231_ERR_TIMEOUT;
+		else return DS3231_ERR_BUS;
+	}
+	return DS3231_OK;
+}
+
+
+ds3231_err_t ds3231_check_alarm_triggered(ds3231_t *dev, ds3231_alarm_id_t alarm_id, bool *is_triggered){
+	//Sanity check
+	if(!dev || !dev->hi2c || !is_triggered){
+		return DS3231_ERR_NULL;
+	}
+
+	if(alarm_id != DS3231_ALARM1 && alarm_id != DS3231_ALARM2){
+		return DS3231_ERR_INVALID_ALARM;
+	}
+
+	//Read status register
+	uint8_t status_reg;
+	bool alarm_flag_bit;
+	ds3231_err_t err = ds3231_read_status(dev, &status_reg);
+	if(err != DS3231_OK){
+		return err;
+	}
+
+	//Check alarm flag
+	if(alarm_id == DS3231_ALARM1){
+		alarm_flag_bit = (bool)(status_reg & (1 << 0));
+	}
+	else{
+		alarm_flag_bit = (bool)(status_reg & (1 << 1));
+	}
+
+	*is_triggered = alarm_flag_bit;
+
+	return DS3231_OK;
+}
+
+ds3231_err_t ds3231_read_status(ds3231_t *dev, uint8_t *status_reg){
+	//Sanity check
+	if(!dev || !dev->hi2c || !status_reg){
+		return DS3231_ERR_NULL;
+	}
+
+	//Read status register
+	HAL_StatusTypeDef status;
+	status = HAL_I2C_Mem_Read(dev->hi2c, (uint16_t)dev->dev_address, DS3231_STATUS_REG_ADDR, I2C_MEMADD_SIZE_8BIT,
+			status_reg, DS3231_STATUS_REG_SIZE, 500);
+	if(status != HAL_OK){
+		if(status == HAL_TIMEOUT) return DS3231_ERR_TIMEOUT;
+		else return DS3231_ERR_BUS;
+	}
+	return DS3231_OK;
+}
+
+ds3231_err_t ds3231_enable_en32kHz(ds3231_t *dev){
+	//Sanity check
+	if(!dev || !dev->hi2c){
+		return DS3231_ERR_NULL;
+	}
+
+	//Read status register
+	uint8_t status_reg;
+	HAL_StatusTypeDef status;
+	status = HAL_I2C_Mem_Read(dev->hi2c, (uint16_t)dev->dev_address, DS3231_STATUS_REG_ADDR, I2C_MEMADD_SIZE_8BIT,
+			&status_reg, DS3231_STATUS_REG_SIZE, 500);
+	if(status != HAL_OK){
+		if(status == HAL_TIMEOUT) return DS3231_ERR_TIMEOUT;
+		else return DS3231_ERR_BUS;
+	}
+
+	//Enable 32 kHz output
+	status_reg |= (1 << 3);
+
+	//Write into status register
+	status = HAL_I2C_Mem_Write(dev->hi2c, (uint16_t)dev->dev_address, DS3231_STATUS_REG_ADDR, I2C_MEMADD_SIZE_8BIT,
+			&status_reg, DS3231_STATUS_REG_SIZE, 500);
+	if(status != HAL_OK){
+		if(status == HAL_TIMEOUT) return DS3231_ERR_TIMEOUT;
+		else return DS3231_ERR_BUS;
+	}
+	return DS3231_OK;
+}
+
+ds3231_err_t ds3231_disable_en32kHz(ds3231_t *dev){
+	//Sanity check
+	if(!dev || !dev->hi2c){
+		return DS3231_ERR_NULL;
+	}
+
+	//Read status register
+	uint8_t status_reg;
+	HAL_StatusTypeDef status;
+	status = HAL_I2C_Mem_Read(dev->hi2c, (uint16_t)dev->dev_address, DS3231_STATUS_REG_ADDR, I2C_MEMADD_SIZE_8BIT,
+			&status_reg, DS3231_STATUS_REG_SIZE, 500);
+	if(status != HAL_OK){
+		if(status == HAL_TIMEOUT) return DS3231_ERR_TIMEOUT;
+		else return DS3231_ERR_BUS;
+	}
+
+	//Disable 32 kHz output
+	status_reg &= ~(1 << 3);
+
+	//Write into status register
+	status = HAL_I2C_Mem_Write(dev->hi2c, (uint16_t)dev->dev_address, DS3231_STATUS_REG_ADDR, I2C_MEMADD_SIZE_8BIT,
+			&status_reg, DS3231_STATUS_REG_SIZE, 500);
+	if(status != HAL_OK){
+		if(status == HAL_TIMEOUT) return DS3231_ERR_TIMEOUT;
+		else return DS3231_ERR_BUS;
+	}
+	return DS3231_OK;
+}

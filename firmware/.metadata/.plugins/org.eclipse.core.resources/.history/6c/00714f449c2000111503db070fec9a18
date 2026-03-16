@@ -1,0 +1,94 @@
+#ifndef RTC_H
+#define RTC_H
+/*Includes*/
+#include <stdint.h>
+#include <stdbool.h>
+
+/*Public enums*/
+typedef enum{
+	RTC_OK = 0,
+	RTC_ERR_NULL,
+	RTC_ERR_INVALID_MODE,
+	RTC_ERR_INVALID_ALARM,
+	RTC_ERR_TIMEOUT,
+	RTC_ERR_BUS
+}rtc_err_t;
+
+typedef enum{
+	RTC_ALARM1 = 0,
+	RTC_ALARM2
+}rtc_alarm_id_t;
+
+
+typedef enum{
+	RTC_ALARM1_MATCH_EVERY_SEC,
+	RTC_ALARM1_MATCH_SEC,
+	RTC_ALARM1_MATCH_MIN_SEC,
+	RTC_ALARM1_MATCH_HR_MIN_SEC,
+	RTC_ALARM1_MATCH_DT_HR_MIN_SEC,
+	RTC_ALARM1_MATCH_DY_HR_MIN_SEC
+}rtc_alarm1_mode_t;
+
+
+typedef enum{
+	RTC_ALARM2_MATCH_EVERY_MIN,
+	RTC_ALARM2_MATCH_MIN,
+	RTC_ALARM2_MATCH_HR_MIN,
+	RTC_ALARM2_MATCH_DT_HR_MIN,
+	RTC_ALARM2_MATCH_DY_HR_MIN
+}rtc_alarm2_mode_t;
+
+typedef enum{
+	RTC_ALARM_FLAG_NONE = 0,
+	RTC_ALARM_FLAG_1_UP,
+	RTC_ALARM_FLAG_2_UP,
+	ALARM_FLAG_BOTH_UP
+}rtc_alarm_flag_t;
+
+/*Public structures*/
+typedef struct{
+	ds3231_t *dev;
+}rtc_t;
+
+
+typedef struct{
+	uint8_t seconds;
+	uint8_t minutes;
+	uint8_t hours;
+	uint8_t day;
+	uint8_t date;
+	uint8_t month;
+	uint16_t year;
+}rtc_datetime_t;
+
+
+typedef struct{
+	rtc_alarm1_mode_t mode;
+	uint8_t seconds;
+	uint8_t minutes;
+	uint8_t hours;
+	uint8_t dydt;
+}rtc_alarm1_config_t;
+
+
+typedef struct{
+	rtc_alarm2_mode_t mode;
+	uint8_t minutes;
+	uint8_t hours;
+	uint8_t dydt;
+}rtc_alarm2_config_t;
+
+/*API functions*/
+rtc_err_t rtc_init(rtc_t *rtc, ds3231_t *dev);
+rtc_err_t rtc_set_time(rtc_t *rtc, const rtc_datetime_t *dt);
+rtc_err_t rtc_get_time(rtc_t *rtc, rtc_datetime_t *dt);
+rtc_err_t rtc_set_alarm1(rtc_t *rtc, rtc_alarm1_config_t *cfg);
+rtc_err_t rtc_set_alarm2(rtc_t *rtc, rtc_alarm2_config_t *cfg);
+rtc_err_t rtc_enable_alarm(rtc_t *rtc, rtc_alarm_id_t alarm_id);
+rtc_err_t rtc_disable_alarm(rtc_t *rtc, rtc_alarm_id_t alarm_id);
+rtc_err_t rtc_get_alarm_flags(rtc_alarm_flags_t *flag);
+rtc_err_t rtc_clear_alarm_flag(rtc_alarm_flag_t flag);
+
+
+
+#endif/*RTC_H*/
