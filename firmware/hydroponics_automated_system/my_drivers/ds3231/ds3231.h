@@ -79,10 +79,11 @@ ds3231_err_t ds3231_set_alarm2(ds3231_t *dev, const ds3231_alarm2_config_t *cfg)
 ds3231_err_t ds3231_enable_alarm(ds3231_t *dev, ds3231_alarm_id_t alarm_id);
 ds3231_err_t ds3231_disable_alarm(ds3231_t *dev, ds3231_alarm_id_t alarm_id);
 ds3231_err_t ds3231_enable_alarm_interrupt_output(ds3231_t *dev);
-ds3231_err_t ds3231_disable_alarm_interrupt_output(ds3231_t *dev);
+ds3231_err_t ds3231_enable_1Hz_square_wave_output(ds3231_t *dev);
 ds3231_err_t ds3231_clear_alarm_flag(ds3231_t *dev, ds3231_alarm_id_t alarm_id);
 ds3231_err_t ds3231_check_alarm_triggered(ds3231_t *dev, ds3231_alarm_id_t alarm_id, bool *is_triggered);
 ds3231_err_t ds3231_read_status(ds3231_t *dev, uint8_t *status_reg);
+ds3231_err_t ds3231_read_control_reg(ds3231_t *dev, uint8_t *control_reg);
 ds3231_err_t ds3231_enable_en32kHz(ds3231_t *dev);
 ds3231_err_t ds3231_disable_en32kHz(ds3231_t *dev);
 #endif/*DS3231_H*/

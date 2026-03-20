@@ -23,6 +23,7 @@
 /* USER CODE BEGIN Includes */
 #include "ds3231/ds3231.h"
 #include "rtc/rtc.h"
+#include <stdbool.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -56,6 +57,13 @@ static void MX_USART2_UART_Init(void);
 static void MX_I2C1_Init(void);
 /* USER CODE BEGIN PFP */
 
+volatile bool rtc_int_flag = false;
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
+	if(GPIO_Pin == RTC_INT_Pin){
+		//Read alarm flags
+		rtc_int_flag = true;
+	}
+}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -117,8 +125,27 @@ int main(void)
 
   HAL_Delay(5000);
 
-  rtc_get_datetime(&my_rtc, &rcv_dt);
+  rtc_alarm2_config_t cfg = {0};
+  cfg.mode = RTC_ALARM2_MATCH_EVERY_MIN;
+  cfg.dydt = 1;
 
+  rtc_alarm1_config_t cfg1 = {.mode = RTC_ALARM1_MATCH_DT_HR_MIN_SEC,
+		  	  	  	  	  	  .seconds = 0,
+							  .minutes = 0,
+							  .hours = 0,
+							  .dydt = 31								};
+
+  rtc_err_t err;
+  rtc_alarm_flag_t flag;
+  err = rtc_set_alarm1(&my_rtc, &cfg1);
+  err = rtc_set_alarm2(&my_rtc, &cfg);
+  err = rtc_disable_alarm(&my_rtc, RTC_ALARM1);
+  err = rtc_enable_alarm(&my_rtc, RTC_ALARM2);
+
+  err = rtc_clear_alarm_flag(&my_rtc, RTC_ALARM_FLAG_1_UP);
+  err = rtc_clear_alarm_flag(&my_rtc, RTC_ALARM_FLAG_2_UP);
+
+  uint8_t counter = 0;
 
   /* USER CODE END 2 */
 
@@ -126,11 +153,22 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
-	HAL_Delay(1000);
-	HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
-	HAL_Delay(1000);
-	HAL_UART_Transmit(&huart2, (uint8_t *)"Hola\n", sizeof("Hola\n"), HAL_MAX_DELAY);
+	if(rtc_int_flag){
+		rtc_int_flag = false;
+
+		//Read flags
+		err = rtc_get_alarm_flags(&my_rtc, &flag);
+
+		if(flag == RTC_ALARM_FLAG_2_UP){
+			rtc_clear_alarm_flag(&my_rtc, flag);
+			HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+			counter++;
+			if(counter >= 10){
+				rtc_disable_alarm(&my_rtc, RTC_ALARM2);
+			}
+
+		}
+	}
 
     /* USER CODE END WHILE */
 
@@ -284,6 +322,19 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : RTC_INT_Pin */
+  GPIO_InitStruct.Pin = RTC_INT_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(RTC_INT_GPIO_Port, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 

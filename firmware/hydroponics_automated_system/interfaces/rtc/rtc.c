@@ -4,6 +4,10 @@
 /*Defines / Macros*/
 #define DEC_MAX_VALUE 99
 #define BCD_MAX_VALUE 9
+#define RTC_EPOCH_YEAR 2000
+
+/*Private global variables*/
+static const uint8_t days_in_month[12] = {31,28,31,30,31,30,31,31,30,31,30,31};
 
 /*Private functions*/
 static uint8_t dec_to_bcd_conversion(uint8_t value){
@@ -31,6 +35,10 @@ static uint8_t bcd_to_dec_conversion(uint8_t value){
 	return bcd_digit1 * 10 + bcd_digit2;
 }
 
+static bool is_leap_year(uint16_t year){
+	return ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0));
+}
+
 static ds3231_alarm1_mode_t alarm1_mode_map(rtc_alarm1_mode_t rtc_alarm_mode){
 	switch(rtc_alarm_mode){
 		case RTC_ALARM1_MATCH_EVERY_SEC: 		return DS3231_ALARM1_MATCH_EVERY_SEC;
@@ -54,6 +62,73 @@ static ds3231_alarm2_mode_t alarm2_mode_map(rtc_alarm2_mode_t rtc_alarm_mode){
 	}
 }
 
+static uint32_t rtc_to_timestamp(const rtc_datetime_t *dt){
+	uint32_t days = 0;
+
+	//Years
+	for(uint16_t y = RTC_EPOCH_YEAR; y < dt->year; y++){
+		days += is_leap_year(y) ? 366 : 365;
+	}
+
+	//Month
+	for(uint8_t m = 1; m < dt->month; m++){
+		days += days_in_month[m - 1];
+		if(m == 2 && is_leap_year(dt->year)){
+			days += 1;
+		}
+	}
+
+	//Days
+	days += dt->day - 1;
+
+	//Convert to seconds
+	uint32_t seconds = days * 86400;
+	seconds += dt->hours * 3600;
+	seconds += dt->minutes 60;
+	seconds += dt->seconds;
+
+	return seconds;
+}
+
+static void timestamp_to_rtc(uint32_t timestamp, rtc_datetime_t *dt){
+	//Days
+	uint32_t days = timestamp / 86400;
+	uint32_t rem  = timestamp % 86400;
+
+	//Hours, minutes and seconds
+	dt->hours = rem / 3600;
+	rem %= 3600;
+
+	dt->minutes = rem / 60;
+	dt->seconds = rem % 60;
+
+	//Year
+	dt->year = RTC_EPOCH_YEAR;
+	uint16_t days_in_year;
+	while(1){
+		days_in_year = is_leap_year(dt->year) ? 366 : 365;
+		if(days < days_in_year) break;
+		days -= days_in_year;
+		dt->year++;
+	}
+
+	//Month
+	dt->month = 1;
+	uint8_t dim;
+	while(1){
+		dim = days_in_month[dt->month - 1];
+		if(dt->month == 2 && is_leap_year(dt->year)){
+			dim += 1;
+		}
+
+		if(days < dim) break;
+		days -= dim;
+		dt->month++;
+	}
+
+	//Day
+	dt->day = days + 1;
+}
 
 /*API functions*/
 rtc_err_t rtc_init(rtc_t *rtc, ds3231_t *dev){
@@ -64,6 +139,55 @@ rtc_err_t rtc_init(rtc_t *rtc, ds3231_t *dev){
 
 	//Assign ds3231 to this RTC instance
 	rtc->dev = dev;
+
+	//Give some time to the RTC to turn on
+	HAL_Delay(1000);
+
+	//Disable 32 kHz output
+	ds3231_err_t err;
+	err = ds3231_disable_en32kHz(dev);
+	if(err != DS3231_OK){
+		if(err == DS3231_ERR_NULL) return RTC_ERR_NULL;
+		else if(err == DS3231_ERR_TIMEOUT) return RTC_ERR_TIMEOUT;
+		else return RTC_ERR_BUS;
+	}
+
+	err = ds3231_enable_alarm_interrupt_output(dev);
+	if(err != DS3231_OK){
+		if(err == DS3231_ERR_NULL) return RTC_ERR_NULL;
+		else if(err == DS3231_ERR_TIMEOUT) return RTC_ERR_TIMEOUT;
+		else return RTC_ERR_BUS;
+	}
+
+	//Disable interrupts
+	err = ds3231_disable_alarm(dev, DS3231_ALARM1);
+	if(err != DS3231_OK){
+		if(err == DS3231_ERR_NULL) return RTC_ERR_NULL;
+		else if(err == DS3231_ERR_TIMEOUT) return RTC_ERR_TIMEOUT;
+		else return RTC_ERR_BUS;
+	}
+
+	err = ds3231_disable_alarm(dev, DS3231_ALARM2);
+	if(err != DS3231_OK){
+		if(err == DS3231_ERR_NULL) return RTC_ERR_NULL;
+		else if(err == DS3231_ERR_TIMEOUT) return RTC_ERR_TIMEOUT;
+		else return RTC_ERR_BUS;
+	}
+
+	//Clear interrupt flags
+	err = ds3231_clear_alarm_flag(dev, DS3231_ALARM1);
+	if(err != DS3231_OK){
+		if(err == DS3231_ERR_NULL) return RTC_ERR_NULL;
+		else if(err == DS3231_ERR_TIMEOUT) return RTC_ERR_TIMEOUT;
+		else return RTC_ERR_BUS;
+	}
+
+	err = ds3231_clear_alarm_flag(dev, DS3231_ALARM2);
+	if(err != DS3231_OK){
+		if(err == DS3231_ERR_NULL) return RTC_ERR_NULL;
+		else if(err == DS3231_ERR_TIMEOUT) return RTC_ERR_TIMEOUT;
+		else return RTC_ERR_BUS;
+	}
 
 	return RTC_OK;
 }
@@ -199,6 +323,142 @@ rtc_err_t rtc_set_alarm2(rtc_t *rtc, rtc_alarm2_config_t *cfg){
 
 	return RTC_OK;
 }
+
+rtc_err_t rtc_enable_alarm(rtc_t *rtc, rtc_alarm_id_t alarm_id){
+	//Sanity check
+	if(!rtc || !rtc->dev){
+		return RTC_ERR_NULL;
+	}
+
+	if(alarm_id != RTC_ALARM1 && alarm_id != RTC_ALARM2){
+		return RTC_ERR_INVALID_ALARM;
+	}
+
+	//Enable alarm
+	ds3231_err_t err;
+	if(alarm_id == RTC_ALARM1){
+		err = ds3231_enable_alarm(rtc->dev, DS3231_ALARM1);
+	}
+	else{
+		err = ds3231_enable_alarm(rtc->dev, DS3231_ALARM2);
+	}
+
+	//Handle error
+	if(err != DS3231_OK){
+		if(err == DS3231_ERR_NULL) return RTC_ERR_NULL;
+		else if(err == DS3231_ERR_TIMEOUT) return RTC_ERR_TIMEOUT;
+		else return RTC_ERR_BUS;
+	}
+
+	return RTC_OK;
+}
+
+rtc_err_t rtc_disable_alarm(rtc_t *rtc, rtc_alarm_id_t alarm_id){
+	//Sanity check
+	if(!rtc || !rtc->dev){
+		return RTC_ERR_NULL;
+	}
+
+	if(alarm_id != RTC_ALARM1 && alarm_id != RTC_ALARM2){
+		return RTC_ERR_INVALID_ALARM;
+	}
+
+	//Disable alarm
+	ds3231_err_t err;
+	if(alarm_id == RTC_ALARM1){
+		err = ds3231_disable_alarm(rtc->dev, DS3231_ALARM1);
+	}
+	else{
+		err = ds3231_disable_alarm(rtc->dev, DS3231_ALARM2);
+	}
+
+	//Handle error
+	if(err != DS3231_OK){
+		if(err == DS3231_ERR_NULL) return RTC_ERR_NULL;
+		else if(err == DS3231_ERR_TIMEOUT) return RTC_ERR_TIMEOUT;
+		else return RTC_ERR_BUS;
+	}
+
+	return RTC_OK;
+}
+
+rtc_err_t rtc_get_alarm_flags(rtc_t *rtc, rtc_alarm_flag_t *flag){
+	//Sanity check
+	if(!rtc || !rtc->dev || !flag){
+		return RTC_ERR_NULL;
+	}
+
+	//Read alarm flags
+	bool alarm1_en_flag, alarm2_en_flag;
+	ds3231_err_t err;
+
+	err = ds3231_check_alarm_triggered(rtc->dev, DS3231_ALARM1, &alarm1_en_flag);
+	if(err != DS3231_OK){
+		if(err == DS3231_ERR_NULL) return RTC_ERR_NULL;
+		else if(err == DS3231_ERR_TIMEOUT) return RTC_ERR_TIMEOUT;
+		else return RTC_ERR_BUS;
+	}
+
+	err = ds3231_check_alarm_triggered(rtc->dev, DS3231_ALARM2, &alarm2_en_flag);
+	if(err != DS3231_OK){
+		if(err == DS3231_ERR_NULL) return RTC_ERR_NULL;
+		else if(err == DS3231_ERR_TIMEOUT) return RTC_ERR_TIMEOUT;
+		else return RTC_ERR_BUS;
+	}
+
+	//Check how many alarms are activated
+	if(alarm1_en_flag && alarm2_en_flag)       *flag = RTC_ALARM_FLAG_BOTH_UP;
+	else if(alarm1_en_flag && !alarm2_en_flag) *flag = RTC_ALARM_FLAG_1_UP;
+	else if(!alarm1_en_flag && alarm2_en_flag) *flag = RTC_ALARM_FLAG_2_UP;
+	else                                       *flag = RTC_ALARM_FLAG_NONE;
+
+	return RTC_OK;
+}
+
+rtc_err_t rtc_clear_alarm_flag(rtc_t *rtc, rtc_alarm_flag_t flag){
+	//Sanity check
+	if(!rtc || !rtc->dev){
+		return RTC_ERR_NULL;
+	}
+
+	//Clear selected flag
+	ds3231_err_t err;
+
+	switch(flag){
+	case RTC_ALARM_FLAG_1_UP:
+		err = ds3231_clear_alarm_flag(rtc->dev, DS3231_ALARM1);
+		break;
+
+	case RTC_ALARM_FLAG_2_UP:
+		err = ds3231_clear_alarm_flag(rtc->dev, DS3231_ALARM2);
+		break;
+
+	case RTC_ALARM_FLAG_BOTH_UP:
+		err = ds3231_clear_alarm_flag(rtc->dev, DS3231_ALARM1);
+		err = ds3231_clear_alarm_flag(rtc->dev, DS3231_ALARM2);
+		break;
+
+	case RTC_ALARM_FLAG_NONE:
+		//Do nothing
+		break;
+
+	default:
+		//CLear both alarms
+		err = ds3231_clear_alarm_flag(rtc->dev, DS3231_ALARM1);
+		err = ds3231_clear_alarm_flag(rtc->dev, DS3231_ALARM2);
+		break;
+	}
+
+	//Handle errors
+	if(err != DS3231_OK){
+		if(err == DS3231_ERR_NULL) return RTC_ERR_NULL;
+		else if(err == DS3231_ERR_TIMEOUT) return RTC_ERR_TIMEOUT;
+		else return RTC_ERR_BUS;
+	}
+
+	return RTC_OK;
+}
+
 
 
 

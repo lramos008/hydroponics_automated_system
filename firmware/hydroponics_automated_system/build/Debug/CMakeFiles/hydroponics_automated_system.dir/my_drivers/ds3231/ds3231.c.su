@@ -1,16 +1,17 @@
-C:/Users/Juli-Leo/Documents/Proyecto final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:22:21:serialize_alarm1_data	24	static
-C:/Users/Juli-Leo/Documents/Proyecto final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:79:21:serialize_alarm2_data	24	static
-C:/Users/Juli-Leo/Documents/Proyecto final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:129:14:ds3231_init	32	static
-C:/Users/Juli-Leo/Documents/Proyecto final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:166:14:ds3231_set_datetime	40	static
-C:/Users/Juli-Leo/Documents/Proyecto final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:194:14:ds3231_get_datetime	40	static
-C:/Users/Juli-Leo/Documents/Proyecto final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:224:14:ds3231_set_alarm1	40	static
-C:/Users/Juli-Leo/Documents/Proyecto final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:250:14:ds3231_set_alarm2	40	static
-C:/Users/Juli-Leo/Documents/Proyecto final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:276:14:ds3231_enable_alarm	40	static
-C:/Users/Juli-Leo/Documents/Proyecto final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:314:14:ds3231_disable_alarm	40	static
-C:/Users/Juli-Leo/Documents/Proyecto final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:352:14:ds3231_enable_alarm_interrupt_output	40	static
-C:/Users/Juli-Leo/Documents/Proyecto final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:382:14:ds3231_disable_alarm_interrupt_output	40	static
-C:/Users/Juli-Leo/Documents/Proyecto final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:412:14:ds3231_clear_alarm_flag	40	static
-C:/Users/Juli-Leo/Documents/Proyecto final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:451:14:ds3231_check_alarm_triggered	32	static
-C:/Users/Juli-Leo/Documents/Proyecto final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:482:14:ds3231_read_status	40	static
-C:/Users/Juli-Leo/Documents/Proyecto final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:499:14:ds3231_enable_en32kHz	40	static
-C:/Users/Juli-Leo/Documents/Proyecto final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:528:14:ds3231_disable_en32kHz	40	static
+/home/leonardo/Documents/proyectos_leo/proyecto_final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:22:21:serialize_alarm1_data	24	static
+/home/leonardo/Documents/proyectos_leo/proyecto_final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:79:21:serialize_alarm2_data	24	static
+/home/leonardo/Documents/proyectos_leo/proyecto_final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:129:14:ds3231_init	24	static
+/home/leonardo/Documents/proyectos_leo/proyecto_final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:142:14:ds3231_set_datetime	40	static
+/home/leonardo/Documents/proyectos_leo/proyecto_final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:170:14:ds3231_get_datetime	40	static
+/home/leonardo/Documents/proyectos_leo/proyecto_final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:200:14:ds3231_set_alarm1	40	static
+/home/leonardo/Documents/proyectos_leo/proyecto_final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:226:14:ds3231_set_alarm2	40	static
+/home/leonardo/Documents/proyectos_leo/proyecto_final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:252:14:ds3231_enable_alarm	40	static
+/home/leonardo/Documents/proyectos_leo/proyecto_final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:290:14:ds3231_disable_alarm	40	static
+/home/leonardo/Documents/proyectos_leo/proyecto_final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:328:14:ds3231_enable_alarm_interrupt_output	40	static
+/home/leonardo/Documents/proyectos_leo/proyecto_final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:358:14:ds3231_enable_1Hz_square_wave_output	40	static
+/home/leonardo/Documents/proyectos_leo/proyecto_final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:388:14:ds3231_clear_alarm_flag	40	static
+/home/leonardo/Documents/proyectos_leo/proyecto_final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:427:14:ds3231_check_alarm_triggered	32	static
+/home/leonardo/Documents/proyectos_leo/proyecto_final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:458:14:ds3231_read_status	40	static
+/home/leonardo/Documents/proyectos_leo/proyecto_final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:475:14:ds3231_read_control_reg	40	static
+/home/leonardo/Documents/proyectos_leo/proyecto_final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:492:14:ds3231_enable_en32kHz	40	static
+/home/leonardo/Documents/proyectos_leo/proyecto_final/hydroponics_automated_system/firmware/hydroponics_automated_system/my_drivers/ds3231/ds3231.c:521:14:ds3231_disable_en32kHz	40	static

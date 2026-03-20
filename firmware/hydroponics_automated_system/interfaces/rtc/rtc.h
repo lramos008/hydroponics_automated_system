@@ -44,7 +44,7 @@ typedef enum{
 	RTC_ALARM_FLAG_NONE = 0,
 	RTC_ALARM_FLAG_1_UP,
 	RTC_ALARM_FLAG_2_UP,
-	ALARM_FLAG_BOTH_UP
+	RTC_ALARM_FLAG_BOTH_UP
 }rtc_alarm_flag_t;
 
 /*Public structures*/
@@ -88,7 +88,7 @@ rtc_err_t rtc_set_alarm1(rtc_t *rtc, rtc_alarm1_config_t *cfg);
 rtc_err_t rtc_set_alarm2(rtc_t *rtc, rtc_alarm2_config_t *cfg);
 rtc_err_t rtc_enable_alarm(rtc_t *rtc, rtc_alarm_id_t alarm_id);
 rtc_err_t rtc_disable_alarm(rtc_t *rtc, rtc_alarm_id_t alarm_id);
-rtc_err_t rtc_get_alarm_flag(rtc_alarm_flag_t *flag);
-rtc_err_t rtc_clear_alarm_flag(rtc_alarm_flag_t flag);
+rtc_err_t rtc_get_alarm_flags(rtc_t *rtc, rtc_alarm_flag_t *flag);
+rtc_err_t rtc_clear_alarm_flag(rtc_t *rtc, rtc_alarm_flag_t flag);
 
 #endif/*RTC_H*/
