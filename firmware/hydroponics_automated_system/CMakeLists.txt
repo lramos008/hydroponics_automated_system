@@ -47,6 +47,8 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
     ${CMAKE_SOURCE_DIR}/my_drivers/ds3231/ds3231.c
     ${CMAKE_SOURCE_DIR}/interfaces/rtc/rtc.c
+    ${CMAKE_SOURCE_DIR}/my_drivers/sht30/sht30.c
+    ${CMAKE_SOURCE_DIR}/interfaces/temp_hum/temp_hum.c
 )
 
 # Add include paths

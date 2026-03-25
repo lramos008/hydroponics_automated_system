@@ -23,6 +23,8 @@
 /* USER CODE BEGIN Includes */
 #include "ds3231/ds3231.h"
 #include "rtc/rtc.h"
+#include "sht30/sht30.h"
+#include "temp_hum/temp_hum.h"
 #include <stdbool.h>
 /* USER CODE END Includes */
 
@@ -103,49 +105,14 @@ int main(void)
   MX_USART2_UART_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
-  ds3231_t my_ds3231m;
-  rtc_t    my_rtc;
+  sht30_t dev;
+  uint8_t dev_address = (0x44 << 1);
+  sht30_init(&dev, &hi2c1, dev_address);
 
-  //Init DS3231M
-  ds3231_init(&my_ds3231m, &hi2c1, 0xD0);
-  rtc_init(&my_rtc, &my_ds3231m);
-
-  const rtc_datetime_t sent_dt = {.seconds = 10,
-		  	  	  	  	  	  	  .minutes = 20,
-								  .hours   = 22,
-								  .day     = 1,
-								  .date    = 16,
-								  .month   = 3,
-								  .year    = 2026 	};
-
-  rtc_datetime_t rcv_dt;
-
-  //Set datetime to RTC
-  rtc_set_datetime(&my_rtc, &sent_dt);
-
-  HAL_Delay(5000);
-
-  rtc_alarm2_config_t cfg = {0};
-  cfg.mode = RTC_ALARM2_MATCH_EVERY_MIN;
-  cfg.dydt = 1;
-
-  rtc_alarm1_config_t cfg1 = {.mode = RTC_ALARM1_MATCH_DT_HR_MIN_SEC,
-		  	  	  	  	  	  .seconds = 0,
-							  .minutes = 0,
-							  .hours = 0,
-							  .dydt = 31								};
-
-  rtc_err_t err;
-  rtc_alarm_flag_t flag;
-  err = rtc_set_alarm1(&my_rtc, &cfg1);
-  err = rtc_set_alarm2(&my_rtc, &cfg);
-  err = rtc_disable_alarm(&my_rtc, RTC_ALARM1);
-  err = rtc_enable_alarm(&my_rtc, RTC_ALARM2);
-
-  err = rtc_clear_alarm_flag(&my_rtc, RTC_ALARM_FLAG_1_UP);
-  err = rtc_clear_alarm_flag(&my_rtc, RTC_ALARM_FLAG_2_UP);
-
-  uint8_t counter = 0;
+  float temp, hr;
+  temp_hum_t temp_hum_sensor;
+  temp_hum_init(&temp_hum_sensor, &dev, SHT30_LOW_REPEATABILITY);
+  temp_hum_read(&temp_hum_sensor, &temp, &hr);
 
   /* USER CODE END 2 */
 
@@ -153,22 +120,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	if(rtc_int_flag){
-		rtc_int_flag = false;
 
-		//Read flags
-		err = rtc_get_alarm_flags(&my_rtc, &flag);
-
-		if(flag == RTC_ALARM_FLAG_2_UP){
-			rtc_clear_alarm_flag(&my_rtc, flag);
-			HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-			counter++;
-			if(counter >= 10){
-				rtc_disable_alarm(&my_rtc, RTC_ALARM2);
-			}
-
-		}
-	}
 
     /* USER CODE END WHILE */
 

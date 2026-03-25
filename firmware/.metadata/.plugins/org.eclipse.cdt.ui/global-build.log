@@ -1,3 +1,10 @@
-23:36:45 **** Incremental Build of configuration Debug for project hydroponics_automated_system ****
+22:17:17 **** Incremental Build of configuration Debug for project hydroponics_automated_system ****
 cmake --build "build\\Debug" 
-ninja: no work to do.
+[1/2] Building C object CMakeFiles/hydroponics_automated_system.dir/Core/Src/main.c.obj
+[2/2] Linking C executable hydroponics_automated_system.elf
+Memory region         Used Size  Region Size  %age Used
+
+             RAM:        1744 B        96 KB      1.77%
+
+           FLASH:       13368 B       512 KB      2.55%
+

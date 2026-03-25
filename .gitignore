@@ -1,0 +1,54 @@
+# ========================
+# Build directories
+# ========================
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+Makefile
+cmake_install.cmake
+compile_commands.json
+
+# ========================
+# STM32CubeIDE / Eclipse
+# ========================
+.project
+.cproject
+.settings/
+.metadata/
+
+# Debug/Release folders (CubeIDE)
+Debug/
+Release/
+
+# ========================
+# Toolchain / binaries
+# ========================
+*.elf
+*.bin
+*.hex
+*.map
+*.list
+
+# ========================
+# Logs / temp
+# ========================
+*.log
+*.tmp
+
+# ========================
+# OS files
+# ========================
+.DS_Store
+Thumbs.db
+
+# ========================
+# VSCode (opcional)
+# ========================
+.vscode/
+
+# ========================
+# Python (si usás scripts)
+# ========================
+__pycache__/
+*.pyc

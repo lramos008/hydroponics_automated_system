@@ -4,7 +4,9 @@
 /*Defines / Macros*/
 #define DEC_MAX_VALUE 99
 #define BCD_MAX_VALUE 9
+
 #define RTC_EPOCH_YEAR 2000
+#define RTC_EPOCH_DAY 6								//Day of the week of the first day of 2000 year
 
 /*Private global variables*/
 static const uint8_t days_in_month[12] = {31,28,31,30,31,30,31,31,30,31,30,31};
@@ -79,12 +81,12 @@ static uint32_t rtc_to_timestamp(const rtc_datetime_t *dt){
 	}
 
 	//Days
-	days += dt->day - 1;
+	days += dt->date - 1;
 
 	//Convert to seconds
 	uint32_t seconds = days * 86400;
 	seconds += dt->hours * 3600;
-	seconds += dt->minutes 60;
+	seconds += dt->minutes * 60;
 	seconds += dt->seconds;
 
 	return seconds;
@@ -126,8 +128,11 @@ static void timestamp_to_rtc(uint32_t timestamp, rtc_datetime_t *dt){
 		dt->month++;
 	}
 
+	//Date
+	dt->date = days + 1;
+
 	//Day
-	dt->day = days + 1;
+	dt->day = ((RTC_EPOCH_DAY - 1 + (timestamp / 86400)) % 7) + 1;
 }
 
 /*API functions*/
@@ -459,7 +464,25 @@ rtc_err_t rtc_clear_alarm_flag(rtc_t *rtc, rtc_alarm_flag_t flag){
 	return RTC_OK;
 }
 
+void rtc_add_time(rtc_datetime_t *dt, uint32_t seconds){
+	uint32_t timestamp;
+	timestamp = rtc_to_timestamp(dt);
 
+	//Add seconds
+
+    timestamp += seconds;
+	timestamp_to_rtc(timestamp, dt);
+}
+
+void rtc_substract_time(rtc_datetime_t *dt, uint32_t seconds){
+	uint32_t timestamp;
+	timestamp = rtc_to_timestamp(dt);
+
+	//Add seconds
+	timestamp -= seconds;
+
+	timestamp_to_rtc(timestamp, dt);
+}
 
 
 

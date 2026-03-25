@@ -1,8 +1,6 @@
 #ifndef RTC_H
 #define RTC_H
 /*Includes*/
-#include <stdint.h>
-#include <stdbool.h>
 #include "ds3231/ds3231.h"
 
 /*Public enums*/
@@ -90,5 +88,6 @@ rtc_err_t rtc_enable_alarm(rtc_t *rtc, rtc_alarm_id_t alarm_id);
 rtc_err_t rtc_disable_alarm(rtc_t *rtc, rtc_alarm_id_t alarm_id);
 rtc_err_t rtc_get_alarm_flags(rtc_t *rtc, rtc_alarm_flag_t *flag);
 rtc_err_t rtc_clear_alarm_flag(rtc_t *rtc, rtc_alarm_flag_t flag);
-
+void rtc_add_time(rtc_datetime_t *dt, uint32_t seconds);
+void rtc_substract_time(rtc_datetime_t *dt, uint32_t seconds);
 #endif/*RTC_H*/
