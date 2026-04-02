@@ -24,8 +24,10 @@
 #include "ds3231/ds3231.h"
 #include "rtc/rtc.h"
 #include "sht30/sht30.h"
-#include "temp_hum/temp_hum.h"
 #include <stdbool.h>
+#include "bh1750/bh1750.h"
+#include "temp_hum_sensor/temp_hum_sensor.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -110,9 +112,9 @@ int main(void)
   sht30_init(&dev, &hi2c1, dev_address);
 
   float temp, hr;
-  temp_hum_t temp_hum_sensor;
-  temp_hum_init(&temp_hum_sensor, &dev, SHT30_LOW_REPEATABILITY);
-  temp_hum_read(&temp_hum_sensor, &temp, &hr);
+  temp_hum_sensor_t temp_hum_sensor;
+  temp_hum_sensor_init(&temp_hum_sensor, &dev, SHT30_LOW_REPEATABILITY);
+  temp_hum_sensor_read(&temp_hum_sensor, &temp, &hr);
 
   /* USER CODE END 2 */
 

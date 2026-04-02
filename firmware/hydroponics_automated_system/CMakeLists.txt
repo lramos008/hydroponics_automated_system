@@ -48,7 +48,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/my_drivers/ds3231/ds3231.c
     ${CMAKE_SOURCE_DIR}/interfaces/rtc/rtc.c
     ${CMAKE_SOURCE_DIR}/my_drivers/sht30/sht30.c
-    ${CMAKE_SOURCE_DIR}/interfaces/temp_hum/temp_hum.c
+    ${CMAKE_SOURCE_DIR}/interfaces/temp_hum_sensor/temp_hum_sensor.c
 )
 
 # Add include paths

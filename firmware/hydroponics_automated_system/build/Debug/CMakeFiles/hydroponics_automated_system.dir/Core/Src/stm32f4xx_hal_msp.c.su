@@ -1,5 +1,5 @@
-C:/Users/Juli-Leo/Documents/Proyecto final/hydroponics_automated_system/firmware/hydroponics_automated_system/Core/Src/stm32f4xx_hal_msp.c:62:6:HAL_MspInit	16	static
-C:/Users/Juli-Leo/Documents/Proyecto final/hydroponics_automated_system/firmware/hydroponics_automated_system/Core/Src/stm32f4xx_hal_msp.c:85:6:HAL_I2C_MspInit	48	static
-C:/Users/Juli-Leo/Documents/Proyecto final/hydroponics_automated_system/firmware/hydroponics_automated_system/Core/Src/stm32f4xx_hal_msp.c:122:6:HAL_I2C_MspDeInit	16	static
-C:/Users/Juli-Leo/Documents/Proyecto final/hydroponics_automated_system/firmware/hydroponics_automated_system/Core/Src/stm32f4xx_hal_msp.c:153:6:HAL_UART_MspInit	48	static
-C:/Users/Juli-Leo/Documents/Proyecto final/hydroponics_automated_system/firmware/hydroponics_automated_system/Core/Src/stm32f4xx_hal_msp.c:190:6:HAL_UART_MspDeInit	16	static
+/home/leonardo/Documents/proyectos_leo/proyecto_final/hydroponics_automated_system/firmware/hydroponics_automated_system/Core/Src/stm32f4xx_hal_msp.c:62:6:HAL_MspInit	16	static
+/home/leonardo/Documents/proyectos_leo/proyecto_final/hydroponics_automated_system/firmware/hydroponics_automated_system/Core/Src/stm32f4xx_hal_msp.c:85:6:HAL_I2C_MspInit	48	static
+/home/leonardo/Documents/proyectos_leo/proyecto_final/hydroponics_automated_system/firmware/hydroponics_automated_system/Core/Src/stm32f4xx_hal_msp.c:122:6:HAL_I2C_MspDeInit	16	static
+/home/leonardo/Documents/proyectos_leo/proyecto_final/hydroponics_automated_system/firmware/hydroponics_automated_system/Core/Src/stm32f4xx_hal_msp.c:153:6:HAL_UART_MspInit	48	static
+/home/leonardo/Documents/proyectos_leo/proyecto_final/hydroponics_automated_system/firmware/hydroponics_automated_system/Core/Src/stm32f4xx_hal_msp.c:190:6:HAL_UART_MspDeInit	16	static
