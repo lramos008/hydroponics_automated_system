@@ -28,6 +28,7 @@
 #include "bh1750/bh1750.h"
 #include "temp_hum_sensor/temp_hum_sensor.h"
 #include "onewire/onewire.h"
+#include "ds18b20/ds18b20.h"
 
 /* USER CODE END Includes */
 
@@ -114,12 +115,15 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start(&htim1);
   onewire_t dev;
-  uint8_t rom[8] = {0};
   onewire_init(&dev, DS18B20_GPIO_Port, DS18B20_Pin, &htim1);
-  onewire_err_t err = onewire_reset(&dev);
-  onewire_read_rom(&dev, rom, 8);
 
-  uint8_t crc = onewire_crc8(rom, 7);
+  ds18b20_t temp_sensor;
+  ds18b20_err_t err;
+  err = ds18b20_init_single_drop(&temp_sensor, &dev, DS18B20_12_BIT_RESOLUTION);
+  err = ds18b20_start_temperature_conversion(&temp_sensor);
+  HAL_Delay(800);
+  float temperature;
+  err = ds18b20_read_temperature(&temp_sensor, &temperature);
 
   /* USER CODE END 2 */
 

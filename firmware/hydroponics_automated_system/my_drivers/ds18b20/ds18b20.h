@@ -4,6 +4,10 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "stm32f4xx_hal.h"
+#include "onewire/onewire.h"
+
+/*Public defines*/
+#define DS18B20_ROM_SIZE_BYTES				8
 
 /*Public enums*/
 typedef enum{
@@ -27,19 +31,30 @@ typedef enum{
 /*Public structures*/
 typedef struct{
 	onewire_t *ow_bus;
-	uint8_t rom[8];
+	uint8_t rom[DS18B20_ROM_SIZE_BYTES];
+	ds18b20_resolution_t resolution;
 }ds18b20_t;
 
+typedef struct{
+	uint8_t temp_lsb;
+	uint8_t temp_msb;
+	uint8_t th_reg;
+	uint8_t tl_reg;
+	uint8_t config_reg;
+	uint8_t reserved[3];
+	uint8_t crc;
+}ds18b20_scratchpad_t;
+
 /*API functions*/
-ds18b20_err_t ds18b20_init_single_drop(ds18b20_t *dev, onewire_t *ow_bus);
-ds18b20_err_t ds18b20_init_multi_drop(ds18b20_t *dev, onewire_t *ow_bus, const uint8_t rom[8]);
+ds18b20_err_t ds18b20_init_single_drop(ds18b20_t *dev, onewire_t *ow_bus, ds18b20_resolution_t resolution);
+ds18b20_err_t ds18b20_init_multi_drop(ds18b20_t *dev, onewire_t *ow_bus, ds18b20_resolution_t resolution, const uint8_t *rom, size_t len);
 ds18b20_err_t ds18b20_start_temperature_conversion(ds18b20_t *dev);
 ds18b20_err_t ds18b20_is_conversion_ready(ds18b20_t *dev);
 ds18b20_err_t ds18b20_read_temperature(ds18b20_t *dev, float *temp);
-ds18b20_err_t ds18b20_read_scratchpad(ds18b20_t *dev, uint8_t scratchpad[9]);								//Useful for debugging
+ds18b20_err_t ds18b20_read_scratchpad(ds18b20_t *dev, ds18b20_scratchpad_t *scratchpad);								//Useful for debugging
 ds18b20_err_t ds18b20_set_resolution(ds18b20_t *dev, ds18b20_resolution_t resolution);
 ds18b20_err_t ds18b20_get_resolution(ds18b20_t *dev, ds18b20_resolution_t *resolution);
-ds18b20_err_t ds18b20_validate_rom_family(const uint8_t rom[8]);
+ds18b20_err_t ds18b20_validate_rom_family(const uint8_t *rom, size_t len);
 //ds18b20_err_t ds18b20_set_alarm_thresholds(ds18b20_t *dev, uint8_t th, uint8_t tl);						//Not useful with only one sensor
 //ds18b20_err_t ds18b20_get_alarm_thresholds(ds18b20_t *dev, uint8_t *th, uint8_t *tl);						//Not useful with only one sensor
 //ds18b20_err_t ds18b20_check_alarm_flag(ds18b20_t *dev, bool *alarm_flag);									//Not useful with only one sensor
