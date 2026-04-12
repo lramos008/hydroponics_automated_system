@@ -27,6 +27,7 @@ typedef struct{
 //One-wire low level functions
 onewire_err_t onewire_init(onewire_t *bus, GPIO_TypeDef *port, uint16_t pin, TIM_HandleTypeDef *htim);
 onewire_err_t onewire_reset(onewire_t *bus);
+onewire_err_t onewire_read_bit(onewire_t *bus, uint8_t *bit);
 onewire_err_t onewire_write_byte(onewire_t *bus, uint8_t data);
 onewire_err_t onewire_read_byte(onewire_t *bus, uint8_t *data);
 onewire_err_t onewire_write_multiple_bytes(onewire_t *bus, const uint8_t *data, size_t len);

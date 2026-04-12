@@ -8,16 +8,20 @@
 
 /*Public defines*/
 #define DS18B20_ROM_SIZE_BYTES				8
+#define DS18B20_9_BITS_RESOLUTION_STEP			0.5f
+#define DS18B20_10_BITS_RESOLUTION_STEP			0.25f
+#define DS18B20_11_BITS_RESOLUTION_STEP			0.125f
+#define DS18B20_12_BITS_RESOLUTION_STEP			0.0625f
 
 /*Public enums*/
 typedef enum{
 	DS18B20_OK,
+	DS18B20_CONVERSION_NOT_READY,
 	DS18B20_ERR_NULL,
 	DS18B20_ERR_BUS,
 	DS18B20_ERR_NO_PRESENCE,
 	DS18B20_ERR_INVALID_ROM,
 	DS18B20_ERR_ROM_NOT_FOUND,
-	DS18B20_ERR_CONVERSION_NOT_READY,
 	DS18B20_ERR_CRC
 }ds18b20_err_t;
 
@@ -25,7 +29,8 @@ typedef enum{
 	DS18B20_12_BIT_RESOLUTION,						//Default at power on
 	DS18B20_11_BIT_RESOLUTION,
 	DS18B20_10_BIT_RESOLUTION,
-	DS18B20_9_BIT_RESOLUTION
+	DS18B20_9_BIT_RESOLUTION,
+	DS18B20_UNKNOWN_RESOLUTION
 }ds18b20_resolution_t;
 
 /*Public structures*/
@@ -50,7 +55,7 @@ ds18b20_err_t ds18b20_init_single_drop(ds18b20_t *dev, onewire_t *ow_bus, ds18b2
 ds18b20_err_t ds18b20_init_multi_drop(ds18b20_t *dev, onewire_t *ow_bus, ds18b20_resolution_t resolution, const uint8_t *rom, size_t len);
 ds18b20_err_t ds18b20_start_temperature_conversion(ds18b20_t *dev);
 ds18b20_err_t ds18b20_is_conversion_ready(ds18b20_t *dev);
-ds18b20_err_t ds18b20_read_temperature(ds18b20_t *dev, float *temp);
+ds18b20_err_t ds18b20_read_raw_temperature(ds18b20_t *dev, int16_t *raw_temp);
 ds18b20_err_t ds18b20_read_scratchpad(ds18b20_t *dev, ds18b20_scratchpad_t *scratchpad);								//Useful for debugging
 ds18b20_err_t ds18b20_set_resolution(ds18b20_t *dev, ds18b20_resolution_t resolution);
 ds18b20_err_t ds18b20_get_resolution(ds18b20_t *dev, ds18b20_resolution_t *resolution);

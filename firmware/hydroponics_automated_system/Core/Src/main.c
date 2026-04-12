@@ -29,6 +29,7 @@
 #include "temp_hum_sensor/temp_hum_sensor.h"
 #include "onewire/onewire.h"
 #include "ds18b20/ds18b20.h"
+#include "water_temp_sensor/water_temp_sensor.h"
 
 /* USER CODE END Includes */
 
@@ -118,12 +119,19 @@ int main(void)
   onewire_init(&dev, DS18B20_GPIO_Port, DS18B20_Pin, &htim1);
 
   ds18b20_t temp_sensor;
+  water_temp_sensor_t water_sensor;
   ds18b20_err_t err;
   err = ds18b20_init_single_drop(&temp_sensor, &dev, DS18B20_12_BIT_RESOLUTION);
-  err = ds18b20_start_temperature_conversion(&temp_sensor);
-  HAL_Delay(800);
+  water_temp_err_t  wat_err = water_temp_sensor_init(&water_sensor, &temp_sensor);
   float temperature;
-  err = ds18b20_read_temperature(&temp_sensor, &temperature);
+  wat_err = water_temp_sensor_request(&water_sensor);
+
+  wat_err = WATER_TEMP_NOT_READY;
+  do{
+	  wat_err = water_temp_is_sensor_ready(&water_sensor);
+  }while(wat_err == WATER_TEMP_NOT_READY);
+  wat_err = water_temp_sensor_read(&water_sensor, &temperature);
+
 
   /* USER CODE END 2 */
 

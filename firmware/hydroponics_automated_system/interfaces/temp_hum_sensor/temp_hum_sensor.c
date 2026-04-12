@@ -4,26 +4,26 @@
 /*Defines*/
 
 /*API functions*/
-temp_hum_err_t temp_hum_sensor_init(temp_hum_sensor_t *temp_hum_sensor, sht30_t *dev, sht30_repeatability_t rep){
+temp_hum_err_t temp_hum_sensor_init(temp_hum_sensor_t *sensor, sht30_t *dev, sht30_repeatability_t rep){
 	//Sanity check
-	if(!temp_hum_sensor || !dev || !dev->hi2c){
+	if(!sensor || !dev || !dev->hi2c){
 		return TEMP_HUM_ERR_NULL;
 	}
 
 	//Init handle
-	temp_hum_sensor->dev = dev;
-	temp_hum_sensor->repeatability = rep;
+	sensor->dev = dev;
+	sensor->repeatability = rep;
 	return TEMP_HUM_OK;
 }
 
-temp_hum_err_t temp_hum_sensor_read(temp_hum_sensor_t *temp_hum_sensor, float *temp, float *hr){
+temp_hum_err_t temp_hum_sensor_read(temp_hum_sensor_t *sensor, float *temp, float *hr){
 	//Sanity check
-	if(!temp_hum_sensor || !temp || !hr){
+	if(!sensor || !temp || !hr){
 		return TEMP_HUM_ERR_NULL;
 	}
 
 	//Start measurement
-	sht30_err_t err = sht30_start_measurement(temp_hum_sensor->dev, temp_hum_sensor->repeatability, SHT30_CLK_STRETCHING_DISABLED);
+	sht30_err_t err = sht30_start_measurement(sensor->dev, sensor->repeatability, SHT30_CLK_STRETCHING_DISABLED);
 	if(err != SHT30_OK){
 		if(err == SHT30_ERR_NULL) 			return TEMP_HUM_ERR_NULL;
 		else if(err == SHT30_ERR_TIMEOUT) 	return TEMP_HUM_ERR_TIMEOUT;
@@ -32,7 +32,7 @@ temp_hum_err_t temp_hum_sensor_read(temp_hum_sensor_t *temp_hum_sensor, float *t
 
 	//Read measurement
 	uint16_t temp_raw, hr_raw;
-	err = sht30_get_raw_measurement(temp_hum_sensor->dev, &temp_raw, &hr_raw);
+	err = sht30_get_raw_measurement(sensor->dev, &temp_raw, &hr_raw);
 	if(err != SHT30_OK){
 		if(err == SHT30_ERR_NULL) 			return TEMP_HUM_ERR_NULL;
 		else if(err == SHT30_ERR_TIMEOUT) 	return TEMP_HUM_ERR_TIMEOUT;

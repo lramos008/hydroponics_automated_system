@@ -125,6 +125,16 @@ onewire_err_t onewire_reset(onewire_t *bus){
 	return err;
 }
 
+onewire_err_t onewire_read_bit(onewire_t *bus, uint8_t *bit){
+	//Sanity check
+	if(!bus || !bus->port || !bus->htim || !bit){
+		return ONEWIRE_ERR_NULL;
+	}
+
+	read_bit(bus, bit);
+	return ONEWIRE_OK;
+}
+
 
 onewire_err_t onewire_write_byte(onewire_t *bus, uint8_t data){
 	//Sanity check
