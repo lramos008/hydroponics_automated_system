@@ -52,7 +52,8 @@ water_temp_err_t water_temp_sensor_read(water_temp_sensor_t *sensor, float *temp
 	ds18b20_err_t err = ds18b20_read_raw_temperature(sensor->dev, &raw_temp);
 	if(err != DS18B20_OK){
 		if(err == DS18B20_ERR_NO_PRESENCE) return WATER_TEMP_ERR_SENSOR_DISCONNECTED;
-		else 							   return WATER_TEMP_ERR_INVALID_DATA;
+		else if(err == DS18B20_ERR_CRC)	   return WATER_TEMP_ERR_INVALID_DATA;
+		else 							   return WATER_TEMP_ERR_COMM;
 	}
 
 	if(sensor->dev->resolution == DS18B20_12_BIT_RESOLUTION){

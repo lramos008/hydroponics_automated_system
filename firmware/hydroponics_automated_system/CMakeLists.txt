@@ -54,6 +54,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/my_drivers/onewire/onewire.c
     ${CMAKE_SOURCE_DIR}/my_drivers/ds18b20/ds18b20.c
     ${CMAKE_SOURCE_DIR}/interfaces/water_temp_sensor/water_temp_sensor.c
+    ${CMAKE_SOURCE_DIR}/my_drivers/ec_tds/ec_tds.c
 )
 
 # Add include paths
