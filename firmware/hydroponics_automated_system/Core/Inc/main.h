@@ -66,6 +66,8 @@ void Error_Handler(void);
 #define USART_RX_GPIO_Port GPIOA
 #define LD2_Pin GPIO_PIN_5
 #define LD2_GPIO_Port GPIOA
+#define CS_SD_Pin GPIO_PIN_12
+#define CS_SD_GPIO_Port GPIOB
 #define RTC_INT_Pin GPIO_PIN_7
 #define RTC_INT_GPIO_Port GPIOC
 #define RTC_INT_EXTI_IRQn EXTI9_5_IRQn

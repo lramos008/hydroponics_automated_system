@@ -1,3 +1,4 @@
+/*This driver assumes default sensor sensitivity (MTreg -> 69)*/
 #include "bh1750/bh1750.h"
 
 /*Defines / Macros*/

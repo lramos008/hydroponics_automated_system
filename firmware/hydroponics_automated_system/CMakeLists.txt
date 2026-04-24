@@ -55,6 +55,12 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/my_drivers/ds18b20/ds18b20.c
     ${CMAKE_SOURCE_DIR}/interfaces/water_temp_sensor/water_temp_sensor.c
     ${CMAKE_SOURCE_DIR}/my_drivers/ec_tds/ec_tds.c
+    ${CMAKE_SOURCE_DIR}/my_drivers/fatfs_sd/fatfs_sd.c
+    ${CMAKE_SOURCE_DIR}/my_middleware/fatfs/diskio.c
+    ${CMAKE_SOURCE_DIR}/my_middleware/fatfs/ff.c
+    ${CMAKE_SOURCE_DIR}/my_middleware/fatfs/ffsystem.c
+    ${CMAKE_SOURCE_DIR}/my_middleware/fatfs/ffunicode.c
+    ${CMAKE_SOURCE_DIR}/interfaces/logger/logger.c
 )
 
 # Add include paths
@@ -62,6 +68,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
     ${CMAKE_SOURCE_DIR}/my_drivers
     ${CMAKE_SOURCE_DIR}/interfaces
+    ${CMAKE_SOURCE_DIR}/my_middleware
 )
 
 # Add project symbols (macros)

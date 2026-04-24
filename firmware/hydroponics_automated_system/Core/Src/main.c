@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "cmsis_os.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -26,10 +27,12 @@
 #include "sht30/sht30.h"
 #include <stdbool.h>
 #include "bh1750/bh1750.h"
+#include "light_sensor/light_sensor.h"
 #include "temp_hum_sensor/temp_hum_sensor.h"
 #include "onewire/onewire.h"
 #include "ds18b20/ds18b20.h"
 #include "water_temp_sensor/water_temp_sensor.h"
+#include "fatfs/ff.h"
 
 /* USER CODE END Includes */
 
@@ -53,9 +56,13 @@ ADC_HandleTypeDef hadc1;
 
 I2C_HandleTypeDef hi2c1;
 
+SPI_HandleTypeDef hspi2;
+
 TIM_HandleTypeDef htim1;
 
 UART_HandleTypeDef huart2;
+
+/* Definitions for defaultTask */
 
 /* USER CODE BEGIN PV */
 
@@ -68,6 +75,9 @@ static void MX_USART2_UART_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_TIM1_Init(void);
 static void MX_ADC1_Init(void);
+static void MX_SPI2_Init(void);
+void StartDefaultTask(void *argument);
+
 /* USER CODE BEGIN PFP */
 
 volatile bool rtc_int_flag = false;
@@ -82,6 +92,74 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+
+DWORD get_fattime(void)
+{
+    return 0;
+}
+
+void fatfs_test(void)
+{
+    char write_buf[] = "Hola mundo\r\n";
+    char read_buf[32] = {0};
+
+    // 1. Montar filesystem
+    res = f_mount(&fs, "", 1);
+    if (res != FR_OK)
+    {
+        // ERROR: mount falló
+        while(1);
+    }
+
+    // 2. Crear archivo
+    res = f_open(&fil, "test.txt", FA_CREATE_ALWAYS | FA_WRITE);
+    if (res != FR_OK)
+    {
+        // ERROR
+        while(1);
+    }
+
+    // 3. Escribir
+    res = f_write(&fil, write_buf, sizeof(write_buf), &bw);
+    if (res != FR_OK || bw != sizeof(write_buf))
+    {
+        // ERROR
+        while(1);
+    }
+
+    // 4. Cerrar
+    f_close(&fil);
+
+    // 5. Abrir para lectura
+    res = f_open(&fil, "test.txt", FA_READ);
+    if (res != FR_OK)
+    {
+        while(1);
+    }
+
+    // 6. Leer
+    res = f_read(&fil, read_buf, sizeof(write_buf), &br);
+    if (res != FR_OK)
+    {
+        while(1);
+    }
+
+    // 7. Cerrar
+    f_close(&fil);
+
+    // Si llegaste acá → TODO OK
+    while(1);
+}
+
+void FatFsTask(void *pvParameters)
+{
+    fatfs_test();
+
+    for(;;)
+    {
+        vTaskDelay(pdMS_TO_TICKS(1000));
+    }
+}
 /* USER CODE END 0 */
 
 /**
@@ -117,27 +195,46 @@ int main(void)
   MX_I2C1_Init();
   MX_TIM1_Init();
   MX_ADC1_Init();
+  MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start(&htim1);
-  onewire_t dev;
-  onewire_init(&dev, DS18B20_GPIO_Port, DS18B20_Pin, &htim1);
 
-  ds18b20_t temp_sensor;
-  water_temp_sensor_t water_sensor;
-  ds18b20_err_t err;
-  err = ds18b20_init_single_drop(&temp_sensor, &dev, DS18B20_12_BIT_RESOLUTION);
-  water_temp_err_t  wat_err = water_temp_sensor_init(&water_sensor, &temp_sensor);
-  float temperature;
-  wat_err = water_temp_sensor_request(&water_sensor);
-
-  wat_err = WATER_TEMP_NOT_READY;
-  do{
-	  wat_err = water_temp_is_sensor_ready(&water_sensor);
-  }while(wat_err == WATER_TEMP_NOT_READY);
-  wat_err = water_temp_sensor_read(&water_sensor, &temperature);
-
-
+  xTaskCreate(FatFsTask, "Fatfstask", 1024, NULL, tskIDLE_PRIORITY + 2, NULL);
   /* USER CODE END 2 */
+
+  /* Init scheduler */
+  vTaskStartScheduler();
+
+  /* USER CODE BEGIN RTOS_MUTEX */
+  /* add mutexes, ... */
+  /* USER CODE END RTOS_MUTEX */
+
+  /* USER CODE BEGIN RTOS_SEMAPHORES */
+  /* add semaphores, ... */
+  /* USER CODE END RTOS_SEMAPHORES */
+
+  /* USER CODE BEGIN RTOS_TIMERS */
+  /* start timers, add new ones, ... */
+  /* USER CODE END RTOS_TIMERS */
+
+  /* USER CODE BEGIN RTOS_QUEUES */
+  /* add queues, ... */
+  /* USER CODE END RTOS_QUEUES */
+
+  /* Create the thread(s) */
+  /* creation of defaultTask */
+
+  /* USER CODE BEGIN RTOS_THREADS */
+  /* add threads, ... */
+  /* USER CODE END RTOS_THREADS */
+
+  /* USER CODE BEGIN RTOS_EVENTS */
+  /* add events, ... */
+  /* USER CODE END RTOS_EVENTS */
+
+  /* Start scheduler */
+
+  /* We should never get here as control is now taken by the scheduler */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -284,6 +381,44 @@ static void MX_I2C1_Init(void)
 }
 
 /**
+  * @brief SPI2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_SPI2_Init(void)
+{
+
+  /* USER CODE BEGIN SPI2_Init 0 */
+
+  /* USER CODE END SPI2_Init 0 */
+
+  /* USER CODE BEGIN SPI2_Init 1 */
+
+  /* USER CODE END SPI2_Init 1 */
+  /* SPI2 parameter configuration*/
+  hspi2.Instance = SPI2;
+  hspi2.Init.Mode = SPI_MODE_MASTER;
+  hspi2.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi2.Init.NSS = SPI_NSS_SOFT;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
+  hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi2.Init.CRCPolynomial = 10;
+  if (HAL_SPI_Init(&hspi2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN SPI2_Init 2 */
+
+  /* USER CODE END SPI2_Init 2 */
+
+}
+
+/**
   * @brief TIM1 Initialization Function
   * @param None
   * @retval None
@@ -383,6 +518,9 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
 
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(CS_SD_GPIO_Port, CS_SD_Pin, GPIO_PIN_RESET);
+
   /*Configure GPIO pin : B1_Pin */
   GPIO_InitStruct.Pin = B1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
@@ -395,6 +533,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : CS_SD_Pin */
+  GPIO_InitStruct.Pin = CS_SD_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(CS_SD_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : RTC_INT_Pin */
   GPIO_InitStruct.Pin = RTC_INT_Pin;
@@ -409,10 +554,10 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(DS18B20_GPIO_Port, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
-  HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0, 0);
+  HAL_NVIC_SetPriority(EXTI9_5_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
 
-  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
@@ -423,6 +568,46 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 
 /* USER CODE END 4 */
+
+/* USER CODE BEGIN Header_StartDefaultTask */
+/**
+  * @brief  Function implementing the defaultTask thread.
+  * @param  argument: Not used
+  * @retval None
+  */
+/* USER CODE END Header_StartDefaultTask */
+void StartDefaultTask(void *argument)
+{
+  /* USER CODE BEGIN 5 */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END 5 */
+}
+
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM3 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM3)
+  {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
+}
 
 /**
   * @brief  This function is executed in case of error occurrence.
