@@ -32,7 +32,7 @@
 #include "onewire/onewire.h"
 #include "ds18b20/ds18b20.h"
 #include "water_temp_sensor/water_temp_sensor.h"
-#include "fatfs/ff.h"
+#include "logger/logger.h"
 
 /* USER CODE END Includes */
 
@@ -92,69 +92,35 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-
-DWORD get_fattime(void)
-{
-    return 0;
-}
-
-void fatfs_test(void)
-{
-    char write_buf[] = "Hola mundo\r\n";
-    char read_buf[32] = {0};
-
-    // 1. Montar filesystem
-    res = f_mount(&fs, "", 1);
-    if (res != FR_OK)
-    {
-        // ERROR: mount falló
-        while(1);
-    }
-
-    // 2. Crear archivo
-    res = f_open(&fil, "test.txt", FA_CREATE_ALWAYS | FA_WRITE);
-    if (res != FR_OK)
-    {
-        // ERROR
-        while(1);
-    }
-
-    // 3. Escribir
-    res = f_write(&fil, write_buf, sizeof(write_buf), &bw);
-    if (res != FR_OK || bw != sizeof(write_buf))
-    {
-        // ERROR
-        while(1);
-    }
-
-    // 4. Cerrar
-    f_close(&fil);
-
-    // 5. Abrir para lectura
-    res = f_open(&fil, "test.txt", FA_READ);
-    if (res != FR_OK)
-    {
-        while(1);
-    }
-
-    // 6. Leer
-    res = f_read(&fil, read_buf, sizeof(write_buf), &br);
-    if (res != FR_OK)
-    {
-        while(1);
-    }
-
-    // 7. Cerrar
-    f_close(&fil);
-
-    // Si llegaste acá → TODO OK
-    while(1);
-}
-
 void FatFsTask(void *pvParameters)
 {
-    fatfs_test();
+	logger_err_t err;
+	err = logger_start();
 
+	//Add logs
+	logger_data_t data = {
+							.environment_temp = 24.5,
+							.environment_hum  = 80.0,
+							.environment_lux  = 2000.0,
+							.solution_temp    = 23.5,
+							.solution_ph      = 7.0,
+							.solution_ec      = 100.0,
+							.is_solution_level_low = false,
+							.timestamp             = 1000
+						};
+
+	err = logger_log_data(&data);
+	data.environment_temp = 25.0;
+	err = logger_log_data(&data);
+
+	//Flush
+	err = logger_flush();
+
+	//Read
+	logger_data_t buffer[2] = {0};
+	uint32_t read_count;
+	err = logger_read_last_n_logs(2, buffer, &read_count);
+	err = logger_stop();
     for(;;)
     {
         vTaskDelay(pdMS_TO_TICKS(1000));
