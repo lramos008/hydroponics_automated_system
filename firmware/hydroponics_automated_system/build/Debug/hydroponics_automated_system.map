@@ -1,5 +1,13 @@
 Archive member included to satisfy reference by file (symbol)
 
+C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_arm_muldf3.o)
+                              CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj (__aeabi_dmul)
+C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_arm_addsubdf3.o)
+                              CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj (__aeabi_dsub)
+C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_arm_muldivdf3.o)
+                              CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj (__aeabi_ddiv)
+C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_arm_truncdfsf2.o)
+                              CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj (__aeabi_d2f)
 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_aeabi_uldivmod.o)
                               cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.obj (__aeabi_uldivmod)
 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_udivmoddi4.o)
@@ -877,7 +885,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x2aa cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc_ex.c.obj
  .debug_macro   0x00000000      0x126 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc_ex.c.obj
  .debug_line    0x00000000     0x1214 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc_ex.c.obj
- .debug_str     0x00000000    0x9544b cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc_ex.c.obj
+ .debug_str     0x00000000    0x9541a cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc_ex.c.obj
  .comment       0x00000000       0x44 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc_ex.c.obj
  .debug_frame   0x00000000      0x22c cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc_ex.c.obj
  .ARM.attributes
@@ -1110,7 +1118,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x2aa cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj
  .debug_macro   0x00000000      0x126 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj
  .debug_line    0x00000000      0xe52 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj
- .debug_str     0x00000000    0x94f7f cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj
+ .debug_str     0x00000000    0x94f4e cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj
  .comment       0x00000000       0x44 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj
  .debug_frame   0x00000000       0xe8 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj
  .ARM.attributes
@@ -1255,7 +1263,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x2aa cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj
  .debug_macro   0x00000000      0x126 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj
  .debug_line    0x00000000      0xe7c cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj
- .debug_str     0x00000000    0x94ffa cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj
+ .debug_str     0x00000000    0x94fc9 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj
  .comment       0x00000000       0x44 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj
  .debug_frame   0x00000000      0x244 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj
  .ARM.attributes
@@ -1409,7 +1417,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x2aa cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj
  .debug_macro   0x00000000      0x126 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj
  .debug_line    0x00000000      0xf7c cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj
- .debug_str     0x00000000    0x9511d cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj
+ .debug_str     0x00000000    0x950ec cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj
  .comment       0x00000000       0x44 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj
  .debug_frame   0x00000000      0x308 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj
  .ARM.attributes
@@ -1517,7 +1525,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x2aa cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj
  .debug_macro   0x00000000      0x126 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj
  .debug_line    0x00000000      0xad7 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj
- .debug_str     0x00000000    0x94c4f cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj
+ .debug_str     0x00000000    0x94c1e cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj
  .comment       0x00000000       0x44 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj
  .ARM.attributes
                 0x00000000       0x34 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj
@@ -1741,7 +1749,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x2aa cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj
  .debug_macro   0x00000000      0x126 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj
  .debug_line    0x00000000     0x1744 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj
- .debug_str     0x00000000    0x94fde cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj
+ .debug_str     0x00000000    0x94fad cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj
  .comment       0x00000000       0x44 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj
  .debug_frame   0x00000000       0xa4 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj
  .ARM.attributes
@@ -1883,7 +1891,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x2aa cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj
  .debug_macro   0x00000000      0x126 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj
  .debug_line    0x00000000     0x1335 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj
- .debug_str     0x00000000    0x95224 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj
+ .debug_str     0x00000000    0x951f3 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj
  .comment       0x00000000       0x44 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj
  .debug_frame   0x00000000      0x230 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj
  .ARM.attributes
@@ -2027,7 +2035,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x2aa cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj
  .debug_macro   0x00000000      0x126 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj
  .debug_line    0x00000000      0xcd7 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj
- .debug_str     0x00000000    0x95052 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj
+ .debug_str     0x00000000    0x95021 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj
  .comment       0x00000000       0x44 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj
  .debug_frame   0x00000000      0x224 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj
  .ARM.attributes
@@ -2157,7 +2165,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x2aa cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj
  .debug_macro   0x00000000      0x126 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj
  .debug_line    0x00000000      0xca1 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj
- .debug_str     0x00000000    0x94fcd cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj
+ .debug_str     0x00000000    0x94f9c cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj
  .comment       0x00000000       0x44 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj
  .debug_frame   0x00000000      0x140 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj
  .ARM.attributes
@@ -2581,7 +2589,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x2aa cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj
  .debug_macro   0x00000000      0x126 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj
  .debug_line    0x00000000      0xdd1 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj
- .debug_str     0x00000000    0x94e76 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj
+ .debug_str     0x00000000    0x94e45 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj
  .comment       0x00000000       0x44 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj
  .debug_frame   0x00000000      0x154 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj
  .ARM.attributes
@@ -2954,7 +2962,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x2aa cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.obj
  .debug_macro   0x00000000      0x126 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.obj
  .debug_line    0x00000000      0xb52 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.obj
- .debug_str     0x00000000    0x951ec cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.obj
+ .debug_str     0x00000000    0x951bb cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.obj
  .comment       0x00000000       0x44 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.obj
  .debug_frame   0x00000000       0x58 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.obj
  .ARM.attributes
@@ -3414,7 +3422,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xaa cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/croutine.c.obj
  .debug_macro   0x00000000       0x43 cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/croutine.c.obj
  .debug_line    0x00000000      0x73a cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/croutine.c.obj
- .debug_str     0x00000000     0x8561 cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/croutine.c.obj
+ .debug_str     0x00000000     0x8530 cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/croutine.c.obj
  .comment       0x00000000       0x44 cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/croutine.c.obj
  .ARM.attributes
                 0x00000000       0x34 cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/croutine.c.obj
@@ -3523,7 +3531,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xaa cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/event_groups.c.obj
  .debug_macro   0x00000000       0x91 cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/event_groups.c.obj
  .debug_line    0x00000000      0xca8 cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/event_groups.c.obj
- .debug_str     0x00000000     0xbabf cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/event_groups.c.obj
+ .debug_str     0x00000000     0xba8e cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/event_groups.c.obj
  .comment       0x00000000       0x44 cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/event_groups.c.obj
  .debug_frame   0x00000000      0x22c cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/event_groups.c.obj
  .ARM.attributes
@@ -3837,7 +3845,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xaa cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c.obj
  .debug_macro   0x00000000       0x18 cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c.obj
  .debug_line    0x00000000     0x1103 cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c.obj
- .debug_str     0x00000000     0xbb6f cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c.obj
+ .debug_str     0x00000000     0xbb3e cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c.obj
  .comment       0x00000000       0x44 cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c.obj
  .debug_frame   0x00000000      0x3ac cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c.obj
  .ARM.attributes
@@ -4756,7 +4764,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x126 CMakeFiles/hydroponics_automated_system.dir/Core/Src/freertos.c.obj
  .debug_macro   0x00000000       0x88 CMakeFiles/hydroponics_automated_system.dir/Core/Src/freertos.c.obj
  .debug_line    0x00000000      0xcbf CMakeFiles/hydroponics_automated_system.dir/Core/Src/freertos.c.obj
- .debug_str     0x00000000    0x98bc9 CMakeFiles/hydroponics_automated_system.dir/Core/Src/freertos.c.obj
+ .debug_str     0x00000000    0x98b98 CMakeFiles/hydroponics_automated_system.dir/Core/Src/freertos.c.obj
  .comment       0x00000000       0x44 CMakeFiles/hydroponics_automated_system.dir/Core/Src/freertos.c.obj
  .ARM.attributes
                 0x00000000       0x34 CMakeFiles/hydroponics_automated_system.dir/Core/Src/freertos.c.obj
@@ -5125,7 +5133,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x6a CMakeFiles/hydroponics_automated_system.dir/Core/Src/sysmem.c.obj
  .debug_macro   0x00000000      0x1df CMakeFiles/hydroponics_automated_system.dir/Core/Src/sysmem.c.obj
  .debug_line    0x00000000      0x533 CMakeFiles/hydroponics_automated_system.dir/Core/Src/sysmem.c.obj
- .debug_str     0x00000000     0x7192 CMakeFiles/hydroponics_automated_system.dir/Core/Src/sysmem.c.obj
+ .debug_str     0x00000000     0x7161 CMakeFiles/hydroponics_automated_system.dir/Core/Src/sysmem.c.obj
  .comment       0x00000000       0x44 CMakeFiles/hydroponics_automated_system.dir/Core/Src/sysmem.c.obj
  .debug_frame   0x00000000       0x34 CMakeFiles/hydroponics_automated_system.dir/Core/Src/sysmem.c.obj
  .ARM.attributes
@@ -5256,7 +5264,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x16 CMakeFiles/hydroponics_automated_system.dir/Core/Src/syscalls.c.obj
  .debug_macro   0x00000000       0xce CMakeFiles/hydroponics_automated_system.dir/Core/Src/syscalls.c.obj
  .debug_line    0x00000000      0x857 CMakeFiles/hydroponics_automated_system.dir/Core/Src/syscalls.c.obj
- .debug_str     0x00000000     0x948d CMakeFiles/hydroponics_automated_system.dir/Core/Src/syscalls.c.obj
+ .debug_str     0x00000000     0x945c CMakeFiles/hydroponics_automated_system.dir/Core/Src/syscalls.c.obj
  .comment       0x00000000       0x44 CMakeFiles/hydroponics_automated_system.dir/Core/Src/syscalls.c.obj
  .debug_frame   0x00000000      0x288 CMakeFiles/hydroponics_automated_system.dir/Core/Src/syscalls.c.obj
  .ARM.attributes
@@ -5405,7 +5413,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x2aa CMakeFiles/hydroponics_automated_system.dir/my_drivers/ds3231/ds3231.c.obj
  .debug_macro   0x00000000      0x126 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ds3231/ds3231.c.obj
  .debug_line    0x00000000     0x11e1 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ds3231/ds3231.c.obj
- .debug_str     0x00000000    0x957a7 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ds3231/ds3231.c.obj
+ .debug_str     0x00000000    0x95776 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ds3231/ds3231.c.obj
  .comment       0x00000000       0x44 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ds3231/ds3231.c.obj
  .debug_frame   0x00000000      0x298 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ds3231/ds3231.c.obj
  .ARM.attributes
@@ -5555,7 +5563,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x2aa CMakeFiles/hydroponics_automated_system.dir/interfaces/rtc/rtc.c.obj
  .debug_macro   0x00000000      0x126 CMakeFiles/hydroponics_automated_system.dir/interfaces/rtc/rtc.c.obj
  .debug_line    0x00000000     0x140d CMakeFiles/hydroponics_automated_system.dir/interfaces/rtc/rtc.c.obj
- .debug_str     0x00000000    0x959f0 CMakeFiles/hydroponics_automated_system.dir/interfaces/rtc/rtc.c.obj
+ .debug_str     0x00000000    0x959bf CMakeFiles/hydroponics_automated_system.dir/interfaces/rtc/rtc.c.obj
  .comment       0x00000000       0x44 CMakeFiles/hydroponics_automated_system.dir/interfaces/rtc/rtc.c.obj
  .debug_frame   0x00000000      0x298 CMakeFiles/hydroponics_automated_system.dir/interfaces/rtc/rtc.c.obj
  .ARM.attributes
@@ -5681,7 +5689,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x2aa CMakeFiles/hydroponics_automated_system.dir/my_drivers/sht30/sht30.c.obj
  .debug_macro   0x00000000      0x126 CMakeFiles/hydroponics_automated_system.dir/my_drivers/sht30/sht30.c.obj
  .debug_line    0x00000000      0xc85 CMakeFiles/hydroponics_automated_system.dir/my_drivers/sht30/sht30.c.obj
- .debug_str     0x00000000    0x95610 CMakeFiles/hydroponics_automated_system.dir/my_drivers/sht30/sht30.c.obj
+ .debug_str     0x00000000    0x955df CMakeFiles/hydroponics_automated_system.dir/my_drivers/sht30/sht30.c.obj
  .comment       0x00000000       0x44 CMakeFiles/hydroponics_automated_system.dir/my_drivers/sht30/sht30.c.obj
  .debug_frame   0x00000000       0xf0 CMakeFiles/hydroponics_automated_system.dir/my_drivers/sht30/sht30.c.obj
  .ARM.attributes
@@ -5797,7 +5805,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x2aa CMakeFiles/hydroponics_automated_system.dir/interfaces/temp_hum_sensor/temp_hum_sensor.c.obj
  .debug_macro   0x00000000      0x126 CMakeFiles/hydroponics_automated_system.dir/interfaces/temp_hum_sensor/temp_hum_sensor.c.obj
  .debug_line    0x00000000      0xc2c CMakeFiles/hydroponics_automated_system.dir/interfaces/temp_hum_sensor/temp_hum_sensor.c.obj
- .debug_str     0x00000000    0x953f2 CMakeFiles/hydroponics_automated_system.dir/interfaces/temp_hum_sensor/temp_hum_sensor.c.obj
+ .debug_str     0x00000000    0x953c1 CMakeFiles/hydroponics_automated_system.dir/interfaces/temp_hum_sensor/temp_hum_sensor.c.obj
  .comment       0x00000000       0x44 CMakeFiles/hydroponics_automated_system.dir/interfaces/temp_hum_sensor/temp_hum_sensor.c.obj
  .debug_frame   0x00000000       0x58 CMakeFiles/hydroponics_automated_system.dir/interfaces/temp_hum_sensor/temp_hum_sensor.c.obj
  .ARM.attributes
@@ -5925,7 +5933,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x2aa CMakeFiles/hydroponics_automated_system.dir/my_drivers/bh1750/bh1750.c.obj
  .debug_macro   0x00000000      0x126 CMakeFiles/hydroponics_automated_system.dir/my_drivers/bh1750/bh1750.c.obj
  .debug_line    0x00000000      0xc7c CMakeFiles/hydroponics_automated_system.dir/my_drivers/bh1750/bh1750.c.obj
- .debug_str     0x00000000    0x95553 CMakeFiles/hydroponics_automated_system.dir/my_drivers/bh1750/bh1750.c.obj
+ .debug_str     0x00000000    0x95522 CMakeFiles/hydroponics_automated_system.dir/my_drivers/bh1750/bh1750.c.obj
  .comment       0x00000000       0x44 CMakeFiles/hydroponics_automated_system.dir/my_drivers/bh1750/bh1750.c.obj
  .debug_frame   0x00000000      0x130 CMakeFiles/hydroponics_automated_system.dir/my_drivers/bh1750/bh1750.c.obj
  .ARM.attributes
@@ -6041,7 +6049,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x2aa CMakeFiles/hydroponics_automated_system.dir/interfaces/light_sensor/light_sensor.c.obj
  .debug_macro   0x00000000      0x126 CMakeFiles/hydroponics_automated_system.dir/interfaces/light_sensor/light_sensor.c.obj
  .debug_line    0x00000000      0xca0 CMakeFiles/hydroponics_automated_system.dir/interfaces/light_sensor/light_sensor.c.obj
- .debug_str     0x00000000    0x9536d CMakeFiles/hydroponics_automated_system.dir/interfaces/light_sensor/light_sensor.c.obj
+ .debug_str     0x00000000    0x9533c CMakeFiles/hydroponics_automated_system.dir/interfaces/light_sensor/light_sensor.c.obj
  .comment       0x00000000       0x44 CMakeFiles/hydroponics_automated_system.dir/interfaces/light_sensor/light_sensor.c.obj
  .debug_frame   0x00000000       0x58 CMakeFiles/hydroponics_automated_system.dir/interfaces/light_sensor/light_sensor.c.obj
  .ARM.attributes
@@ -6189,7 +6197,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x2aa CMakeFiles/hydroponics_automated_system.dir/my_drivers/onewire/onewire.c.obj
  .debug_macro   0x00000000      0x126 CMakeFiles/hydroponics_automated_system.dir/my_drivers/onewire/onewire.c.obj
  .debug_line    0x00000000      0xf44 CMakeFiles/hydroponics_automated_system.dir/my_drivers/onewire/onewire.c.obj
- .debug_str     0x00000000    0x955d7 CMakeFiles/hydroponics_automated_system.dir/my_drivers/onewire/onewire.c.obj
+ .debug_str     0x00000000    0x955a6 CMakeFiles/hydroponics_automated_system.dir/my_drivers/onewire/onewire.c.obj
  .comment       0x00000000       0x44 CMakeFiles/hydroponics_automated_system.dir/my_drivers/onewire/onewire.c.obj
  .debug_frame   0x00000000      0x298 CMakeFiles/hydroponics_automated_system.dir/my_drivers/onewire/onewire.c.obj
  .ARM.attributes
@@ -6330,7 +6338,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x126 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ds18b20/ds18b20.c.obj
  .debug_macro   0x00000000       0x22 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ds18b20/ds18b20.c.obj
  .debug_line    0x00000000      0xf4e CMakeFiles/hydroponics_automated_system.dir/my_drivers/ds18b20/ds18b20.c.obj
- .debug_str     0x00000000    0x959f6 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ds18b20/ds18b20.c.obj
+ .debug_str     0x00000000    0x959c5 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ds18b20/ds18b20.c.obj
  .comment       0x00000000       0x44 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ds18b20/ds18b20.c.obj
  .debug_frame   0x00000000      0x208 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ds18b20/ds18b20.c.obj
  .ARM.attributes
@@ -6452,120 +6460,165 @@ Discarded input sections
  .debug_macro   0x00000000      0x126 CMakeFiles/hydroponics_automated_system.dir/interfaces/water_temp_sensor/water_temp_sensor.c.obj
  .debug_macro   0x00000000       0x22 CMakeFiles/hydroponics_automated_system.dir/interfaces/water_temp_sensor/water_temp_sensor.c.obj
  .debug_line    0x00000000      0xd88 CMakeFiles/hydroponics_automated_system.dir/interfaces/water_temp_sensor/water_temp_sensor.c.obj
- .debug_str     0x00000000    0x95631 CMakeFiles/hydroponics_automated_system.dir/interfaces/water_temp_sensor/water_temp_sensor.c.obj
+ .debug_str     0x00000000    0x95600 CMakeFiles/hydroponics_automated_system.dir/interfaces/water_temp_sensor/water_temp_sensor.c.obj
  .comment       0x00000000       0x44 CMakeFiles/hydroponics_automated_system.dir/interfaces/water_temp_sensor/water_temp_sensor.c.obj
  .debug_frame   0x00000000       0xa0 CMakeFiles/hydroponics_automated_system.dir/interfaces/water_temp_sensor/water_temp_sensor.c.obj
  .ARM.attributes
                 0x00000000       0x34 CMakeFiles/hydroponics_automated_system.dir/interfaces/water_temp_sensor/water_temp_sensor.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .text          0x00000000        0x0 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .data          0x00000000        0x0 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .bss           0x00000000        0x0 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_info    0x00000000       0x77 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_abbrev  0x00000000       0x28 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .text          0x00000000        0x0 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .data          0x00000000        0x0 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .bss           0x00000000        0x0 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .text._gravity_tds_read_adc
+                0x00000000       0x7a CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .text._gravity_tds_update
+                0x00000000      0x228 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .text.gravity_tds_init
+                0x00000000       0x78 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .text.gravity_tds_set_temperature
+                0x00000000       0x32 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .text.gravity_tds_get_voltage
+                0x00000000       0x48 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .text.gravity_tds_get_value_ec
+                0x00000000       0x48 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .text.gravity_tds_get_value_ppm
+                0x00000000       0x56 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_info    0x00000000      0x9ba CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_abbrev  0x00000000      0x1b1 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
  .debug_aranges
-                0x00000000       0x18 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000      0x22c CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000      0xad8 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000       0x22 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000       0x8e CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000       0x51 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000      0x103 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000       0x6a CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000      0x1df CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000       0x22 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000      0x2ad CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000       0x2e CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000       0x28 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000       0x1c CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000       0x22 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000       0xfb CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000     0x1011 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000      0x11f CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000     0xb881 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000       0x6d CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000     0x3693 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000      0x190 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000       0x5c CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000      0x416 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000      0x9e9 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000      0x115 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000       0xf8 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000       0xa5 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000      0x15f CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000      0x287 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000       0x5f CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000      0x236 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000      0x9e1 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000      0x38b CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000      0x176 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000       0xf9 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000      0x132 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000      0x264 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000       0x2e CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000      0x1b5 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000       0x22 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000       0xd6 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000      0x127 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000       0x85 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000       0x89 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000      0x225 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000      0x8ed CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000       0x47 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000      0x2aa CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_macro   0x00000000      0x126 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_line    0x00000000      0xacc CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .debug_str     0x00000000    0x94c89 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
- .comment       0x00000000       0x44 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
+                0x00000000       0x50 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_rnglists
+                0x00000000       0x38 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x2eb CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0xad8 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x22 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x8e CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x51 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x103 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x6a CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x1df CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x22 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x2ad CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x2e CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x28 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x1c CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x22 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0xfb CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000     0x1011 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x11f CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000     0xb881 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x6d CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000     0x3693 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x190 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x5c CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x416 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x9e9 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x115 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0xf8 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0xa5 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x15f CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x287 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x5f CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x236 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x9e1 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x38b CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x176 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0xf9 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x132 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x264 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x2e CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x1b5 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x22 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0xd6 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x127 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x85 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x89 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x225 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x8ed CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x47 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x2aa CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x126 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x74 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x2a CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x3c CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x34 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x364 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x16 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x4a CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x34 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x10 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x58 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000      0x1de CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x10 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x3c CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_macro   0x00000000       0x20 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_line    0x00000000      0xde4 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_str     0x00000000    0x97e37 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .comment       0x00000000       0x44 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
+ .debug_frame   0x00000000      0x114 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
  .ARM.attributes
-                0x00000000       0x34 CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
+                0x00000000       0x34 CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
  .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/fatfs_sd/fatfs_sd.c.obj
  .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/fatfs_sd/fatfs_sd.c.obj
  .group         0x00000000        0xc CMakeFiles/hydroponics_automated_system.dir/my_drivers/fatfs_sd/fatfs_sd.c.obj
@@ -6805,7 +6858,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x1df CMakeFiles/hydroponics_automated_system.dir/my_middleware/fatfs/ffsystem.c.obj
  .debug_macro   0x00000000       0xe2 CMakeFiles/hydroponics_automated_system.dir/my_middleware/fatfs/ffsystem.c.obj
  .debug_line    0x00000000      0x524 CMakeFiles/hydroponics_automated_system.dir/my_middleware/fatfs/ffsystem.c.obj
- .debug_str     0x00000000     0x43a5 CMakeFiles/hydroponics_automated_system.dir/my_middleware/fatfs/ffsystem.c.obj
+ .debug_str     0x00000000     0x4374 CMakeFiles/hydroponics_automated_system.dir/my_middleware/fatfs/ffsystem.c.obj
  .comment       0x00000000       0x44 CMakeFiles/hydroponics_automated_system.dir/my_middleware/fatfs/ffsystem.c.obj
  .ARM.attributes
                 0x00000000       0x34 CMakeFiles/hydroponics_automated_system.dir/my_middleware/fatfs/ffsystem.c.obj
@@ -6862,6 +6915,30 @@ Discarded input sections
  .debug_macro   0x00000000      0x190 CMakeFiles/hydroponics_automated_system.dir/interfaces/logger/logger.c.obj
  .debug_macro   0x00000000      0x119 CMakeFiles/hydroponics_automated_system.dir/interfaces/logger/logger.c.obj
  .debug_macro   0x00000000       0xe8 CMakeFiles/hydroponics_automated_system.dir/interfaces/logger/logger.c.obj
+ .text          0x00000000      0x254 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_arm_muldf3.o)
+ .data          0x00000000        0x0 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_arm_muldf3.o)
+ .bss           0x00000000        0x0 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_arm_muldf3.o)
+ .debug_frame   0x00000000       0x30 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_arm_muldf3.o)
+ .ARM.attributes
+                0x00000000       0x22 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_arm_muldf3.o)
+ .text          0x00000000      0x378 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_arm_addsubdf3.o)
+ .data          0x00000000        0x0 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_arm_addsubdf3.o)
+ .bss           0x00000000        0x0 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_arm_addsubdf3.o)
+ .debug_frame   0x00000000       0xac C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_arm_addsubdf3.o)
+ .ARM.attributes
+                0x00000000       0x22 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_arm_addsubdf3.o)
+ .text          0x00000000      0x424 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_arm_muldivdf3.o)
+ .data          0x00000000        0x0 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_arm_muldivdf3.o)
+ .bss           0x00000000        0x0 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_arm_muldivdf3.o)
+ .debug_frame   0x00000000       0x50 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_arm_muldivdf3.o)
+ .ARM.attributes
+                0x00000000       0x22 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_arm_muldivdf3.o)
+ .text          0x00000000       0xa0 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_arm_truncdfsf2.o)
+ .data          0x00000000        0x0 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_arm_truncdfsf2.o)
+ .bss           0x00000000        0x0 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_arm_truncdfsf2.o)
+ .debug_frame   0x00000000       0x24 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_arm_truncdfsf2.o)
+ .ARM.attributes
+                0x00000000       0x22 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_arm_truncdfsf2.o)
  .data          0x00000000        0x0 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_aeabi_uldivmod.o)
  .bss           0x00000000        0x0 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_aeabi_uldivmod.o)
  .data          0x00000000        0x0 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard\libgcc.a(_udivmoddi4.o)
@@ -7344,7 +7421,7 @@ LOAD CMakeFiles/hydroponics_automated_system.dir/interfaces/light_sensor/light_s
 LOAD CMakeFiles/hydroponics_automated_system.dir/my_drivers/onewire/onewire.c.obj
 LOAD CMakeFiles/hydroponics_automated_system.dir/my_drivers/ds18b20/ds18b20.c.obj
 LOAD CMakeFiles/hydroponics_automated_system.dir/interfaces/water_temp_sensor/water_temp_sensor.c.obj
-LOAD CMakeFiles/hydroponics_automated_system.dir/my_drivers/ec_tds/ec_tds.c.obj
+LOAD CMakeFiles/hydroponics_automated_system.dir/my_drivers/gravity_tds/gravity_tds.c.obj
 LOAD CMakeFiles/hydroponics_automated_system.dir/my_drivers/fatfs_sd/fatfs_sd.c.obj
 LOAD CMakeFiles/hydroponics_automated_system.dir/my_middleware/fatfs/diskio.c.obj
 LOAD CMakeFiles/hydroponics_automated_system.dir/my_middleware/fatfs/ff.c.obj
@@ -8858,41 +8935,41 @@ LOAD linker stubs
  .debug_line    0x00027de1      0x168 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libg_nano.a(libc_a-init.o)
  .debug_line    0x00027f49      0x202 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libg_nano.a(libc_a-memcpy-stub.o)
 
-.debug_str      0x00000000    0xacf66
- .debug_str     0x00000000    0xacf66 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Core/Src/system_stm32f4xx.c.obj
-                              0x94e1c (size before relaxing)
- .debug_str     0x000acf66    0x96194 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.obj
- .debug_str     0x000acf66    0x959a0 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.obj
- .debug_str     0x000acf66    0x953f7 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.c.obj
- .debug_str     0x000acf66    0x95250 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.obj
- .debug_str     0x000acf66    0x94f97 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.obj
- .debug_str     0x000acf66    0x955a8 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.obj
- .debug_str     0x000acf66    0x9583e cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.obj
- .debug_str     0x000acf66    0x95e2d cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.obj
- .debug_str     0x000acf66    0x956c8 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c.obj
- .debug_str     0x000acf66    0x9581f cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.obj
- .debug_str     0x000acf66     0xa626 cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/list.c.obj
- .debug_str     0x000acf66     0xc166 cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/queue.c.obj
- .debug_str     0x000acf66     0xcc38 cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/tasks.c.obj
- .debug_str     0x000acf66     0xc698 cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/timers.c.obj
- .debug_str     0x000acf66    0x9f2ce cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c.obj
- .debug_str     0x000acf66     0xaf68 cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c.obj
- .debug_str     0x000acf66     0x887a cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c.obj
- .debug_str     0x000acf66    0x9b254 CMakeFiles/hydroponics_automated_system.dir/Core/Src/main.c.obj
- .debug_str     0x000acf66    0x95448 CMakeFiles/hydroponics_automated_system.dir/Core/Src/stm32f4xx_it.c.obj
- .debug_str     0x000acf66    0x96128 CMakeFiles/hydroponics_automated_system.dir/Core/Src/stm32f4xx_hal_msp.c.obj
- .debug_str     0x000acf66    0x957b1 CMakeFiles/hydroponics_automated_system.dir/Core/Src/stm32f4xx_hal_timebase_tim.c.obj
- .debug_str     0x000acf66      0x11a CMakeFiles/hydroponics_automated_system.dir/startup_stm32f401xe.s.obj
- .debug_str     0x000acf66    0x95d16 CMakeFiles/hydroponics_automated_system.dir/my_drivers/fatfs_sd/fatfs_sd.c.obj
- .debug_str     0x000acf66     0x4749 CMakeFiles/hydroponics_automated_system.dir/my_middleware/fatfs/diskio.c.obj
- .debug_str     0x000acf66     0xb5d1 CMakeFiles/hydroponics_automated_system.dir/my_middleware/fatfs/ff.c.obj
- .debug_str     0x000acf66     0x4457 CMakeFiles/hydroponics_automated_system.dir/my_middleware/fatfs/ffunicode.c.obj
- .debug_str     0x000acf66     0x4e03 CMakeFiles/hydroponics_automated_system.dir/interfaces/logger/logger.c.obj
- .debug_str     0x000acf66      0x211 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libg_nano.a(libc_a-memcmp.o)
- .debug_str     0x000acf66      0x211 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libg_nano.a(libc_a-memset.o)
- .debug_str     0x000acf66      0x20a C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libg_nano.a(libc_a-strchr.o)
- .debug_str     0x000acf66      0x272 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libg_nano.a(libc_a-init.o)
- .debug_str     0x000acf66      0x22f C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libg_nano.a(libc_a-memcpy-stub.o)
+.debug_str      0x00000000    0xacf35
+ .debug_str     0x00000000    0xacf35 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Core/Src/system_stm32f4xx.c.obj
+                              0x94deb (size before relaxing)
+ .debug_str     0x000acf35    0x96163 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.obj
+ .debug_str     0x000acf35    0x9596f cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.obj
+ .debug_str     0x000acf35    0x953c6 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.c.obj
+ .debug_str     0x000acf35    0x9521f cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.obj
+ .debug_str     0x000acf35    0x94f66 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.obj
+ .debug_str     0x000acf35    0x95577 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.obj
+ .debug_str     0x000acf35    0x9580d cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.obj
+ .debug_str     0x000acf35    0x95dfc cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.obj
+ .debug_str     0x000acf35    0x95697 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c.obj
+ .debug_str     0x000acf35    0x957ee cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.obj
+ .debug_str     0x000acf35     0xa5f5 cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/list.c.obj
+ .debug_str     0x000acf35     0xc135 cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/queue.c.obj
+ .debug_str     0x000acf35     0xcc07 cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/tasks.c.obj
+ .debug_str     0x000acf35     0xc667 cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/timers.c.obj
+ .debug_str     0x000acf35    0x9f29d cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c.obj
+ .debug_str     0x000acf35     0xaf37 cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c.obj
+ .debug_str     0x000acf35     0x8849 cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir/__/__/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c.obj
+ .debug_str     0x000acf35    0x9b223 CMakeFiles/hydroponics_automated_system.dir/Core/Src/main.c.obj
+ .debug_str     0x000acf35    0x95417 CMakeFiles/hydroponics_automated_system.dir/Core/Src/stm32f4xx_it.c.obj
+ .debug_str     0x000acf35    0x960f7 CMakeFiles/hydroponics_automated_system.dir/Core/Src/stm32f4xx_hal_msp.c.obj
+ .debug_str     0x000acf35    0x95780 CMakeFiles/hydroponics_automated_system.dir/Core/Src/stm32f4xx_hal_timebase_tim.c.obj
+ .debug_str     0x000acf35      0x11a CMakeFiles/hydroponics_automated_system.dir/startup_stm32f401xe.s.obj
+ .debug_str     0x000acf35    0x95ce5 CMakeFiles/hydroponics_automated_system.dir/my_drivers/fatfs_sd/fatfs_sd.c.obj
+ .debug_str     0x000acf35     0x4718 CMakeFiles/hydroponics_automated_system.dir/my_middleware/fatfs/diskio.c.obj
+ .debug_str     0x000acf35     0xb5a0 CMakeFiles/hydroponics_automated_system.dir/my_middleware/fatfs/ff.c.obj
+ .debug_str     0x000acf35     0x4426 CMakeFiles/hydroponics_automated_system.dir/my_middleware/fatfs/ffunicode.c.obj
+ .debug_str     0x000acf35     0x4dd2 CMakeFiles/hydroponics_automated_system.dir/interfaces/logger/logger.c.obj
+ .debug_str     0x000acf35      0x211 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libg_nano.a(libc_a-memcmp.o)
+ .debug_str     0x000acf35      0x211 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libg_nano.a(libc_a-memset.o)
+ .debug_str     0x000acf35      0x20a C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libg_nano.a(libc_a-strchr.o)
+ .debug_str     0x000acf35      0x272 C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libg_nano.a(libc_a-init.o)
+ .debug_str     0x000acf35      0x22f C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libg_nano.a(libc_a-memcpy-stub.o)
 
 .debug_frame    0x00000000     0x7a58
  .debug_frame   0x00000000       0x50 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Core/Src/system_stm32f4xx.c.obj
