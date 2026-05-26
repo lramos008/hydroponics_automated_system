@@ -54,13 +54,17 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/my_drivers/onewire/onewire.c
     ${CMAKE_SOURCE_DIR}/my_drivers/ds18b20/ds18b20.c
     ${CMAKE_SOURCE_DIR}/interfaces/water_temp_sensor/water_temp_sensor.c
-    ${CMAKE_SOURCE_DIR}/my_drivers/gravity_tds/gravity_tds.c
+    ${CMAKE_SOURCE_DIR}/my_drivers/ec_sensor_driver/ec_sensor_driver.c
     ${CMAKE_SOURCE_DIR}/my_drivers/fatfs_sd/fatfs_sd.c
     ${CMAKE_SOURCE_DIR}/my_middleware/fatfs/diskio.c
     ${CMAKE_SOURCE_DIR}/my_middleware/fatfs/ff.c
     ${CMAKE_SOURCE_DIR}/my_middleware/fatfs/ffsystem.c
     ${CMAKE_SOURCE_DIR}/my_middleware/fatfs/ffunicode.c
     ${CMAKE_SOURCE_DIR}/interfaces/logger/logger.c
+    ${CMAKE_SOURCE_DIR}/common/filters/moving_average.c
+    ${CMAKE_SOURCE_DIR}/my_drivers/ph_sensor_driver/ph_sensor_driver.c
+    ${CMAKE_SOURCE_DIR}/interfaces/ec_sensor_iface/ec_sensor_iface.c
+    ${CMAKE_SOURCE_DIR}/interfaces/ph_sensor_iface/ph_sensor_iface.c
 )
 
 # Add include paths
@@ -69,6 +73,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/my_drivers
     ${CMAKE_SOURCE_DIR}/interfaces
     ${CMAKE_SOURCE_DIR}/my_middleware
+    ${CMAKE_SOURCE_DIR}/common
 )
 
 # Add project symbols (macros)

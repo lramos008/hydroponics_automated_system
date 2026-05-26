@@ -28,6 +28,8 @@
 #include <stdbool.h>
 #include "bh1750/bh1750.h"
 #include "light_sensor/light_sensor.h"
+#include "stm32f4xx_hal.h"
+#include "stm32f4xx_hal_i2c.h"
 #include "temp_hum_sensor/temp_hum_sensor.h"
 #include "onewire/onewire.h"
 #include "ds18b20/ds18b20.h"
@@ -136,7 +138,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
+  
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -164,10 +166,10 @@ int main(void)
   MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start(&htim1);
-
+  
   xTaskCreate(FatFsTask, "Fatfstask", 1024, NULL, tskIDLE_PRIORITY + 2, NULL);
   /* USER CODE END 2 */
-
+  
   /* Init scheduler */
   vTaskStartScheduler();
 
