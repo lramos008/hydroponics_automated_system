@@ -54,15 +54,14 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/my_drivers/onewire/onewire.c
     ${CMAKE_SOURCE_DIR}/my_drivers/ds18b20/ds18b20.c
     ${CMAKE_SOURCE_DIR}/interfaces/water_temp_sensor/water_temp_sensor.c
-    ${CMAKE_SOURCE_DIR}/my_drivers/ec_sensor_driver/ec_sensor_driver.c
     ${CMAKE_SOURCE_DIR}/my_drivers/fatfs_sd/fatfs_sd.c
+    ${CMAKE_SOURCE_DIR}/my_drivers/analog_manager/analog_manager.c
     ${CMAKE_SOURCE_DIR}/my_middleware/fatfs/diskio.c
     ${CMAKE_SOURCE_DIR}/my_middleware/fatfs/ff.c
     ${CMAKE_SOURCE_DIR}/my_middleware/fatfs/ffsystem.c
     ${CMAKE_SOURCE_DIR}/my_middleware/fatfs/ffunicode.c
     ${CMAKE_SOURCE_DIR}/interfaces/logger/logger.c
     ${CMAKE_SOURCE_DIR}/common/filters/moving_average.c
-    ${CMAKE_SOURCE_DIR}/my_drivers/ph_sensor_driver/ph_sensor_driver.c
     ${CMAKE_SOURCE_DIR}/interfaces/ec_sensor_iface/ec_sensor_iface.c
     ${CMAKE_SOURCE_DIR}/interfaces/ph_sensor_iface/ph_sensor_iface.c
 )

@@ -38,6 +38,7 @@ moving_average_status_t moving_average_reset_filter(moving_average_handle_t *hfi
 	}
 
 	//Reset internal status
+	hfilter->is_ready = false;
 	hfilter->index = 0;
 	hfilter->sum   = 0;
 	hfilter->count = 0;
@@ -73,7 +74,7 @@ moving_average_status_t moving_average_process(moving_average_handle_t *hfilter,
 	return MOVING_AVERAGE_OK;
 }
 
-moving_average_status_t moving_average_get_value(moving_average_handle_t *hfilter, float *average){
+float moving_average_get_value(moving_average_handle_t *hfilter){
 	//Sanity check
 	if(!hfilter->is_initialized)			return MOVING_AVERAGE_ERR_NOT_INITIALIZED;
 	if(!hfilter || !hfilter->buffer){
@@ -82,8 +83,7 @@ moving_average_status_t moving_average_get_value(moving_average_handle_t *hfilte
 	}
 
 	//Get value from internal state structure
-	*average = hfilter->moving_avg_value;
-	return MOVING_AVERAGE_OK;
+	return hfilter->moving_avg_value;
 }
 
 

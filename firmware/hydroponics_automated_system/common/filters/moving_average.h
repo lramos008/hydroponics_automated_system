@@ -31,5 +31,5 @@ typedef struct{
 /*API*/
 moving_average_status_t moving_average_init(moving_average_handle_t *hfilter, float *buffer, uint16_t size);
 moving_average_status_t moving_average_process(moving_average_handle_t *hfilter, float sample);
-moving_average_status_t moving_average_get_value(moving_average_handle_t *hfilter, float *average);
+float moving_average_get_value(moving_average_handle_t *hfilter);
 moving_average_status_t moving_average_reset_filter(moving_average_handle_t *hfilter);
