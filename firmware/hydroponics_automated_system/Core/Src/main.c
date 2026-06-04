@@ -22,19 +22,12 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "ds3231/ds3231.h"
-#include "rtc/rtc.h"
-#include "sht30/sht30.h"
-#include <stdbool.h>
-#include "bh1750/bh1750.h"
-#include "light_sensor/light_sensor.h"
-#include "stm32f4xx_hal.h"
-#include "stm32f4xx_hal_i2c.h"
-#include "temp_hum_sensor/temp_hum_sensor.h"
+#include "analog_manager/analog_manager.h"
+#include "ec_sensor_iface/ec_sensor_iface.h"
 #include "onewire/onewire.h"
 #include "ds18b20/ds18b20.h"
 #include "water_temp_sensor/water_temp_sensor.h"
-#include "logger/logger.h"
+#include <stdio.h>
 
 /* USER CODE END Includes */
 
@@ -66,12 +59,7 @@ TIM_HandleTypeDef htim1;
 UART_HandleTypeDef huart2;
 
 /* Definitions for defaultTask */
-osThreadId_t defaultTaskHandle;
-const osThreadAttr_t defaultTask_attributes = {
-  .name = "defaultTask",
-  .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityNormal,
-};
+
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -89,52 +77,94 @@ void StartDefaultTask(void *argument);
 
 /* USER CODE BEGIN PFP */
 
-volatile bool rtc_int_flag = false;
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
-	if(GPIO_Pin == RTC_INT_Pin){
-		//Read alarm flags
-		rtc_int_flag = true;
-	}
-}
+//volatile bool rtc_int_flag = false;
+//void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
+//	if(GPIO_Pin == RTC_INT_Pin){
+//		//Read alarm flags
+//		rtc_int_flag = true;
+//	}
+//}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+analog_manager_t analog = {.hadc = &hadc1,
+						   .vref = 3.3f,
+						   .adc_resolution = 4096};
 
-void FatFsTask(void *pvParameters)
-{
-	logger_err_t err;
-	err = logger_start();
+ec_sensor_iface_t iface = {	.analog = &analog,
+							.channel = ANALOG_CHANNEL_EC,
+							.calibration = {.slope = 1.0f, .offset = 0.0f}	};
 
-	//Add logs
-	logger_data_t data = {
-							.environment_temp = 24.5,
-							.environment_hum  = 80.0,
-							.environment_lux  = 2000.0,
-							.solution_temp    = 23.5,
-							.solution_ph      = 7.0,
-							.solution_ec      = 100.0,
-							.is_solution_level_low = false,
-							.timestamp             = 1000
-						};
-
-	err = logger_log_data(&data);
-	data.environment_temp = 25.0;
-	err = logger_log_data(&data);
-
-	//Flush
-	err = logger_flush();
-
-	//Read
-	logger_data_t buffer[2] = {0};
-	uint32_t read_count;
-	err = logger_read_last_n_logs(2, buffer, &read_count);
-	err = logger_stop();
-    for(;;)
-    {
-        vTaskDelay(pdMS_TO_TICKS(1000));
-    }
+void update_task(void *pvParameters){
+	analog_manager_init(&analog);
+	analog_manager_start(&analog);
+	ec_sensor_iface_init(&iface);
+	//ec_sensor_iface_set_default_calibration(&iface);
+	ec_sensor_calibration_t cal = {.slope = 593.9f, .offset = 46.165};
+	ec_sensor_iface_set_calibration(&iface, cal);
+	float voltage;
+	while(1){
+		analog_manager_update(&analog);
+		voltage = analog_manager_get_filtered_voltage(&analog, ANALOG_CHANNEL_EC);
+		vTaskDelay(pdMS_TO_TICKS(10));
+	}
 }
+
+void monitoring_task(void *pvParameters){
+	float ec_value;
+	float temperature;
+	//Init water temp sensor
+	onewire_t ow;
+	ds18b20_t ds18b20;
+	water_temp_sensor_t water_temp_sensor;
+
+	onewire_init(&ow, DS18B20_GPIO_Port, DS18B20_Pin, &htim1);
+	ds18b20_init_single_drop(&ds18b20, &ow, DS18B20_12_BIT_RESOLUTION);
+	water_temp_sensor_init(&water_temp_sensor, &ds18b20);
+	while(1){
+		water_temp_sensor_request(&water_temp_sensor);
+		water_temp_sensor_read(&water_temp_sensor, &temperature);
+		ec_value = ec_sensor_iface_get_ec_value(&iface, temperature);
+		//print ec value
+		printf("EC value: %.2f uS/cm\n", ec_value);
+		vTaskDelay(pdMS_TO_TICKS(1000));
+	}
+}
+//void FatFsTask(void *pvParameters)
+//{
+//	logger_err_t err;
+//	err = logger_start();
+//
+//	//Add logs
+//	logger_data_t data = {
+//							.environment_temp = 24.5,
+//							.environment_hum  = 80.0,
+//							.environment_lux  = 2000.0,
+//							.solution_temp    = 23.5,
+//							.solution_ph      = 7.0,
+//							.solution_ec      = 100.0,
+//							.is_solution_level_low = false,
+//							.timestamp             = 1000
+//						};
+//
+//	err = logger_log_data(&data);
+//	data.environment_temp = 25.0;
+//	err = logger_log_data(&data);
+//
+//	//Flush
+//	err = logger_flush();
+//
+//	//Read
+//	logger_data_t buffer[2] = {0};
+//	uint32_t read_count;
+//	err = logger_read_last_n_logs(2, buffer, &read_count);
+//	err = logger_stop();
+//    for(;;)
+//    {
+//        vTaskDelay(pdMS_TO_TICKS(1000));
+//    }
+//}
 /* USER CODE END 0 */
 
 /**
@@ -174,12 +204,12 @@ int main(void)
   MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start(&htim1);
-  
-  xTaskCreate(FatFsTask, "Fatfstask", 1024, NULL, tskIDLE_PRIORITY + 2, NULL);
+  printf("Inicio \n");
+  //xTaskCreate(FatFsTask, "Fatfstask", 1024, NULL, tskIDLE_PRIORITY + 2, NULL);
   /* USER CODE END 2 */
 
   /* Init scheduler */
-  osKernelInitialize();
+
 
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
@@ -198,9 +228,8 @@ int main(void)
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
-  /* creation of defaultTask */
-  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
-
+  xTaskCreate(update_task, "update_task", 5 * configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 2, NULL);
+  xTaskCreate(monitoring_task, "monitoring_task", 5 * configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL);
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -210,7 +239,7 @@ int main(void)
   /* USER CODE END RTOS_EVENTS */
 
   /* Start scheduler */
-  osKernelStart();
+  vTaskStartScheduler();
 
   /* We should never get here as control is now taken by the scheduler */
 
@@ -578,7 +607,17 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+int _write(int file, char *ptr, int len)
+{
+  (void)file;
+  int DataIdx;
 
+  for (DataIdx = 0; DataIdx < len; DataIdx++)
+  {
+    ITM_SendChar(*ptr++);
+  }
+  return len;
+}
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */

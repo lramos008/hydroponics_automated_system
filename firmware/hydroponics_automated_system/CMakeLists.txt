@@ -34,6 +34,10 @@ enable_language(C ASM)
 # Create an executable object type
 add_executable(${CMAKE_PROJECT_NAME})
 
+target_link_options(${PROJECT_NAME} PRIVATE
+    -u _printf_float
+)
+
 # Add STM32CubeMX generated sources
 add_subdirectory(cmake/stm32cubemx)
 
@@ -55,11 +59,11 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/my_drivers/ds18b20/ds18b20.c
     ${CMAKE_SOURCE_DIR}/interfaces/water_temp_sensor/water_temp_sensor.c
     ${CMAKE_SOURCE_DIR}/my_drivers/fatfs_sd/fatfs_sd.c
-    ${CMAKE_SOURCE_DIR}/my_drivers/analog_manager/analog_manager.c
     ${CMAKE_SOURCE_DIR}/my_middleware/fatfs/diskio.c
     ${CMAKE_SOURCE_DIR}/my_middleware/fatfs/ff.c
     ${CMAKE_SOURCE_DIR}/my_middleware/fatfs/ffsystem.c
     ${CMAKE_SOURCE_DIR}/my_middleware/fatfs/ffunicode.c
+    ${CMAKE_SOURCE_DIR}/my_middleware/analog_manager/analog_manager.c
     ${CMAKE_SOURCE_DIR}/interfaces/logger/logger.c
     ${CMAKE_SOURCE_DIR}/common/filters/moving_average.c
     ${CMAKE_SOURCE_DIR}/interfaces/ec_sensor_iface/ec_sensor_iface.c
