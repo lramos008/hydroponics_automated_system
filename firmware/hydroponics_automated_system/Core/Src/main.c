@@ -22,11 +22,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "analog_manager/analog_manager.h"
-#include "ec_sensor_iface/ec_sensor_iface.h"
-#include "onewire/onewire.h"
-#include "ds18b20/ds18b20.h"
-#include "water_temp_sensor/water_temp_sensor.h"
+#include "st7066u_lcd_controller/st7066u_lcd_controller.h"
 #include <stdio.h>
 
 /* USER CODE END Includes */
@@ -73,7 +69,6 @@ static void MX_I2C1_Init(void);
 static void MX_TIM1_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_SPI2_Init(void);
-void StartDefaultTask(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -88,49 +83,26 @@ void StartDefaultTask(void *argument);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-analog_manager_t analog = {.hadc = &hadc1,
-						   .vref = 3.3f,
-						   .adc_resolution = 4096};
 
-ec_sensor_iface_t iface = {	.analog = &analog,
-							.channel = ANALOG_CHANNEL_EC,
-							.calibration = {.slope = 1.0f, .offset = 0.0f}	};
 
-void update_task(void *pvParameters){
-	analog_manager_init(&analog);
-	analog_manager_start(&analog);
-	ec_sensor_iface_init(&iface);
-	//ec_sensor_iface_set_default_calibration(&iface);
-	ec_sensor_calibration_t cal = {.slope = 593.9f, .offset = 46.165};
-	ec_sensor_iface_set_calibration(&iface, cal);
-	float voltage;
+void display_task(void *pvParameters){
+	st7066u_lcd_controller_t lcd = {	.db_line[ST7066U_DATA_BUS_LINE_1] = {.port = GPIOC, .pin = GPIO_PIN_5},
+										.db_line[ST7066U_DATA_BUS_LINE_2] = {.port = GPIOC, .pin = GPIO_PIN_6},
+										.db_line[ST7066U_DATA_BUS_LINE_3] = {.port = GPIOC, .pin = GPIO_PIN_8},
+										.db_line[ST7066U_DATA_BUS_LINE_4] = {.port = GPIOC, .pin = GPIO_PIN_9},
+										.enable 						  = {.port = GPIOB, .pin = GPIO_PIN_8},
+										.rs 							  = {.port = GPIOB, .pin = GPIO_PIN_9},
+										.is_initialized 				  = false									};
+
+	st7066u_init(&lcd);
+	st7066u_write_char(&lcd, 'A');
+	HAL_Delay(1);
 	while(1){
-		analog_manager_update(&analog);
-		voltage = analog_manager_get_filtered_voltage(&analog, ANALOG_CHANNEL_EC);
 		vTaskDelay(pdMS_TO_TICKS(10));
 	}
 }
 
-void monitoring_task(void *pvParameters){
-	float ec_value;
-	float temperature;
-	//Init water temp sensor
-	onewire_t ow;
-	ds18b20_t ds18b20;
-	water_temp_sensor_t water_temp_sensor;
 
-	onewire_init(&ow, DS18B20_GPIO_Port, DS18B20_Pin, &htim1);
-	ds18b20_init_single_drop(&ds18b20, &ow, DS18B20_12_BIT_RESOLUTION);
-	water_temp_sensor_init(&water_temp_sensor, &ds18b20);
-	while(1){
-		water_temp_sensor_request(&water_temp_sensor);
-		water_temp_sensor_read(&water_temp_sensor, &temperature);
-		ec_value = ec_sensor_iface_get_ec_value(&iface, temperature);
-		//print ec value
-		printf("EC value: %.2f uS/cm\n", ec_value);
-		vTaskDelay(pdMS_TO_TICKS(1000));
-	}
-}
 //void FatFsTask(void *pvParameters)
 //{
 //	logger_err_t err;
@@ -210,7 +182,6 @@ int main(void)
 
   /* Init scheduler */
 
-
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
@@ -228,10 +199,11 @@ int main(void)
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
-  xTaskCreate(update_task, "update_task", 5 * configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 2, NULL);
-  xTaskCreate(monitoring_task, "monitoring_task", 5 * configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL);
+  /* creation of defaultTask */
+
+
   /* USER CODE BEGIN RTOS_THREADS */
-  /* add threads, ... */
+  xTaskCreate(display_task,"display_task" , configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL);
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -560,7 +532,10 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(CS_SD_GPIO_Port, CS_SD_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_8|GPIO_PIN_9, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, CS_SD_Pin|GPIO_PIN_8|GPIO_PIN_9, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : B1_Pin */
   GPIO_InitStruct.Pin = B1_Pin;
@@ -574,6 +549,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PC5 PC6 PC8 PC9 */
+  GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_8|GPIO_PIN_9;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pin : CS_SD_Pin */
   GPIO_InitStruct.Pin = CS_SD_Pin;
@@ -593,6 +575,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(DS18B20_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PB8 PB9 */
+  GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI9_5_IRQn, 5, 0);
