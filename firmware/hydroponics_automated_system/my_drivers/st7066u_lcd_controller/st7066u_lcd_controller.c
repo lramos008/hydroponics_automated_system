@@ -7,11 +7,18 @@
 #define ST7066U_LONG_WAIT_TIME_MS	 	2				//Used with clear display and return home
 
 /*Private functions*/
+static void _st7066u_select_instruction_register(st7066u_lcd_controller_t *dev){
+	HAL_GPIO_WritePin(dev->rs.port, dev->rs.pin, GPIO_PIN_RESET);						//Set to 0 to send a command
+}
+
+static void _st7066u_select_data_register(st7066u_lcd_controller_t *dev){
+	HAL_GPIO_WritePin(dev->rs.port, dev->rs.pin, GPIO_PIN_SET);							//Set to 1 to send data
+}
+
 static void _st7066u_pulse_enable(st7066u_lcd_controller_t *dev){
 	HAL_GPIO_WritePin(dev->enable.port, dev->enable.pin, GPIO_PIN_SET);
 	HAL_Delay(1);
 	HAL_GPIO_WritePin(dev->enable.port, dev->enable.pin, GPIO_PIN_RESET);
-	HAL_Delay(1);
 }
 
 static void _st7066u_set_data_bus_lines(st7066u_lcd_controller_t *dev, uint8_t nibble){
@@ -23,18 +30,9 @@ static void _st7066u_set_data_bus_lines(st7066u_lcd_controller_t *dev, uint8_t n
 
 static void _st7066u_write_4bits(st7066u_lcd_controller_t *dev, uint8_t nibble){
 	_st7066u_set_data_bus_lines(dev, nibble);
-	HAL_Delay(1);
 	_st7066u_pulse_enable(dev);
+	HAL_Delay(2);
 }
-
-static void _st7066u_set_command_mode(st7066u_lcd_controller_t *dev){
-	HAL_GPIO_WritePin(dev->rs.port, dev->rs.pin, GPIO_PIN_RESET);						//Set to 0 to send a command
-}
-
-static void _st7066u_set_data_mode(st7066u_lcd_controller_t *dev){
-	HAL_GPIO_WritePin(dev->rs.port, dev->rs.pin, GPIO_PIN_SET);							//Set to 1 to send data
-}
-
 
 static void _st7066u_write_byte(st7066u_lcd_controller_t *dev, uint8_t data)
 {
@@ -58,29 +56,22 @@ st7066u_status_t st7066u_init(st7066u_lcd_controller_t *dev){
 	//LCD controller initialization
 	dev->is_initialized = true;
 	HAL_Delay(100);
+	_st7066u_select_instruction_register(dev);
+	_st7066u_write_4bits(dev, 0x3);
+	HAL_Delay(5);
+	_st7066u_write_4bits(dev, 0x3);
+	HAL_Delay(1);
+	_st7066u_write_4bits(dev, 0x3);
+	HAL_Delay(1);
 
-	_st7066u_set_command_mode(dev);
-	_st7066u_set_data_bus_lines(dev, 0x3);
-	HAL_Delay(30);
-	_st7066u_pulse_enable(dev);
-	HAL_Delay(10);
-	_st7066u_pulse_enable(dev);
-	HAL_Delay(10);
-	_st7066u_pulse_enable(dev);
-	HAL_Delay(10);
-	_st7066u_set_data_bus_lines(dev, 0x2);
-	_st7066u_pulse_enable(dev);
+	_st7066u_write_4bits(dev, 0x2);
+	HAL_Delay(1);
 
 	st7066u_send_command(dev, 0x28);
-	HAL_Delay(ST7066U_DEFAULT_WAIT_TIME_MS);
-	st7066u_send_command(dev, 0x10);
-	HAL_Delay(ST7066U_DEFAULT_WAIT_TIME_MS);
-	st7066u_send_command(dev, 0x0F);
-	HAL_Delay(ST7066U_DEFAULT_WAIT_TIME_MS);
+	st7066u_send_command(dev, 0x0C);
+	st7066u_send_command(dev, 0x01);
 	st7066u_send_command(dev, 0x06);
-	HAL_Delay(ST7066U_LONG_WAIT_TIME_MS);
-	st7066u_send_command(dev, 0x80);
-	HAL_Delay(ST7066U_DEFAULT_WAIT_TIME_MS);																						//Initialization complete
+
 	return ST7066U_OK;
 }
 
@@ -89,10 +80,9 @@ st7066u_status_t st7066u_send_command(st7066u_lcd_controller_t *dev, uint8_t cmd
 	//Sanity check
 	if(dev == NULL)				return ST7066U_ERR_NULL;
 	if(!dev->is_initialized)	return ST7066U_ERR_NOT_INITIALIZED;
-	//Send command in 4 bits mode
-	_st7066u_set_command_mode(dev);
-	_st7066u_write_4bits(dev, cmd >> 4);
-	_st7066u_write_4bits(dev, cmd);
+
+	_st7066u_select_instruction_register(dev);
+	_st7066u_write_byte(dev, cmd);
 
 	return ST7066U_OK;
 }
@@ -102,9 +92,20 @@ st7066u_status_t st7066u_write_char(st7066u_lcd_controller_t *dev, char ch){
 	if(dev == NULL)				return ST7066U_ERR_NULL;
 	if(!dev->is_initialized)	return ST7066U_ERR_NOT_INITIALIZED;
 	//Send command in 4 bits mode
-	_st7066u_set_data_mode(dev);
-	_st7066u_write_4bits(dev, (uint8_t) (ch >> 4));
-	_st7066u_write_4bits(dev, (uint8_t) ch);
+	_st7066u_select_data_register(dev);
+	_st7066u_write_byte(dev, ch);
 
 	return ST7066U_OK;
+}
+
+st7066u_status_t st7066u_write_string(st7066u_lcd_controller_t *dev, char *ch){
+	//Sanity check
+	if(dev == NULL)				return ST7066U_ERR_NULL;
+	if(ch  == NULL)				return ST7066U_ERR_NULL;
+	if(!dev->is_initialized)	return ST7066U_ERR_NOT_INITIALIZED;
+
+	while(*ch != 0){
+		st7066u_write_char(dev, *ch);
+		ch++;
+	}
 }

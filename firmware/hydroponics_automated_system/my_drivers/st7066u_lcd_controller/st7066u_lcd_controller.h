@@ -93,3 +93,24 @@ st7066u_status_t st7066u_init(st7066u_lcd_controller_t *dev);
 st7066u_status_t st7066u_send_command(st7066u_lcd_controller_t *dev, uint8_t cmd);
 st7066u_status_t st7066u_write_char(st7066u_lcd_controller_t *dev, char ch);
 st7066u_status_t st7066u_write_string(st7066u_lcd_controller_t *dev, char *ch);
+
+
+//lcd_init()
+//lcd_clear()
+//lcd_home()
+//lcd_set_cursor()
+//lcd_write_char()
+//
+//lcd_display_on()
+//lcd_display_off()
+//
+//lcd_cursor_on()
+//lcd_cursor_off()
+//
+//lcd_blink_on()
+//lcd_blink_off()
+//
+//lcd_shift_left()
+//lcd_shift_right()
+//
+//lcd_create_char()

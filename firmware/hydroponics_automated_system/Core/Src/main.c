@@ -95,7 +95,10 @@ void display_task(void *pvParameters){
 										.is_initialized 				  = false									};
 
 	st7066u_init(&lcd);
-	st7066u_write_char(&lcd, 'A');
+	st7066u_write_string(&lcd, "Hola como estas?");
+	HAL_Delay(5000);
+	st7066u_write_string(&lcd, "Todo bien?");
+	//st7066u_write_char(&lcd, 'A');
 	HAL_Delay(1);
 	while(1){
 		vTaskDelay(pdMS_TO_TICKS(10));
