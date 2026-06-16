@@ -23,6 +23,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "st7066u_lcd_controller/st7066u_lcd_controller.h"
+#include "display_iface/display_iface.h"
 #include <stdio.h>
 
 /* USER CODE END Includes */
@@ -94,12 +95,12 @@ void display_task(void *pvParameters){
 										.rs 							  = {.port = GPIOB, .pin = GPIO_PIN_9},
 										.is_initialized 				  = false									};
 
+	display_iface_t iface = {.dev = &lcd};
+	display_iface_status_t status;
 	st7066u_init(&lcd);
-	st7066u_write_string(&lcd, "Hola como estas?");
-	HAL_Delay(5000);
-	st7066u_write_string(&lcd, "Todo bien?");
-	//st7066u_write_char(&lcd, 'A');
-	HAL_Delay(1);
+	status = display_iface_init(&iface);
+	display_iface_set_cursor(&iface, 0, 0);
+	status = display_iface_write_wrapped(&iface, "Hola Leo\nComo estas?\nTodo bien?");
 	while(1){
 		vTaskDelay(pdMS_TO_TICKS(10));
 	}
