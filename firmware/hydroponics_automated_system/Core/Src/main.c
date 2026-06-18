@@ -85,7 +85,6 @@ static void MX_SPI2_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-
 void display_task(void *pvParameters){
 	st7066u_lcd_controller_t lcd = {	.db_line[ST7066U_DATA_BUS_LINE_1] = {.port = GPIOC, .pin = GPIO_PIN_5},
 										.db_line[ST7066U_DATA_BUS_LINE_2] = {.port = GPIOC, .pin = GPIO_PIN_6},
@@ -99,8 +98,22 @@ void display_task(void *pvParameters){
 	display_iface_status_t status;
 	st7066u_init(&lcd);
 	status = display_iface_init(&iface);
-	display_iface_set_cursor(&iface, 0, 0);
-	status = display_iface_write_wrapped(&iface, "Hola Leo\nComo estas?\nTodo bien?");
+
+	status = display_iface_write_line(&iface, 0, "[ Monitoring ]");
+	status = display_iface_write_line(&iface, 1, "  Control");
+	status = display_iface_write_line(&iface, 2, "  Config");
+	status = display_iface_write_line(&iface, 3, "  Logs");
+	HAL_Delay(5000);
+	status = display_iface_write_line(&iface, 0, "  Monitoring  ");
+	HAL_Delay(50);
+	status = display_iface_write_line(&iface, 0, "[ Monitoring ]");
+	HAL_Delay(50);
+	display_iface_clear(&iface);
+	status = display_iface_write_line(&iface, 0, "Temperature: ");
+	status = display_iface_write_line(&iface, 1, "Humidity: ");
+	status = display_iface_write_line(&iface, 2, "pH: ");
+	status = display_iface_write_line(&iface, 3, "EC: ");
+
 	while(1){
 		vTaskDelay(pdMS_TO_TICKS(10));
 	}

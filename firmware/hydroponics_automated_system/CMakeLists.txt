@@ -70,6 +70,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/interfaces/ph_sensor_iface/ph_sensor_iface.c
     ${CMAKE_SOURCE_DIR}/my_drivers/st7066u_lcd_controller/st7066u_lcd_controller.c
     ${CMAKE_SOURCE_DIR}/interfaces/display_iface/display_iface.c
+    ${CMAKE_SOURCE_DIR}/my_utils/delay_us/delay_us.c
 )
 
 # Add include paths
@@ -78,6 +79,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/my_drivers
     ${CMAKE_SOURCE_DIR}/interfaces
     ${CMAKE_SOURCE_DIR}/my_middleware
+    ${CMAKE_SOURCE_DIR}/my_utils
     ${CMAKE_SOURCE_DIR}/common
 )
 

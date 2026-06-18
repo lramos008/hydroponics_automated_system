@@ -17,6 +17,7 @@ typedef enum{
 	DISPLAY_ERR_CONTROLLER_NOT_INITIALIZED,
 	//Cursor
 	DISPLAY_ERR_INVALID_POSITION,
+	DISPLAY_ERR_INVALID_LINE,
 	//Text
 	DISPLAY_ERR_TEXT_TRUNCATED
 }display_iface_status_t;
@@ -37,12 +38,9 @@ typedef struct{
 //Basic
 display_iface_status_t display_iface_init(display_iface_t *iface);
 display_iface_status_t display_iface_clear(display_iface_t *iface);
+display_iface_status_t display_iface_clear_line(display_iface_t *iface, uint8_t num_line);
+display_iface_status_t display_iface_write_line(display_iface_t *iface, uint8_t num_line, char *str);
+//Helpers
 display_iface_status_t display_iface_set_cursor(display_iface_t *iface, uint8_t row, uint8_t col);
 display_iface_status_t display_iface_write_char(display_iface_t *iface, char ch);
 display_iface_status_t display_iface_write_string(display_iface_t *iface, char *str);
-//Helpers
-display_iface_status_t display_iface_write_at_pos(display_iface_t *iface, uint8_t row, uint8_t col, char *str);
-display_iface_status_t display_iface_write_wrapped(display_iface_t *iface, char *str);
-display_iface_status_t display_iface_clear_line(display_iface_t *iface, uint8_t row);
-
-

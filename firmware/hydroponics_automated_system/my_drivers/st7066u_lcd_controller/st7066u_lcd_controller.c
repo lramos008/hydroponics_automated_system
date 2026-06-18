@@ -1,6 +1,8 @@
 /*Includes*/
 #include "st7066u_lcd_controller.h"
 
+#include "../../my_utils/delay_us/delay_us.h"
+
 /*Private defines*/
 #define ST7066U_BOOT_TIME_MS								100
 #define ST7066U_DEFAULT_WAIT_TIME_MS 						1
@@ -102,7 +104,8 @@ static void _st7066u_select_data_register(st7066u_lcd_controller_t *dev){
 
 static void _st7066u_pulse_enable(st7066u_lcd_controller_t *dev){
 	HAL_GPIO_WritePin(dev->enable.port, dev->enable.pin, GPIO_PIN_SET);
-	HAL_Delay(1);
+	//HAL_Delay(1);
+	delay_us(2);
 	HAL_GPIO_WritePin(dev->enable.port, dev->enable.pin, GPIO_PIN_RESET);
 }
 

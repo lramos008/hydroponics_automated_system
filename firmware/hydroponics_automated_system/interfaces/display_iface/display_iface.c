@@ -2,19 +2,20 @@
 #include "display_iface.h"
 
 /*Private functions*/
-static bool _display_iface_is_word_separator(char ch){
-	return (ch == ' ' || ch == '\t');
-}
+display_iface_status_t display_iface_home(display_iface_t *iface){
+	if(iface == NULL)					return DISPLAY_ERR_NULL;
+	if(!iface->is_initialized)			return DISPLAY_ERR_NOT_INITIALIZED;
 
-static display_iface_status_t _display_iface_new_line(display_iface_t *iface){
+	st7066u_return_home(iface->dev);				//Reset cursor to 0,0
+	//Save cursor position
+	iface->cursor_pos.row = 0;
 	iface->cursor_pos.col = 0;
-	iface->cursor_pos.row++;
 
-	if(iface->cursor_pos.row >= iface->dev->num_of_rows)	return DISPLAY_ERR_TEXT_TRUNCATED;
-
-	return display_iface_set_cursor(iface, iface->cursor_pos.row, iface->cursor_pos.col);
+	return DISPLAY_OK;
 }
 
+
+/*Public functions*/
 display_iface_status_t display_iface_init(display_iface_t *iface){
 	if(iface == NULL)					return DISPLAY_ERR_NULL;
 	if(iface->dev == NULL)				return DISPLAY_ERR_NULL;
@@ -26,10 +27,10 @@ display_iface_status_t display_iface_init(display_iface_t *iface){
 	st7066u_set_cursor_visible(iface->dev, false);
 	st7066u_set_cursor_blink(iface->dev, false);
 	st7066u_clear_display(iface->dev);
-
-	//Init iface
+	//Set initial cursor position
 	iface->cursor_pos.row = 0;
 	iface->cursor_pos.col = 0;
+	//Initialize iface
 	iface->is_initialized = true;
 
 	return DISPLAY_OK;
@@ -40,7 +41,50 @@ display_iface_status_t display_iface_clear(display_iface_t *iface){
 	if(!iface->is_initialized)			return DISPLAY_ERR_NOT_INITIALIZED;
 
 	st7066u_clear_display(iface->dev);
-	st7066u_return_home(iface->dev);				//Reset cursor to 0,0
+	display_iface_home(iface);					//Set cursor to 0,0
+
+	return DISPLAY_OK;
+}
+
+display_iface_status_t display_iface_clear_line(display_iface_t *iface, uint8_t num_line){
+	if(iface == NULL)						return DISPLAY_ERR_NULL;
+	if(!iface->is_initialized)				return DISPLAY_ERR_NOT_INITIALIZED;
+	if(num_line >= iface->dev->num_of_rows)	return DISPLAY_ERR_INVALID_LINE;
+
+	display_iface_status_t status;
+	status = display_iface_set_cursor(iface, num_line, 0);
+	if(status != DISPLAY_OK)	return status;
+
+	//Clear whole line
+	for(uint8_t i = 0; i < iface->dev->num_of_cols; i++){
+		status = display_iface_write_char(iface, ' ');
+		if(status != DISPLAY_OK)	return status;
+	}
+
+	return display_iface_set_cursor(iface, num_line, 0);
+}
+
+display_iface_status_t display_iface_write_line(display_iface_t *iface, uint8_t num_line, char *str){
+	if(iface == NULL)						return DISPLAY_ERR_NULL;
+	if(str == NULL)							return DISPLAY_ERR_NULL;
+	if(!iface->is_initialized)				return DISPLAY_ERR_NOT_INITIALIZED;
+	if(num_line >= iface->dev->num_of_rows)	return DISPLAY_ERR_INVALID_LINE;
+
+	display_iface_status_t status;
+	status = display_iface_set_cursor(iface, num_line, 0);
+	if(status != DISPLAY_OK)	return status;
+
+	//Write string char by char
+	uint8_t char_count = 0;
+	while(*str != '\0'){
+		//Check if end of line was reached
+		if(char_count >= iface->dev->num_of_cols)	return DISPLAY_ERR_TEXT_TRUNCATED;
+
+		status = display_iface_write_char(iface, *str);
+		if(status != DISPLAY_OK)	return status;
+		str++;
+		char_count++;
+	}
 
 	return DISPLAY_OK;
 }
@@ -50,127 +94,42 @@ display_iface_status_t display_iface_set_cursor(display_iface_t *iface, uint8_t 
 	if(!iface->is_initialized)												return DISPLAY_ERR_NOT_INITIALIZED;
 	if(row >= iface->dev->num_of_rows || col >= iface->dev->num_of_cols)	return DISPLAY_ERR_INVALID_POSITION;
 
+	//Set cursor
+	st7066u_set_cursor(iface->dev, row, col);
 	//Save cursor pos
 	iface->cursor_pos.row = row;
 	iface->cursor_pos.col = col;
-	//Set cursor
-	st7066u_set_cursor(iface->dev, iface->cursor_pos.row, iface->cursor_pos.col);
 
 	return DISPLAY_OK;
 }
 
 display_iface_status_t display_iface_write_char(display_iface_t *iface, char ch){
-	if(iface == NULL)														return DISPLAY_ERR_NULL;
-	if(!iface->is_initialized)												return DISPLAY_ERR_NOT_INITIALIZED;
-	if(iface->cursor_pos.row >= iface->dev->num_of_rows)					return DISPLAY_ERR_TEXT_TRUNCATED;
+	if(iface == NULL)						return DISPLAY_ERR_NULL;
+	if(!iface->is_initialized)				return DISPLAY_ERR_NOT_INITIALIZED;
 
-	//Check if wrap is needed
+	st7066u_write_char(iface->dev, ch);
+	//Increase cursor pos
+	iface->cursor_pos.col++;
 	if(iface->cursor_pos.col >= iface->dev->num_of_cols){
-		//Write at the next row
 		iface->cursor_pos.col = 0;
 		iface->cursor_pos.row++;
-		//Check if row is a valid one
-		if(iface->cursor_pos.row >= iface->dev->num_of_rows)				return DISPLAY_ERR_TEXT_TRUNCATED;
-		display_iface_set_cursor(iface, iface->cursor_pos.row, iface->cursor_pos.col);
+		display_iface_status_t status = display_iface_set_cursor(iface, iface->cursor_pos.row, iface->cursor_pos.col);
+		if(status != DISPLAY_OK)			return status;
 	}
-	//Write char
-	st7066u_write_char(iface->dev, ch);
-	iface->cursor_pos.col++;
 
 	return DISPLAY_OK;
 }
 
 display_iface_status_t display_iface_write_string(display_iface_t *iface, char *str){
-	if(iface == NULL)														return DISPLAY_ERR_NULL;
-	if(str == NULL)															return DISPLAY_ERR_NULL;
-	if(!iface->is_initialized)												return DISPLAY_ERR_NOT_INITIALIZED;
-	if(iface->cursor_pos.row >= iface->dev->num_of_rows)					return DISPLAY_ERR_TEXT_TRUNCATED;
+	if(iface == NULL)				return DISPLAY_ERR_NULL;
+	if(str == NULL)					return DISPLAY_ERR_NULL;
+	if(!iface->is_initialized)		return DISPLAY_ERR_NOT_INITIALIZED;
 
-	display_iface_status_t status;
 	while(*str != '\0'){
-		status = display_iface_write_char(iface, *str);
+		display_iface_status_t status = display_iface_write_char(iface, *str);
 		if(status != DISPLAY_OK)	return status;
+
 		str++;
-	}
-
-	return DISPLAY_OK;
-}
-
-display_iface_status_t display_iface_write_at_pos(display_iface_t *iface, uint8_t row, uint8_t col, char *str){
-	if(iface == NULL)														return DISPLAY_ERR_NULL;
-	if(str == NULL)															return DISPLAY_ERR_NULL;
-	if(!iface->is_initialized)												return DISPLAY_ERR_NOT_INITIALIZED;
-	if(row >= iface->dev->num_of_rows || col >= iface->dev->num_of_cols)	return DISPLAY_ERR_INVALID_POSITION;
-
-	display_iface_status_t status = display_iface_set_cursor(iface, row, col);
-	status = display_iface_write_string(iface, str);
-
-	return status;
-}
-
-display_iface_status_t display_iface_write_wrapped(display_iface_t *iface, char *str){
-	if(iface == NULL)														return DISPLAY_ERR_NULL;
-	if(str == NULL)															return DISPLAY_ERR_NULL;
-	if(!iface->is_initialized)												return DISPLAY_ERR_NOT_INITIALIZED;
-	if(iface->cursor_pos.row >= iface->dev->num_of_rows)					return DISPLAY_ERR_TEXT_TRUNCATED;
-
-	display_iface_status_t status;
-
-	while(*str != '\0'){
-		if(*str == '\n'){
-			status = _display_iface_new_line(iface);
-			if(status != DISPLAY_OK)	return status;
-			str++;
-			continue;
-		}
-
-		if(_display_iface_is_word_separator(*str)){
-			char *space_start = str;
-			uint8_t space_count = 0;
-
-			while(_display_iface_is_word_separator(*str)){
-				space_count++;
-				str++;
-			}
-
-			if(*str == '\0' || *str == '\n' || iface->cursor_pos.col == 0)	continue;
-
-			uint8_t word_len = 0;
-			while(str[word_len] != '\0' && str[word_len] != '\n' && !_display_iface_is_word_separator(str[word_len])){
-				word_len++;
-			}
-
-			if(word_len <= iface->dev->num_of_cols && (iface->cursor_pos.col + space_count + word_len) > iface->dev->num_of_cols){
-				status = _display_iface_new_line(iface);
-				if(status != DISPLAY_OK)	return status;
-				continue;
-			}
-
-			while(space_start < str){
-				status = display_iface_write_char(iface, ' ');
-				if(status != DISPLAY_OK)	return status;
-				space_start++;
-			}
-
-			continue;
-		}
-
-		uint8_t word_len = 0;
-		while(str[word_len] != '\0' && str[word_len] != '\n' && !_display_iface_is_word_separator(str[word_len])){
-			word_len++;
-		}
-
-		if(iface->cursor_pos.col != 0 && (iface->cursor_pos.col + word_len) > iface->dev->num_of_cols){
-			status = _display_iface_new_line(iface);
-			if(status != DISPLAY_OK)	return status;
-		}
-
-		while(word_len > 0){
-			status = display_iface_write_char(iface, *str);
-			if(status != DISPLAY_OK)	return status;
-			str++;
-			word_len--;
-		}
 	}
 
 	return DISPLAY_OK;
