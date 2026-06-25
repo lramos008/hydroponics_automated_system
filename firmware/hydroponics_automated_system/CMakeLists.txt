@@ -71,6 +71,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/my_drivers/st7066u_lcd_controller/st7066u_lcd_controller.c
     ${CMAKE_SOURCE_DIR}/interfaces/display_iface/display_iface.c
     ${CMAKE_SOURCE_DIR}/my_utils/delay_us/delay_us.c
+    ${CMAKE_SOURCE_DIR}/my_middleware/i2c_manager/i2c_manager.c
 )
 
 # Add include paths
