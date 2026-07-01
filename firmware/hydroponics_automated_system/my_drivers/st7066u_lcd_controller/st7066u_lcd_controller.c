@@ -5,8 +5,12 @@
 
 /*Private defines*/
 #define ST7066U_BOOT_TIME_MS								100
-#define ST7066U_DEFAULT_WAIT_TIME_MS 						1
+#define ST7066U_INIT_FUNCTION_SET_WAIT_MS					5
+#define ST7066U_INIT_FUNCTION_SET_WAIT_US					150
+#define ST7066U_INSTRUCTION_WAIT_TIME_US					50
 #define ST7066U_LONG_WAIT_TIME_MS	 						2			//Used with clear display and return home
+#define ST7066U_ENABLE_PULSE_WIDTH_US						2
+#define ST7066U_ENABLE_CYCLE_WAIT_US						1
 
 //Commands
 #define ST7066U_CMD_CLEAR_DISPLAY							0x01
@@ -104,8 +108,7 @@ static void _st7066u_select_data_register(st7066u_lcd_controller_t *dev){
 
 static void _st7066u_pulse_enable(st7066u_lcd_controller_t *dev){
 	HAL_GPIO_WritePin(dev->enable.port, dev->enable.pin, GPIO_PIN_SET);
-	//HAL_Delay(1);
-	delay_us(2);
+	delay_us(ST7066U_ENABLE_PULSE_WIDTH_US);
 	HAL_GPIO_WritePin(dev->enable.port, dev->enable.pin, GPIO_PIN_RESET);
 }
 
@@ -119,7 +122,7 @@ static void _st7066u_set_data_bus_lines(st7066u_lcd_controller_t *dev, uint8_t n
 static void _st7066u_write_4bits(st7066u_lcd_controller_t *dev, uint8_t nibble){
 	_st7066u_set_data_bus_lines(dev, nibble);
 	_st7066u_pulse_enable(dev);
-	HAL_Delay(ST7066U_DEFAULT_WAIT_TIME_MS);
+	delay_us(ST7066U_ENABLE_CYCLE_WAIT_US);
 }
 
 static void _st7066u_write_byte(st7066u_lcd_controller_t *dev, uint8_t data)
@@ -131,20 +134,32 @@ static void _st7066u_write_byte(st7066u_lcd_controller_t *dev, uint8_t data)
 static void _st7066u_send_command(st7066u_lcd_controller_t *dev, uint8_t cmd){
 	_st7066u_select_instruction_register(dev);
 	_st7066u_write_byte(dev, cmd);
+	if((cmd == ST7066U_CMD_CLEAR_DISPLAY) || (cmd == ST7066U_CMD_RETURN_HOME)){
+		HAL_Delay(ST7066U_LONG_WAIT_TIME_MS);
+	}
+	else{
+		delay_us(ST7066U_INSTRUCTION_WAIT_TIME_US);
+	}
 }
 
 static void _st7066u_send_data(st7066u_lcd_controller_t *dev, uint8_t data){
 	_st7066u_select_data_register(dev);
 	_st7066u_write_byte(dev, data);
+	delay_us(ST7066U_INSTRUCTION_WAIT_TIME_US);
 }
 
 static void _st7066u_set_display_4bits_mode(st7066u_lcd_controller_t *dev){
 	HAL_Delay(ST7066U_BOOT_TIME_MS);
 	_st7066u_select_instruction_register(dev);
+	HAL_GPIO_WritePin(dev->enable.port, dev->enable.pin, GPIO_PIN_RESET);
 	_st7066u_write_4bits(dev, 0x3);					//Wake up. Set 8-bit interface
+	HAL_Delay(ST7066U_INIT_FUNCTION_SET_WAIT_MS);
 	_st7066u_write_4bits(dev, 0x3);
+	delay_us(ST7066U_INIT_FUNCTION_SET_WAIT_US);
 	_st7066u_write_4bits(dev, 0x3);
+	delay_us(ST7066U_INIT_FUNCTION_SET_WAIT_US);
 	_st7066u_write_4bits(dev, 0x2);					//Set 4-bit interface
+	delay_us(ST7066U_INIT_FUNCTION_SET_WAIT_US);
 }
 
 
@@ -164,19 +179,19 @@ st7066u_status_t st7066u_init(st7066u_lcd_controller_t *dev){
 	dev->num_of_rows = ST7066U_NUM_OF_ROWS;
 	dev->num_of_cols = ST7066U_NUM_OF_COLS;
 	dev->is_initialized = true;
+	delay_us_init();
 
 	_st7066u_set_display_4bits_mode(dev);
 
 	//Config display mode, font and number of lines
 	_st7066u_send_command(dev, ST7066U_FUNCTION_SET_BITFIELDS);
 
-
-	//Turn on display and set cursor and DDRAM config
+	//Reset visible state before enabling the display.
+	_st7066u_send_command(dev, ST7066U_CMD_DISPLAY_CONTROL | ST7066U_MASK_DISPLAY_OFF | ST7066U_MASK_CURSOR_OFF | ST7066U_MASK_CURSOR_BLINK_OFF);
+	_st7066u_send_command(dev, ST7066U_CMD_CLEAR_DISPLAY);
+	_st7066u_send_command(dev, ST7066U_CMD_ENTRY_MODE_SET | ST7066U_MASK_DIR_INCREMENT_DDRAM_ADDRESS);
 	dev->state->display_control_reg = ST7066U_CMD_DISPLAY_CONTROL | ST7066U_MASK_DISPLAY_ON | ST7066U_MASK_CURSOR_OFF | ST7066U_MASK_CURSOR_BLINK_OFF;
 	_st7066u_send_command(dev, ST7066U_CMD_DISPLAY_CONTROL | ST7066U_MASK_DISPLAY_ON | ST7066U_MASK_CURSOR_OFF | ST7066U_MASK_CURSOR_BLINK_OFF);
-	_st7066u_send_command(dev, ST7066U_CMD_ENTRY_MODE_SET | ST7066U_MASK_DIR_INCREMENT_DDRAM_ADDRESS);
-	_st7066u_send_command(dev, ST7066U_CMD_CLEAR_DISPLAY);
-	HAL_Delay(2);
 
 	return ST7066U_OK;
 }
