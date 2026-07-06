@@ -49,9 +49,13 @@ i2c_manager_status_t i2c_manager_write(i2c_manager_t *mgr, uint16_t dev_addr, co
 	if(status != I2C_MGR_STATUS_OK)	return status;
 
 	HAL_StatusTypeDef hal_status = HAL_I2C_Master_Transmit(mgr->hi2c, dev_addr, (uint8_t *) data, len, mgr->hal_timeout_ms);
-	if(hal_status != HAL_OK)		return i2c_manager_hal_status_translate(hal_status);
+	if(hal_status != HAL_OK){
+		status = i2c_manager_unlock(mgr);								//Release I2C bus
+		if(status != I2C_MGR_STATUS_OK) return status;
+		return i2c_manager_hal_status_translate(hal_status);
+	}
 
-	status = i2c_manager_unlock(mgr);								//Release I2C bus
+	status = i2c_manager_unlock(mgr);									//Release I2C bus
 
 	return status;
 }
@@ -67,7 +71,11 @@ i2c_manager_status_t i2c_manager_read(i2c_manager_t *mgr, uint16_t dev_addr, uin
 	if(status != I2C_MGR_STATUS_OK)	return status;
 
 	HAL_StatusTypeDef hal_status = HAL_I2C_Master_Receive(mgr->hi2c, dev_addr, data, len, mgr->hal_timeout_ms);
-	if(hal_status != HAL_OK)		return i2c_manager_hal_status_translate(hal_status);
+	if(hal_status != HAL_OK){
+		status = i2c_manager_unlock(mgr);
+		if(status != I2C_MGR_STATUS_OK) return status;
+		return i2c_manager_hal_status_translate(hal_status);
+	}
 
 	status = i2c_manager_unlock(mgr);
 
@@ -85,7 +93,11 @@ i2c_manager_status_t i2c_manager_mem_write(i2c_manager_t *mgr, uint16_t dev_addr
 	if(status != I2C_MGR_STATUS_OK)	return status;
 
 	HAL_StatusTypeDef hal_status = HAL_I2C_Mem_Write(mgr->hi2c, dev_addr, mem_addr, mem_addr_size, (uint8_t *)data, len, mgr->hal_timeout_ms);
-	if(hal_status != HAL_OK)		return i2c_manager_hal_status_translate(hal_status);
+	if(hal_status != HAL_OK){
+		status = i2c_manager_unlock(mgr);
+		if(status != I2C_MGR_STATUS_OK) return status;
+		return i2c_manager_hal_status_translate(hal_status);
+	}
 
 	status = i2c_manager_unlock(mgr);
 
@@ -103,7 +115,11 @@ i2c_manager_status_t i2c_manager_mem_read(i2c_manager_t *mgr, uint16_t dev_addr,
 	if(status != I2C_MGR_STATUS_OK)	return status;
 
 	HAL_StatusTypeDef hal_status = HAL_I2C_Mem_Read(mgr->hi2c, dev_addr, mem_addr, mem_addr_size, data, len, mgr->hal_timeout_ms);
-	if(hal_status != HAL_OK)		return i2c_manager_hal_status_translate(hal_status);
+	if(hal_status != HAL_OK){
+		status = i2c_manager_unlock(mgr);
+		if(status != I2C_MGR_STATUS_OK) return status;
+		return i2c_manager_hal_status_translate(hal_status);
+	}
 
 	status = i2c_manager_unlock(mgr);
 
@@ -119,11 +135,23 @@ i2c_manager_status_t i2c_manager_is_device_ready(i2c_manager_t *mgr, uint16_t de
 	if(status != I2C_MGR_STATUS_OK)	return status;
 
 	HAL_StatusTypeDef hal_status = HAL_I2C_IsDeviceReady(mgr->hi2c, dev_addr, trials, mgr->hal_timeout_ms);
-	if(hal_status != HAL_OK)		return i2c_manager_hal_status_translate(hal_status);
+	if(hal_status != HAL_OK){
+		status = i2c_manager_unlock(mgr);
+		if(status != I2C_MGR_STATUS_OK) return status;
+		return i2c_manager_hal_status_translate(hal_status);
+	}
 
 	status = i2c_manager_unlock(mgr);
 
 	return status;
 }
 
+i2c_manager_status_t i2c_manager_recover(i2c_manager_t *mgr){
+	if(mgr == NULL)				return I2C_MGR_STATUS_ERR_NULL_POINTER;
+	if(!mgr->is_initialized)	return I2C_MGR_STATUS_ERR_NOT_INITIALIZED;
 
+	HAL_I2C_DeInit(mgr->hi2c);
+	HAL_I2C_Init(mgr->hi2c);
+
+	return I2C_MGR_STATUS_OK;
+}

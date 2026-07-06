@@ -37,3 +37,4 @@ i2c_manager_status_t i2c_manager_read(i2c_manager_t *mgr, uint16_t dev_addr, uin
 i2c_manager_status_t i2c_manager_mem_write(i2c_manager_t *mgr, uint16_t dev_addr, uint16_t mem_addr, uint16_t mem_addr_size, const uint8_t *data, uint16_t len, TickType_t mutex_timeout);
 i2c_manager_status_t i2c_manager_mem_read(i2c_manager_t *mgr, uint16_t dev_addr, uint16_t mem_addr, uint16_t mem_addr_size, uint8_t *data, uint16_t len, TickType_t mutex_timeout);
 i2c_manager_status_t i2c_manager_is_device_ready(i2c_manager_t *mgr, uint16_t dev_addr, uint32_t trials);
+i2c_manager_status_t i2c_manager_recover(i2c_manager_t *mgr);

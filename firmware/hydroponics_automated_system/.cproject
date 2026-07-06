@@ -14,7 +14,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="com.st.stm32cube.ide.cmake.cmakeTarget">
-				<src>C:\Users\Juli-Leo\Documents\Proyecto final\hydroponics_automated_system\firmware\hydroponics_automated_system</src>
+				<src>C:\Users\leora\OneDrive\Documents\facultad\Proyecto final\hydroponics_automated_system\firmware\hydroponics_automated_system</src>
 				<build>build\Debug</build>
 				<generator>Ninja</generator>
 				<cmake_build_type>Debug</cmake_build_type>
