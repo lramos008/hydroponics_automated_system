@@ -140,6 +140,7 @@ static void MX_SPI2_Init(void);
 //	}
 //}
 
+//Prueba
 void sensor_task(void *pvParameter){
 	i2c_manager_t mgr;
 	i2c_manager_init(&mgr, &hi2c1, 10);
