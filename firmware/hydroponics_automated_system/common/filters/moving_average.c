@@ -31,11 +31,11 @@ moving_average_status_t moving_average_init(moving_average_handle_t *hfilter, fl
 
 moving_average_status_t moving_average_reset_filter(moving_average_handle_t *hfilter){
 	//Sanity check
-	if(!hfilter->is_initialized)			return MOVING_AVERAGE_ERR_NOT_INITIALIZED;
 	if(!hfilter || !hfilter->buffer){
 		hfilter->is_initialized = false;																//Deinitialize filter
 		return MOVING_AVERAGE_ERR_NULL;
 	}
+	if(!hfilter->is_initialized)			return MOVING_AVERAGE_ERR_NOT_INITIALIZED;
 
 	//Reset internal status
 	hfilter->is_ready = false;
@@ -48,14 +48,11 @@ moving_average_status_t moving_average_reset_filter(moving_average_handle_t *hfi
 
 moving_average_status_t moving_average_process(moving_average_handle_t *hfilter, float sample){
 	//Sanity check
-	if(!hfilter->is_initialized)			return MOVING_AVERAGE_ERR_NOT_INITIALIZED;
 	if(!hfilter || !hfilter->buffer){
 		hfilter->is_initialized = false;																//Deinitialize filter
 		return MOVING_AVERAGE_ERR_NULL;
 	}
-
-	//Check if filter is ready for its use
-	hfilter->is_ready = _moving_average_is_filter_ready(hfilter);
+	if(!hfilter->is_initialized)			return MOVING_AVERAGE_ERR_NOT_INITIALIZED;
 
 	//Substract element at index position from the sum
 	hfilter->sum -= hfilter->buffer[hfilter->index];
@@ -69,6 +66,13 @@ moving_average_status_t moving_average_process(moving_average_handle_t *hfilter,
 	//Update index
 	hfilter->index = (hfilter->index + 1) & (hfilter->size - 1);
 
+	if(hfilter->count < hfilter->size){
+		hfilter->count++;
+	}
+
+	//Check if filter is ready for its use
+	hfilter->is_ready = _moving_average_is_filter_ready(hfilter);
+
 	//Calculate moving average
 	hfilter->moving_avg_value = hfilter->sum / (float) hfilter->size;
 	return MOVING_AVERAGE_OK;
@@ -76,11 +80,11 @@ moving_average_status_t moving_average_process(moving_average_handle_t *hfilter,
 
 float moving_average_get_value(moving_average_handle_t *hfilter){
 	//Sanity check
-	if(!hfilter->is_initialized)			return MOVING_AVERAGE_ERR_NOT_INITIALIZED;
 	if(!hfilter || !hfilter->buffer){
 		hfilter->is_initialized = false;																//Deinitialize filter
 		return MOVING_AVERAGE_ERR_NULL;
 	}
+	if(!hfilter->is_initialized)			return MOVING_AVERAGE_ERR_NOT_INITIALIZED;
 
 	//Get value from internal state structure
 	return hfilter->moving_avg_value;

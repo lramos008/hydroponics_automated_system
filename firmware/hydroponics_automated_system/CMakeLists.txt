@@ -52,10 +52,10 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/my_drivers/ds3231/ds3231.c
     ${CMAKE_SOURCE_DIR}/interfaces/rtc/rtc.c
     ${CMAKE_SOURCE_DIR}/my_drivers/sht30/sht30.c
-    ${CMAKE_SOURCE_DIR}/interfaces/temp_hum_sensor/temp_hum_sensor.c
     ${CMAKE_SOURCE_DIR}/my_drivers/onewire/onewire.c
     ${CMAKE_SOURCE_DIR}/my_drivers/ds18b20/ds18b20.c
     ${CMAKE_SOURCE_DIR}/interfaces/water_temp_sensor/water_temp_sensor.c
+    ${CMAKE_SOURCE_DIR}/interfaces/temp_hum_sensor_iface/temp_hum_sensor_iface.c
     ${CMAKE_SOURCE_DIR}/my_drivers/fatfs_sd/fatfs_sd.c
     ${CMAKE_SOURCE_DIR}/my_middleware/fatfs/diskio.c
     ${CMAKE_SOURCE_DIR}/my_middleware/fatfs/ff.c
@@ -66,6 +66,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/common/filters/moving_average.c
     ${CMAKE_SOURCE_DIR}/interfaces/ec_sensor_iface/ec_sensor_iface.c
     ${CMAKE_SOURCE_DIR}/interfaces/ph_sensor_iface/ph_sensor_iface.c
+    ${CMAKE_SOURCE_DIR}/interfaces/light_sensor_iface/light_sensor_iface.c
     ${CMAKE_SOURCE_DIR}/my_drivers/st7066u_lcd_controller/st7066u_lcd_controller.c
     ${CMAKE_SOURCE_DIR}/interfaces/display_iface/display_iface.c
     ${CMAKE_SOURCE_DIR}/my_utils/delay_us/delay_us.c

@@ -1,87 +1,101 @@
-/*Includes*/
 #include "ph_sensor_iface.h"
 
 /*Public functions*/
-ph_sensor_iface_status_t ph_sensor_iface_init(ph_sensor_iface_t *iface, analog_manager_t *hman){
-	//Sanity check
-	if(iface == NULL)		return PH_SENSOR_IFACE_ERR_NULL;
-	if(hman  == NULL)		return PH_SENSOR_IFACE_ERR_NULL;
+ph_sensor_iface_status_t ph_sensor_iface_init(ph_sensor_iface_t *iface, analog_manager_t *mgr, analog_signal_id_t signal){
+	if(iface == NULL)					return PH_SENSOR_IFACE_STATUS_ERR_NULL_POINTER;
+	iface->is_initialized 	  		= false;
+	if(mgr == NULL) 					return PH_SENSOR_IFACE_STATUS_ERR_NULL_POINTER;
+	if(signal >= ANALOG_SIGNAL_COUNT) 	return PH_SENSOR_IFACE_STATUS_ERR_INVALID_SIGNAL;
 
-	//Init iface
-	iface->hman = hman;
-	iface->channel = 2;	//Cambiar
-	iface->calibration.slope_25 = 1.0f;
-	iface->calibration.offset   = 0.0f;
-	iface->ph_value 			= 0.0f;
-	iface->is_ready				= false;
-	moving_average_status_t filter_status = moving_average_init(&iface->filter, iface->filter_buffer, PH_SENSOR_IFACE_FILTER_SIZE);
-	if(filter_status != MOVING_AVERAGE_OK) return PH_SENSOR_IFACE_ERR_FILTER_NOT_INITIALIZED;
+	iface->mgr 				  		= mgr;
+	iface->signal 			  		= signal;
+	iface->calibration.slope_25		= 1.0f;			//Default slope and offset, calibration is required
+	iface->calibration.offset 		= 0.0f;
+	iface->data.compensated_voltage = 0.0f;
+	iface->data.ph_value      		= 0.0f;
+	iface->is_initialized 	  		= true;
 
-	return PH_SENSOR_IFACE_OK;
+	return PH_SENSOR_IFACE_STATUS_OK;
 }
 
+ph_sensor_iface_status_t ph_sensor_iface_process(ph_sensor_iface_t *iface, float temperature){
+	if(iface == NULL)							return PH_SENSOR_IFACE_STATUS_ERR_NULL_POINTER;
+	if(!iface->is_initialized)					return PH_SENSOR_IFACE_STATUS_ERR_NOT_INITIALIZED;
 
-ph_sensor_iface_status_t ph_sensor_iface_update(ph_sensor_iface_t *iface, float compensation_temperature){
-	//Sanity check
-	if(iface == NULL)		return PH_SENSOR_IFACE_ERR_NULL;
-	if(iface->hman == NULL)	return PH_SENSOR_IFACE_ERR_NULL;
+	if(!analog_manager_is_filter_ready(iface->mgr, iface->signal)){
+		return PH_SENSOR_IFACE_STATUS_NOT_READY;
+	}
 
-	//Read voltage value from sensor
-	float filtered_voltage = analog_manager_get_filtered_voltage(iface->hman, iface->channel);
+	if(temperature < 0.0f || temperature > 60.0f){
+		return PH_SENSOR_IFACE_STATUS_ERR_CORRUPTED_TEMPERATURE;
+	}
 
-	//Compensate slope
-	float compensated_slope = iface->calibration.slope_25 * (1.0 + 0.003 * (compensation_temperature - 25.0));
+	if(iface->calibration.slope_25 <= 0.0f){
+		return PH_SENSOR_IFACE_STATUS_ERR_CALIBRATION;
+	}
 
-	//Calculate pH by using calibration factors (due to sensor + system imperfections)
-	iface->ph_value = filtered_voltage * compensated_slope + iface->calibration.offset;
+	float filtered_voltage = analog_manager_get_filtered_voltage(iface->mgr, iface->signal);
 
-	return PH_SENSOR_IFACE_OK;
-}
+	//Compensate slope from temperature effects
+	float compensated_slope = iface->calibration.slope_25 * (1.0f + 0.003f * (temperature - 25.0f));
 
-float ph_sensor_iface_get_ph_value(ph_sensor_iface_t *iface){
-	//Sanity check
-	if(iface == NULL)	return PH_SENSOR_IFACE_ERR_NULL;
+	iface->data.compensated_voltage = filtered_voltage;
+	iface->data.ph_value = filtered_voltage * compensated_slope + iface->calibration.offset;
 
-	return iface->ph_value;
-}
-
-ph_sensor_iface_status_t ph_sensor_iface_reset(ph_sensor_iface_t *iface){
-	//Sanity check
-	if(iface == NULL)		return PH_SENSOR_IFACE_ERR_NULL;
-	if(iface->hman == NULL)	return PH_SENSOR_IFACE_ERR_NULL;
-
-	//Reset moving average filter
-	analog_manager_reset_filter(iface->hman, iface->channel);
-
-	return PH_SENSOR_IFACE_OK;
-}
-
-ph_sensor_iface_status_t ph_sensor_iface_two_point_calibration(ph_sensor_iface_t *iface, float v_high, float v_low){
-	//Sanity check
-	if(iface == NULL)		return PH_SENSOR_IFACE_ERR_NULL;
-	if(iface->hman == NULL)	return PH_SENSOR_IFACE_ERR_NULL;
-
-	//Set standard pattern values
-	float ph_real_low  = PH_SENSOR_STANDARD_PATTERN_LOW;
-	float ph_real_high = PH_SENSOR_STANDARD_PATTERN_HIGH;
-
-	//Check that denominator is not equal to 0.0
-	float denom = v_high - v_low;
-	if(denom == 0.0f) return PH_SENSOR_IFACE_ERR_CALIBRATION;
-
-	//Calculate slope
-	iface->calibration.slope_25 = (ph_real_high - ph_real_low) / denom;
-
-	//Calculate offset
-	iface->calibration.offset   = ph_real_low - v_low * iface->calibration.slope_25;
-
-	return PH_SENSOR_IFACE_OK;
+	return PH_SENSOR_IFACE_STATUS_OK;
 }
 
 bool ph_sensor_iface_is_ready(ph_sensor_iface_t *iface){
-	//Sanity check
-	if(iface == NULL)		return PH_SENSOR_IFACE_ERR_NULL;
-	if(iface->hman == NULL)	return PH_SENSOR_IFACE_ERR_NULL;
+	if(iface == NULL)			return false;
+	if(!iface->is_initialized)	return false;
 
-	return analog_manager_is_filter_ready(iface->hman, iface->channel);
+	return analog_manager_is_filter_ready(iface->mgr, iface->signal);
+}
+
+ph_sensor_iface_status_t ph_sensor_iface_get_data(ph_sensor_iface_t *iface, ph_sensor_iface_data_t *data){
+	if(iface == NULL)							return PH_SENSOR_IFACE_STATUS_ERR_NULL_POINTER;
+	if(data  == NULL)							return PH_SENSOR_IFACE_STATUS_ERR_NULL_POINTER;
+	if(!iface->is_initialized)					return PH_SENSOR_IFACE_STATUS_ERR_NOT_INITIALIZED;
+
+	data->compensated_voltage = iface->data.compensated_voltage;
+	data->ph_value = iface->data.ph_value;
+
+	return PH_SENSOR_IFACE_STATUS_OK;
+}
+
+ph_sensor_iface_status_t ph_sensor_iface_set_calibration(ph_sensor_iface_t *iface, ph_sensor_iface_calibration_t calibration){
+	if(iface == NULL)							return PH_SENSOR_IFACE_STATUS_ERR_NULL_POINTER;
+	if(!iface->is_initialized)					return PH_SENSOR_IFACE_STATUS_ERR_NOT_INITIALIZED;
+	if(calibration.slope_25 <= 0.0f)			return PH_SENSOR_IFACE_STATUS_ERR_CALIBRATION;
+
+	iface->calibration = calibration;
+
+	return PH_SENSOR_IFACE_STATUS_OK;
+}
+
+ph_sensor_iface_status_t ph_sensor_iface_reset(ph_sensor_iface_t *iface){
+	if(iface == NULL)							return PH_SENSOR_IFACE_STATUS_ERR_NULL_POINTER;
+	if(!iface->is_initialized)					return PH_SENSOR_IFACE_STATUS_ERR_NOT_INITIALIZED;
+
+	if(analog_manager_reset_filter(iface->mgr, iface->signal) != ANALOG_MANAGER_STATUS_OK){
+		return PH_SENSOR_IFACE_STATUS_ERR_RESET;
+	}
+
+	iface->data.compensated_voltage = 0.0f;
+	iface->data.ph_value			= 0.0f;
+
+	return PH_SENSOR_IFACE_STATUS_OK;
+}
+
+ph_sensor_iface_status_t ph_sensor_iface_two_point_calibration(ph_sensor_iface_t *iface, float v_high, float v_low){
+	if(iface == NULL)							return PH_SENSOR_IFACE_STATUS_ERR_NULL_POINTER;
+	if(!iface->is_initialized)					return PH_SENSOR_IFACE_STATUS_ERR_NOT_INITIALIZED;
+
+	float denom = v_high - v_low;
+	if(denom == 0.0f) return PH_SENSOR_IFACE_STATUS_ERR_CALIBRATION;
+
+	iface->calibration.slope_25 = (PH_SENSOR_STANDARD_PATTERN_HIGH - PH_SENSOR_STANDARD_PATTERN_LOW) / denom;
+	iface->calibration.offset   = PH_SENSOR_STANDARD_PATTERN_LOW - v_low * iface->calibration.slope_25;
+
+	return PH_SENSOR_IFACE_STATUS_OK;
 }

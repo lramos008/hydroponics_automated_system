@@ -26,6 +26,12 @@
 #include "display_iface/display_iface.h"
 #include "i2c_manager/i2c_manager.h"
 #include "bh1750/bh1750.h"
+#include "sht30/sht30.h"
+#include "analog_manager/analog_manager.h"
+#include "ec_sensor_iface/ec_sensor_iface.h"
+#include "ph_sensor_iface/ph_sensor_iface.h"
+#include "light_sensor_iface/light_sensor_iface.h"
+#include "temp_hum_sensor_iface/temp_hum_sensor_iface.h"
 #include <stdio.h>
 
 /* USER CODE END Includes */
@@ -87,82 +93,164 @@ static void MX_SPI2_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-//void display_task(void *pvParameters){
-//	st7066u_lcd_controller_t lcd = {	.db_line[ST7066U_DATA_BUS_LINE_1] = {.port = GPIOC, .pin = GPIO_PIN_5},
-//										.db_line[ST7066U_DATA_BUS_LINE_2] = {.port = GPIOC, .pin = GPIO_PIN_6},
-//										.db_line[ST7066U_DATA_BUS_LINE_3] = {.port = GPIOC, .pin = GPIO_PIN_8},
-//										.db_line[ST7066U_DATA_BUS_LINE_4] = {.port = GPIOC, .pin = GPIO_PIN_9},
-//										.enable 						  = {.port = GPIOB, .pin = GPIO_PIN_8},
-//										.rs 							  = {.port = GPIOB, .pin = GPIO_PIN_9},
-//										.is_initialized 				  = false									};
-//
-//	display_iface_t iface = {.dev = &lcd};
-//	display_iface_status_t status;
-//	st7066u_init(&lcd);
-//	status = display_iface_init(&iface);
-//
-//	status = display_iface_write_line(&iface, 0, "[ Monitoring ]");
-//	status = display_iface_write_line(&iface, 1, "  Control");
-//	status = display_iface_write_line(&iface, 2, "  Config");
-//	status = display_iface_write_line(&iface, 3, "  Logs");
-//	HAL_Delay(1000);
-//	status = display_iface_write_line(&iface, 0, "  Monitoring  ");
-//	status = display_iface_write_line(&iface, 1, "[ Control ]");
-//	status = display_iface_write_line(&iface, 2, "  Config");
-//	status = display_iface_write_line(&iface, 3, "  Logs");
-//	HAL_Delay(1000);
-//	status = display_iface_write_line(&iface, 0, "  Monitoring  ");
-//	status = display_iface_write_line(&iface, 1, "  Control  ");
-//	status = display_iface_write_line(&iface, 2, "[ Config ]");
-//	status = display_iface_write_line(&iface, 3, "  Logs");
-//	HAL_Delay(1000);
-//	status = display_iface_write_line(&iface, 0, "  Monitoring  ");
-//	status = display_iface_write_line(&iface, 1, "  Control  ");
-//	status = display_iface_write_line(&iface, 2, "  Config  ");
-//	status = display_iface_write_line(&iface, 3, "[ Logs ]");
-//	HAL_Delay(1000);
-//	status = display_iface_write_line(&iface, 0, "[ Monitoring ]");
-//	status = display_iface_write_line(&iface, 1, "  Control  ");
-//	status = display_iface_write_line(&iface, 2, "  Config  ");
-//	status = display_iface_write_line(&iface, 3, "  Logs  ");
-//	HAL_Delay(1000);
-//	status = display_iface_write_line(&iface, 0, "  Monitoring  ");
-//	HAL_Delay(200);
-//	status = display_iface_write_line(&iface, 0, "[ Monitoring ]");
-//	HAL_Delay(1000);
-//	status = display_iface_write_line(&iface, 0, "Temperature:   ");
-//	status = display_iface_write_line(&iface, 1, "Humidity: ");
-//	status = display_iface_write_line(&iface, 2, "pH:      ");
-//	status = display_iface_write_line(&iface, 3, "EC:     ");
-//
-//	while(1){
-//		vTaskDelay(pdMS_TO_TICKS(10));
-//	}
-//}
+void display_task(void *pvParameters){
+	st7066u_lcd_controller_t lcd = {	.db_line[ST7066U_DATA_BUS_LINE_1] = {.port = GPIOC, .pin = GPIO_PIN_5},
+										.db_line[ST7066U_DATA_BUS_LINE_2] = {.port = GPIOC, .pin = GPIO_PIN_6},
+										.db_line[ST7066U_DATA_BUS_LINE_3] = {.port = GPIOC, .pin = GPIO_PIN_8},
+										.db_line[ST7066U_DATA_BUS_LINE_4] = {.port = GPIOC, .pin = GPIO_PIN_9},
+										.enable 						  = {.port = GPIOB, .pin = GPIO_PIN_8},
+										.rs 							  = {.port = GPIOB, .pin = GPIO_PIN_9},
+										.is_initialized 				  = false									};
+
+	display_iface_t iface = {.dev = &lcd};
+	display_iface_status_t status;
+	st7066u_init(&lcd);
+	status = display_iface_init(&iface);
+
+	status = display_iface_write_line(&iface, 0, "[ Monitoring ]");
+	status = display_iface_write_line(&iface, 1, "  Control");
+	status = display_iface_write_line(&iface, 2, "  Config");
+	status = display_iface_write_line(&iface, 3, "  Logs");
+	HAL_Delay(1000);
+	status = display_iface_write_line(&iface, 0, "  Monitoring  ");
+	status = display_iface_write_line(&iface, 1, "[ Control ]");
+	status = display_iface_write_line(&iface, 2, "  Config");
+	status = display_iface_write_line(&iface, 3, "  Logs");
+	HAL_Delay(1000);
+	status = display_iface_write_line(&iface, 0, "  Monitoring  ");
+	status = display_iface_write_line(&iface, 1, "  Control  ");
+	status = display_iface_write_line(&iface, 2, "[ Config ]");
+	status = display_iface_write_line(&iface, 3, "  Logs");
+	HAL_Delay(1000);
+	status = display_iface_write_line(&iface, 0, "  Monitoring  ");
+	status = display_iface_write_line(&iface, 1, "  Control  ");
+	status = display_iface_write_line(&iface, 2, "  Config  ");
+	status = display_iface_write_line(&iface, 3, "[ Logs ]");
+	HAL_Delay(1000);
+	status = display_iface_write_line(&iface, 0, "[ Monitoring ]");
+	status = display_iface_write_line(&iface, 1, "  Control  ");
+	status = display_iface_write_line(&iface, 2, "  Config  ");
+	status = display_iface_write_line(&iface, 3, "  Logs  ");
+	HAL_Delay(1000);
+	status = display_iface_write_line(&iface, 0, "  Monitoring  ");
+	HAL_Delay(200);
+	status = display_iface_write_line(&iface, 0, "[ Monitoring ]");
+	HAL_Delay(1000);
+	status = display_iface_write_line(&iface, 0, "Temperature:   ");
+	status = display_iface_write_line(&iface, 1, "Humidity: ");
+	status = display_iface_write_line(&iface, 2, "pH:      ");
+	status = display_iface_write_line(&iface, 3, "EC:     ");
+
+	while(1){
+		vTaskDelay(pdMS_TO_TICKS(10));
+	}
+}
 
 //Prueba
 void sensor_task(void *pvParameter){
 	i2c_manager_t mgr;
+	static analog_manager_t analog_mgr;
+
 	i2c_manager_init(&mgr, &hi2c1, 10);
 
-	bh1750_config_t cfg = {.mgr = &mgr, .res_mode = BH1750_RESOLUTION_HIGH, .dev_address = 0x23 << 1};
-	bh1750_t lux_sensor;
-	bh1750_data_t data;
 	bool is_data_ready;
-	bh1750_init(&lux_sensor, &cfg);
+
+	//SHT30 configuration
+	sht30_config_t sht30_cfg = {.mgr = &mgr, .clk_stretching = SHT30_CLK_STRETCHING_DISABLED,
+								.repeatability = SHT30_HIGH_REPEATABILITY, .dev_address = 0x44 << 1	};
+	sht30_t sht30_sensor;
+
+	//BH1750 configuration
+	bh1750_config_t bh1750_cfg = {.mgr = &mgr, .res_mode = BH1750_RESOLUTION_HIGH, .dev_address = 0x23 << 1};
+	bh1750_t bh1750_sensor;
+
+	//Analog manager config
+	analog_manager_config_t analog_cfg = {.hadc = &hadc1, .adc_resolution = 4096, .vref = 3.3f, .channel_count = 3,
+										  .signal_map = {ANALOG_SIGNAL_EC, ANALOG_SIGNAL_PH, ANALOG_SIGNAL_CT_CIRCULATION}};
+	//EC sensor
+	ec_sensor_iface_t ec_sensor;
+	ec_sensor_iface_data_t ec_data;
+	ec_sensor_iface_calibration_t calibration = {.slope = 2.0f, .offset = 0.0f};
+
+	//PH sensor
+	ph_sensor_iface_t ph_sensor;
+	ph_sensor_iface_data_t ph_data;
+	ph_sensor_iface_calibration_t ph_calib = {.slope_25 = 1.0f, .offset = 0.0f};
+
+	//Light sensor
+	light_sensor_iface_t light_sensor;
+	light_sensor_iface_data_t light_data;
+
+	//Temperature and hum sensor
+	temp_hum_sensor_iface_t temp_hum_sensor;
+	temp_hum_sensor_iface_data_t temp_hum_data;
+
+	//Middleware init
+	analog_manager_init(&analog_mgr, &analog_cfg);
+
+	//Driver init
+	sht30_init(&sht30_sensor, &sht30_cfg);
+	bh1750_init(&bh1750_sensor, &bh1750_cfg);
+
+	//Iface init
+	ec_sensor_iface_init(&ec_sensor, &analog_mgr, ANALOG_SIGNAL_EC);
+	ph_sensor_iface_init(&ph_sensor, &analog_mgr, ANALOG_SIGNAL_PH);
+	light_sensor_iface_init(&light_sensor, &bh1750_sensor);
+	temp_hum_sensor_iface_init(&temp_hum_sensor, &sht30_sensor);
+
+	//Set calibration constants
+	ec_sensor_iface_set_calibration(&ec_sensor, calibration);
+	ph_sensor_iface_set_calibration(&ph_sensor, ph_calib);
+
+	//Start analog manager
+	analog_manager_start(&analog_mgr);
+
+	float ec_voltage = 0.0f;
+	float ph_voltage = 0.0f;
+	float ct_voltage = 0.0f;
+	TickType_t last_print_tick = xTaskGetTickCount();
+
 	while(1){
-		bh1750_status_t status = bh1750_process(&lux_sensor);
-		if(status == BH1750_STATUS_ERROR){
-			i2c_manager_recover(&mgr);
-			bh1750_reset(&lux_sensor);
+		analog_manager_process(&analog_mgr);
+		ec_sensor_iface_process(&ec_sensor, 25.0f);
+		ph_sensor_iface_process(&ph_sensor, 25.0f);
+		light_sensor_iface_process(&light_sensor);
+		temp_hum_sensor_iface_process(&temp_hum_sensor);
+
+		if(ec_sensor_iface_is_ready(&ec_sensor)){
+			ec_sensor_iface_get_data(&ec_sensor, &ec_data);
 		}
 
-		is_data_ready = bh1750_is_ready(&lux_sensor);
-		if(is_data_ready){
-			bh1750_get_data(&lux_sensor, &data);
-			printf("Lux value: %u\r\n", data.value);
+		if(ph_sensor_iface_is_ready(&ph_sensor)){
+			ph_sensor_iface_get_data(&ph_sensor, &ph_data);
 		}
-		bh1750_start_measurement(&lux_sensor);
+
+		if(analog_manager_is_filter_ready(&analog_mgr, ANALOG_SIGNAL_CT_CIRCULATION)){
+			ct_voltage = analog_manager_get_filtered_voltage(&analog_mgr, ANALOG_SIGNAL_CT_CIRCULATION);
+		}
+
+		if(light_sensor_iface_is_ready(&light_sensor)){
+			light_sensor_iface_get_data(&light_sensor, &light_data);
+		}
+
+		if(temp_hum_sensor_iface_is_ready(&temp_hum_sensor)){
+			temp_hum_sensor_iface_get_data(&temp_hum_sensor, &temp_hum_data);
+		}
+
+		TickType_t now = xTaskGetTickCount();
+		if((now - last_print_tick) >= pdMS_TO_TICKS(5000)){
+			printf("EC value: %.3f uS/cm\r\n", ec_data.ec_value);
+			printf("pH value: %.3f V\r\n", ph_data.ph_value);
+			printf("CT voltage: %.3f V\r\n", ct_voltage);
+			printf("Temp value: %.2f C\r\n", temp_hum_data.temperature);
+			printf("HR value: %.2f %%\r\n", temp_hum_data.humidity);
+			printf("Lux value: %.2f %%\r\n", light_data.lux);
+			printf("\r\n");
+			last_print_tick = now;
+		}
+
+		light_sensor_iface_start_measurement(&light_sensor);
+		temp_hum_sensor_iface_start_measurement(&temp_hum_sensor);
 		vTaskDelay(pdMS_TO_TICKS(10));
 	}
 }
@@ -268,7 +356,7 @@ int main(void)
 
 
   /* USER CODE BEGIN RTOS_THREADS */
-  xTaskCreate(sensor_task,"sensor_task" , configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL);
+  xTaskCreate(sensor_task,"sensor_task" , 10 * configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL);
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */

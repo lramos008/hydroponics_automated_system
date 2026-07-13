@@ -9,40 +9,41 @@
 
 /*Status*/
 typedef enum{
-	EC_SENSOR_IFACE_OK,
-	//Initialization
-	EC_SENSOR_IFACE_ERR_NULL,
-	EC_SENSOR_IFACE_ERR_NOT_INITIALIZED,
-	EC_SENSOR_IFACE_ERR_INVALID_CHANNEL,
-	EC_SENSOR_IFACE_ERR_RESET,
-	//Calibration
-	EC_SENSOR_IFACE_ERR_CALIBRATION,
-	//ADC
-	EC_SENSOR_IFACE_ERR_ANALOG_MANAGER
+	EC_SENSOR_IFACE_STATUS_OK,
+	EC_SENSOR_IFACE_STATUS_ERR_NULL_POINTER,
+	EC_SENSOR_IFACE_STATUS_ERR_NOT_INITIALIZED,
+	EC_SENSOR_IFACE_STATUS_ERR_INVALID_SIGNAL,
+	EC_SENSOR_IFACE_STATUS_ERR_RESET,
+	EC_SENSOR_IFACE_STATUS_ERR_CALIBRATION,
+	EC_SENSOR_IFACE_STATUS_ERR_CORRUPTED_TEMPERATURE,
+	EC_SENSOR_IFACE_STATUS_NOT_READY
 }ec_sensor_iface_status_t;
 
 /*Calibration*/
 typedef struct{
 	float slope;
 	float offset;
-}ec_sensor_calibration_t;
+}ec_sensor_iface_calibration_t;
 
 /*Interface*/
 typedef struct{
-	//ADC
-	analog_manager_t *analog;
-	analog_channel_id_t channel;
-	//Calibration
-	ec_sensor_calibration_t calibration;
-	//Internal status
+	float compensated_voltage;
 	float ec_value;
+}ec_sensor_iface_data_t;
+
+typedef struct{
+	analog_manager_t *mgr;
+	analog_signal_id_t signal;
+	ec_sensor_iface_calibration_t calibration;
+	ec_sensor_iface_data_t data;
 	bool is_initialized;
 }ec_sensor_iface_t;
 
 /*API*/
-ec_sensor_iface_status_t ec_sensor_iface_init(ec_sensor_iface_t *iface);
-float 					 ec_sensor_iface_get_ec_value(ec_sensor_iface_t *iface, float temperature);
+ec_sensor_iface_status_t ec_sensor_iface_init(ec_sensor_iface_t *iface, analog_manager_t *mgr, analog_signal_id_t signal);
+ec_sensor_iface_status_t ec_sensor_iface_process(ec_sensor_iface_t *iface, float temperature);
+bool					 ec_sensor_iface_is_ready(ec_sensor_iface_t *iface);
+ec_sensor_iface_status_t ec_sensor_iface_get_data(ec_sensor_iface_t *iface, ec_sensor_iface_data_t *data);
+ec_sensor_iface_status_t ec_sensor_iface_set_calibration(ec_sensor_iface_t *iface, ec_sensor_iface_calibration_t calibration);
 ec_sensor_iface_status_t ec_sensor_iface_reset(ec_sensor_iface_t *iface);
-ec_sensor_iface_status_t ec_sensor_iface_set_calibration(ec_sensor_iface_t *iface, ec_sensor_calibration_t cal);
-ec_sensor_iface_status_t ec_sensor_iface_set_default_calibration(ec_sensor_iface_t *iface);
-bool 					 ec_sensor_iface_is_ready(ec_sensor_iface_t *iface);
+
