@@ -185,6 +185,8 @@ void sensor_task(void *pvParameter){
 	temp_hum_sensor_iface_t temp_hum_sensor;
 	temp_hum_sensor_iface_data_t temp_hum_data;
 
+
+
 	//Middleware init
 	analog_manager_init(&analog_mgr, &analog_cfg);
 

@@ -30,6 +30,7 @@ Release/
 *.map
 *.list
 
+
 # ========================
 # Logs / temp
 # ========================
@@ -46,6 +47,7 @@ Thumbs.db
 # VSCode (opcional)
 # ========================
 .vscode/
+.agents/
 
 # ========================
 # Python (si usás scripts)
